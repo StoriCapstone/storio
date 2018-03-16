@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Editor from './RecordingEditor'
+import AddMediaForm from './addMediaForm'
 import {connect} from 'react-redux'
 
 /**
@@ -12,7 +13,7 @@ export const UserHome = (props) => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
-
+      <AddMediaForm />
       <Editor audio="/Test_assets/funProject.mp3" />
     </div>
   )
