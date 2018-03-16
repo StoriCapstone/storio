@@ -1,14 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+// import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
 
-var testData = {storyId:1, media:[{
-    src:'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg', 
-    type:"img", 
-    start:0, 
-    end:15, 
-    options:{caption:'hi'}}]
-  }
+// var testData = {storyId:1, media:[{
+//     src: 'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg', 
+//     type: "img",
+//     start: 0,
+//     end: 15,
+//     options: {caption: 'hi'}}]
+//   }
 
 const AddMediaForm = props => {
 
@@ -37,8 +37,8 @@ const mapDispatch = (dispatch) => ({
     handleSubmit: event => {
         event.preventDefault()
         console.log({
-            storyId:1,
-            media:[{src:event.target.src.value, type:event.target.type.value, start:(+event.target.start.value), end:(+event.target.start.value) + (+event.target.duration.value), options:{caption:event.target.caption.value}}]
+            storyId: 1,
+            media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options:{caption: event.target.caption.value}}]
         })
     }
 })
