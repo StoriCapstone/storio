@@ -1,6 +1,7 @@
 import React from 'react'
 // import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
+import { changeMediaEntryMethod } from '../store/addMediaForm';
 
 // var testData = {storyId:1, media:[{
 //     src: 'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg', 
@@ -14,13 +15,28 @@ const AddMediaForm = props => {
 
     return (
         <form onSubmit={props.handleSubmit}>
-            <label>Image Url</label>
-            <input type="text" name={'src'}/>
-            <label>select type</label>
-            <input type="radio" name={'type'} value={"img"} id={'type1'} />
-            <label for="type1">image</label>
-            <input type="radio" name={'type'} value={"video"} id={'type2'} />
-            <label for="type2">video</label>
+        <input type="radio" defaultChecked onChange={props.handleFileOrUrlChange} name={'fileOrUrl'} value={'file'} id={'file'} />
+        <label htmlFor="file">import file</label>
+        <input type="radio" name={'fileOrUrl'} onChange={props.handleFileOrUrlChange} value={'url'} id={'url'} />
+        <label htmlFor="url">url of media</label>
+            {props.selectedOption === 'file' ?
+                <div>
+                <label>Upload media</label>
+                <input type="file" name={'file'} />
+                </div>
+                 :
+                 <div>
+                 <label>Image Url</label>
+                 <input type="text" name={'src'} />
+                 <label>select type</label>
+                 <input type="radio" defaultChecked name={'type'} value={'img'} id={'type1'} />
+                 <label htmlFor="type1">image</label>
+                 <input type="radio" name={'type'} value={'video'} id={'type2'} />
+                 <label htmlFor="type2">video</label>
+                 </div>
+                }
+            
+            
             <label >start at:</label>
             <input type="number" name={'start'} />
             <label > Duration</label>
@@ -32,7 +48,9 @@ const AddMediaForm = props => {
     )
 }
 
-const mapState = null
+const mapState = (state) => ({
+    selectedOption: state.selectedOption
+})
 const mapDispatch = (dispatch) => ({
     handleSubmit: event => {
         event.preventDefault()
@@ -40,6 +58,9 @@ const mapDispatch = (dispatch) => ({
             storyId: 1,
             media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options:{caption: event.target.caption.value}}]
         })
+    },
+    handleFileOrUrlChange: event => {
+        dispatch(changeMediaEntryMethod(event.target.value))
     }
 })
 
