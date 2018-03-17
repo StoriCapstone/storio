@@ -4,19 +4,19 @@ const CHANGE_MEDIA_ENTRY_METHOD = 'CHANGE_MEDIA_ENTRY_METHOD';
 
 //action creators
 
-export const changeMediaEntryMethod = selectedOption => ({ 
-    selectedOption, 
-    type:CHANGE_MEDIA_ENTRY_METHOD
+export const changeMediaEntryMethod = selectedOption => ({
+    selectedOption,
+    type: CHANGE_MEDIA_ENTRY_METHOD
 })
 
 //initial state
 
-var initialState = "file"
+var initialState = 'file'
 
 //reducer
 
 export default function (state = initialState, action){
-    switch(action.type){
+    switch (action.type){
         case CHANGE_MEDIA_ENTRY_METHOD:
             return action.selectedOption
         default:

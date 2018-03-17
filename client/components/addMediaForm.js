@@ -14,26 +14,26 @@ import { changeMediaEntryMethod } from '../store/addMediaForm';
 const AddMediaForm = props => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} id="addMedia">
         <input type="radio" defaultChecked onChange={props.handleFileOrUrlChange} name={'fileOrUrl'} value={'file'} id={'file'} />
         <label htmlFor="file">import file</label>
         <input type="radio" name={'fileOrUrl'} onChange={props.handleFileOrUrlChange} value={'url'} id={'url'} />
         <label htmlFor="url">url of media</label>
             {props.selectedOption === 'file' ?
-                <div>
+                <fieldset form="addMedia">
                 <label>Upload media</label>
                 <input type="file" name={'file'} />
-                </div>
+                </fieldset>
                  :
-                 <div>
-                 <label>Image Url</label>
+                 <fieldset form="addMedia">
+                 <label>Url</label>
                  <input type="text" name={'src'} />
                  <label>select type</label>
                  <input type="radio" defaultChecked name={'type'} value={'img'} id={'type1'} />
                  <label htmlFor="type1">image</label>
                  <input type="radio" name={'type'} value={'video'} id={'type2'} />
                  <label htmlFor="type2">video</label>
-                 </div>
+                 </fieldset>
                 }
             
             
@@ -54,10 +54,15 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
     handleSubmit: event => {
         event.preventDefault()
-        console.log({
-            storyId: 1,
-            media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options:{caption: event.target.caption.value}}]
-        })
+        if (event.target.fileOrUrl.value === 'file'){
+            console.log(event.target.file[1].files[0])
+        }
+        else if (event.target.fileOrUrl === 'url'){
+            console.log({
+                storyId: 1,
+                media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options:{caption: event.target.caption.value}}]
+            })
+        }
     },
     handleFileOrUrlChange: event => {
         dispatch(changeMediaEntryMethod(event.target.value))
