@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { changeMediaEntryMethod } from '../store/addMediaForm';
 
 // var testData = {storyId:1, media:[{
-//     src: 'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg', 
+//     src: 'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg',
 //     type: "img",
 //     start: 0,
 //     end: 15,
@@ -35,8 +35,8 @@ const AddMediaForm = props => {
                  <label htmlFor="type2">video</label>
                  </fieldset>
                 }
-            
-            
+
+
             <label>start at:</label>
             <input type="number" name={'start'} />
             <label> Duration</label>

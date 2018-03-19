@@ -12,7 +12,7 @@ const Editor = () => {
     </div>);
 };
 
-const mapState=null
-const mapDispatch=null
+const mapState = null
+const mapDispatch = null
 
 export default connect(mapState, mapDispatch)(Editor);
