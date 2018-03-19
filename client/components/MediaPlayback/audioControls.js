@@ -50,7 +50,7 @@ class AudioControls extends React.Component {
         </button>
         <button
           className="audioControlBtn" onClick={() => {
-            
+
             this.props.audio.skipForward()
             this.props.audio.skipForward()
             this.props.audio.skipForward()
@@ -63,7 +63,8 @@ class AudioControls extends React.Component {
           }} id="seekForwardFast">
           <i className="fas fa-fast-forward" />
         </button>
-        <button className="audioControlBtn" onClick={() => {
+        <button
+className="audioControlBtn" onClick={() => {
           this.props.audio.skipForward()
           var self = this
             setTimeout(() =>

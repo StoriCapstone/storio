@@ -24,7 +24,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path = "/mediaPlayer" component = {MediaPlayer} />
         <Route path = "/addMediaForm" component = {RecordingEditor} />
-        
+
         {
           isLoggedIn &&
             <Switch>
