@@ -43,7 +43,7 @@ export default class Waveform extends React.Component {
     this.wavesurfer.on('audioprocess', () =>
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime())))
   }
-  handleAddMediaClick(event) {
+  handleAddMediaClick() {
     this.wavesurfer.pause()
     setTimeout(() =>
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))

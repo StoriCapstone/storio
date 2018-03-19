@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Waveform from './waveform';
-import AddMediaForm from './addMediaForm';
 import {connect} from 'react-redux'
 /**
  * COMPONENT
