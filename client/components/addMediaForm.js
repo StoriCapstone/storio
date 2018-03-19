@@ -37,12 +37,14 @@ const AddMediaForm = props => {
                 }
             
             
-            <label >start at:</label>
+            <label>start at:</label>
             <input type="number" name={'start'} />
-            <label > Duration</label>
+            <label> Duration</label>
             <input type="number" name={'duration'} />
-            <label > Caption (optional)</label>
+            <label> Caption (optional)</label>
             <input type="text" name={'caption'} />
+            <label> Name of Media</label>
+            <input type="text" name={'name'} />
             <button type="submit">Submit</button>
         </form>
     )
@@ -60,7 +62,7 @@ const mapDispatch = (dispatch) => ({
         else if (event.target.fileOrUrl === 'url'){
             console.log({
                 storyId: 1,
-                media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options:{caption: event.target.caption.value}}]
+                media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options: {caption: event.target.caption.value, name: event.target.name.value}}]
             })
         }
     },
