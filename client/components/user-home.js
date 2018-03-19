@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Waveform from './waveform';
 import AddMediaForm from './addMediaForm';
 import {connect} from 'react-redux'
-
 /**
  * COMPONENT
  */
@@ -13,8 +12,11 @@ export const UserHome = (props) => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+
+      <button onClick= {() => props.history.push('/mediaPlayer')}>GO TO PLAYER</button>
       <Waveform />
       <AddMediaForm />
+
     </div>
   )
 }

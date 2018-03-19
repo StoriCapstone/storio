@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>BOILERMAKER</h1>
+  <div id="navBarFlex">
+    <div id="titleLogoFlex">
+      <h1 id="siteTitle">STORIO</h1>
+      <img id="titleLogoImg" src="/storiLogo.png" />
+    </div>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -17,12 +20,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           </a>
         </div>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
     </nav>
     <hr />
   </div>
