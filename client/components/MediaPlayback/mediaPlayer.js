@@ -1,9 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer.js'
-import FadeImg from './fadeImg'
 import VideoPlayer from './videoPlayer.js'
 import AudioControls from './audioControls'
 
@@ -21,7 +19,7 @@ class MediaPlayer extends React.Component {
             {
               name: 'A photo thang',
               src: 'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg',
-              type: "img",
+              type: 'img',
               start: 3,
               end: 5,
               options: { caption: 'hi' }
@@ -30,14 +28,14 @@ class MediaPlayer extends React.Component {
             {
               name: 'another photo thang',
               src: 'sampleImg.jpg',
-              type: "img",
+              type: 'img',
               start: 7,
               end: 9,
               options: { caption: 'hi' }
             },
             {
               src: 'https://www.youtube.com/watch?v=2lzXpOF5Ssg&list=PLnsTUgMW5W__4eI0349Lu64ljXsrRjhwJ',
-              type: "video",
+              type: 'video',
               start: 12,
               end: 14,
               options: { caption: 'hi' }
@@ -90,17 +88,15 @@ class MediaPlayer extends React.Component {
   }
 
   render() {
-    let showing = true;
     return (
-      <div id='viewContainer'>
-        <h2 align="center" id='storyTitle'>The Long Road Home</h2>
-        <div className='waveform' align="center"></div>
-        <div className='wave' align="center"></div>
+      <div id="viewContainer">
+        <h2 align="center" id="storyTitle">The Long Road Home</h2>
+        <div className="waveform" align="center" />
+        <div className="wave" align="center" />
         <AudioControls audio={this.wavesurfer} />
-        <div id='mediaContainer' >
-          <div id='mediaList' style={this.state.isShowing ? { zIndex: 2, opacity: '0' } : { zIndex: 2, opacity: '1' }}>
-          </div>
-          <div id='mediaWindow' style={this.state.isShowing ? { opacity: '1' } : { opacity: '0' }}>
+        <div id="mediaContainer" >
+          <div id="mediaList" style={this.state.isShowing ? { zIndex: 2, opacity: '0' } : { zIndex: 2, opacity: '1' }} />
+          <div id="mediaWindow" style={this.state.isShowing ? { opacity: '1' } : { opacity: '0' }}>
             <div>
               {this.state.currentMedia.type && this.state.currentMedia.type === 'img' ?
                 <img id="mediaImg" src={this.state.currentMedia.src} />
@@ -116,27 +112,15 @@ class MediaPlayer extends React.Component {
 }
 
 MediaPlayer.defaultProps = {
-  storySrc: "sample.mp3"
+  storySrc: 'sample.mp3'
 }
 
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id
-  }
-}
+const mapState = null
 
-const mapDispatch = dispatch => {
-  return {
-    handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+const mapDispatch = null
 
 export default connect(mapState, mapDispatch)(MediaPlayer)
-
-
 
