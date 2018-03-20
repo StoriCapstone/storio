@@ -1,5 +1,13 @@
 body {
   font-family: sans-serif;
+  background: linear-gradient(hsl(46, 100%, 74%),rgb(255, 166, 0));
+  font-family: 'Raleway', sans-serif;
+  padding:0px;
+  margin:0px;
+  min-height:100vh ;
+  display:flex;
+  justify-content: center;
+
 }
 
 a {
@@ -11,11 +19,125 @@ label {
 }
 
 nav a {
-  display: inline-block;
   margin: 1em;
 }
 
 form div {
   margin: 1em;
-  display: inline-block;
+}
+#siteTitle{
+  margin-left: .9vw;
+  font-size: 30pt;
+  margin-right: .5vw;
+}
+/* .waveform{
+
+}
+.wave{
+
+} */
+#navBarFlex{
+  margin-bottom: 2vw;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  width:100vw;
+  height:10vh;
+  background-color: rgba(248, 153, 124, 0.361);
+  /* border-bottom-right-radius:1vw;
+  border-bottom-left-radius:1vw; */
+box-shadow: 0 0 .7vw .00000005vw rgb(150, 141, 119);
+
+
+}
+#titleLogoFlex{
+  display:flex;
+  margin-right: 65vw;
+  align-items: center;
+
+}
+#titleLogoImg{
+  width:7vw;
+  height:7vw;
+}
+#viewContainer{
+  padding:1vw;
+  border-radius: 1vw;
+  width:90vw;
+  /* box-shadow: 0 0 .3vw .00000005vw rgb(150, 141, 119); */
+  height:100vh;
+  overflow: hidden;
+
+
+}
+#mediaWindow {
+  transition: opacity .5s;
+  overflow: hidden;
+}
+
+.audioControlBtn{
+  cursor: pointer;
+  border:none;
+  border-radius: .3vw;
+  width:5vw;
+  margin:.3vw;
+  height:3vw;
+  background-color: rgba(136, 36, 97, 0.562);
+  box-shadow: 0 0 .1vw .00000005vw rgb(133, 129, 121);
+}
+#mediaViewerPage{
+  height:60%;
+  display:flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* justify-content: center; */
+  align-items: center;
+}
+#mediaContainer{
+  width:50vw;
+  /* background-color:rgb(241, 134, 115); */
+  border-radius: 1vw;
+  height:100%;
+  /* box-shadow: 0 0 .3vw .00000005vw rgb(133, 129, 121); */
+
+
+}
+#mediaWindow{
+  width: 100%;
+  height:100%;
+  overflow:hidden;
+}
+#mediaImg{
+  height:100%;
+width:auto;
+  border-radius:.3vw;
+    box-shadow: 0 0 .6vw .0005vw rgb(80, 78, 74);
+
+}
+#mediaList {
+  transition: opacity 1.3s;
+}
+#controlsContainer{
+  display:flex;
+  margin-bottom: 1.5vw;
+justify-content: center;
+}
+
+
+.wave{
+  cursor: pointer;
+  width:70vw;
+  /* border:1px solid rgb(146, 145, 145); */
+  border-radius: 1vw;
+  padding:.6vw;
+  margin-bottom: 1vw;
+}
+#storyTitle{
+  font-size: 20pt;
+  margin-bottom: 3vw;
+
+}
+
+.hide{
+  display: none;
 }
