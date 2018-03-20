@@ -18,8 +18,8 @@ describe('User model', () => {
           email: 'cody@puppybook.com',
           password: 'bones',
           firstName: 'cody',
-          lastName:"Codeman",
-          displayName:'cody'
+          lastName: 'Codeman',
+          displayName: 'cody'
         })
           .then(user => {
             cody = user
