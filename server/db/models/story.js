@@ -1,30 +1,33 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Story = db.define('story', {  //Story belongs to a story, will have story id via association
+const Story = db.define('story', {  //Story belongs to a user
   name: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   url: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   genre: { //helpful for filtering in public browse setting
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM('Crime', 'Memorial','History','Family', 'Scary','Funny','Educational'),
+    allowNull: false,
     validate: {
       notEmpty: true
     }
   },
-  approxLength: {  //helpful for filtering in public browse setting
+  mediaLength: {  //helpful for filtering in public browse setting
     type: Sequelize.INTEGER
   },
   releaseDate: {
-    type: Sequelize.STRING //there may be a more appropriate data type
+    type: Sequelize.DATE //there may be a more appropriate data type
   } //for stories which are available in the future
 })
 
