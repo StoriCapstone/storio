@@ -4,7 +4,11 @@ const db = require('../db')
 const Group = db.define('group', {
 name: {
     type: Sequelize.STRING,
-    unique: true
+    unique: true,
+    allowNull: false,
+    validate: {
+        notEmpty: true
+    }
 }
 });
 
