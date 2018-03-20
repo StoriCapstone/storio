@@ -38,7 +38,7 @@ const AddMediaForm = props => {
 
 
             <label>start at:</label>
-            <input type="number" value={props.time} name={'start'} />
+            <input type="number" value={props.time.toFixed(2)} name={'start'} />
             <label> Duration</label>
             <input type="number" name={'duration'} />
             <label> Caption (optional)</label>
