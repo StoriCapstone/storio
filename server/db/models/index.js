@@ -1,5 +1,8 @@
 const User = require('./user')
 const Group = require('./group')
+const Media = require('./media')
+const Story = require('./story')
+const Comment = require('./comment')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,5 +19,9 @@ const Group = require('./group')
  */
 module.exports = {
   Group,
-  User
+  User,
+  Media,
+  Comment,
+  Story
+
 }
