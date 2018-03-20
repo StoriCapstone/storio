@@ -34,7 +34,7 @@ class MediaPlayer extends React.Component {
               options: { caption: 'hi' }
             },
             {
-              src: 'https://www.youtube.com/watch?v=2lzXpOF5Ssg&list=PLnsTUgMW5W__4eI0349Lu64ljXsrRjhwJ',
+              src: 'https://www.youtube.com/watch?v=-5Ilq3kFxek',
               type: 'video',
               start: 12,
               end: 14,
