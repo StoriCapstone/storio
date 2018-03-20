@@ -12,9 +12,9 @@ import { changeMediaEntryMethod } from '../store/addMediaForm';
 //   }
 
 const AddMediaForm = props => {
-
     return (
-        <form onSubmit={props.handleSubmit} id="addMedia">
+
+        <form onSubmit={props.handleSubmit} id="addMedia" className={props.show ? '' : 'hide'}>
         <input type="radio" defaultChecked onChange={props.handleFileOrUrlChange} name={'fileOrUrl'} value={'file'} id={'file'} />
         <label htmlFor="file">import file</label>
         <input type="radio" name={'fileOrUrl'} onChange={props.handleFileOrUrlChange} value={'url'} id={'url'} />
@@ -38,7 +38,7 @@ const AddMediaForm = props => {
 
 
             <label>start at:</label>
-            <input type="number" name={'start'} />
+            <input type="number" value={props.time} name={'start'} />
             <label> Duration</label>
             <input type="number" name={'duration'} />
             <label> Caption (optional)</label>
@@ -51,7 +51,9 @@ const AddMediaForm = props => {
 }
 
 const mapState = (state) => ({
-    selectedOption: state.selectedOption
+    selectedOption: state.addMediaForm.selectedOption,
+    time: state.addMediaForm.time,
+    show: state.waveform.toggleAddMediaForm,
 })
 const mapDispatch = (dispatch) => ({
     handleSubmit: event => {
