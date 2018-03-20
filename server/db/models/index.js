@@ -1,4 +1,5 @@
 const User = require('./user')
+const Group = require('./group')
 const Media = require('./media')
 const Story = require('./story')
 const Comment = require('./comment')
@@ -17,5 +18,10 @@ const Comment = require('./comment')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User,Media,Comment,Story
+  Group,
+  User,
+  Media,
+  Comment,
+  Story
+
 }
