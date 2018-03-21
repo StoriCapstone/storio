@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const { User } = require('../server/db/models');
+const { User, } = require('../server/db/models');
 const chance = require('chance')(50015); // seeded with a number for 'repeated' randomizations
 
 // Constants for seeding dynamically
@@ -24,15 +24,15 @@ const createUsers = numToCreate => {
       displayName: 'cody',
       firstName: 'Cody',
       lastName: 'Codeman',
-      password: '123'
+      password: '123',
     }),
     User.create({
       email: 'murphy@email.com',
       displayName: 'murphy',
       firstName: 'Murphy',
       lastName: 'Murphman',
-      password: '123'
-    })
+      password: '123',
+    }),
   ];
   const numToGen = numToCreate - userPromises.length;
   const emails = chance.unique(chance.email, numToGen);
@@ -43,7 +43,7 @@ const createUsers = numToCreate => {
       password: chance.string(),
       firstName: chance.first(),
       lastName: chance.last(),
-      displayName: userNames.pop().slice(1) // twitter handles start with @
+      displayName: userNames.pop().slice(1), // twitter handles start with @
     });
     userPromises.push(userPromise);
   }
@@ -51,7 +51,7 @@ const createUsers = numToCreate => {
   return userPromises;
 };
 async function seed() {
-  await db.sync({ force: true });
+  await db.sync({ force: true, });
   console.log('db synced!');
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!

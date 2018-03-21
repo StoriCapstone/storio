@@ -6,29 +6,29 @@ const Story = db.define('story', {  //Story belongs to a user
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   url: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   genre: { //helpful for filtering in public browse setting
-    type: Sequelize.ENUM('Crime', 'Memorial','History','Family', 'Scary','Funny','Educational'),
+    type: Sequelize.ENUM('Crime', 'Memorial', 'History', 'Family', 'Scary', 'Funny', 'Educational'),
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   mediaLength: {  //helpful for filtering in public browse setting
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
   },
   releaseDate: {
-    type: Sequelize.DATE //there may be a more appropriate data type
-  } //for stories which are available in the future
+    type: Sequelize.DATE, //there may be a more appropriate data type
+  }, //for stories which are available in the future
 })
 
 module.exports = Story

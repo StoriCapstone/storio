@@ -6,7 +6,7 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
   },
   password: {
     type: Sequelize.STRING,
@@ -14,7 +14,7 @@ const User = db.define('user', {
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue('password')
-    }
+    },
   },
   salt: {
     type: Sequelize.STRING,
@@ -22,23 +22,23 @@ const User = db.define('user', {
     // This is a hack to get around Sequelize's lack of a "private" option.
     get () {
       return () => this.getDataValue('salt')
-    }
+    },
   },
   googleId: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   firstName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   displayName: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 })
 
 module.exports = User
