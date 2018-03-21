@@ -17,7 +17,7 @@ const Story = db.define('story', {  //Story belongs to a user
     },
   },
   genre: { //helpful for filtering in public browse setting
-    type: Sequelize.ENUM('Crime', 'Memorial', 'History', 'Family', 'Scary', 'Funny', 'Educational'),
+    type: Sequelize.ENUM('Crime', 'Memorial', 'History', 'Family', 'Scary', 'Funny', 'Educational'), // eslint-disable-line new-cap
     allowNull: false,
     validate: {
       notEmpty: true,
