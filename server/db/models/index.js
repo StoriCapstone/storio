@@ -16,13 +16,13 @@ User.hasMany(Story);
 Story.hasMany(Comment);
 Comment.belongsTo(Story);
 
-User.belongsToMany(Group);
+User.belongsToMany(Group, {through: 'UserGroup', });
 Group.hasMany(User);
 
 Story.hasMany(Media);
 Media.belongsTo(Story);
 
-Story.belongsToMany(Group);
+Story.belongsToMany(Group, {through: 'StoryGroup', } );
 Group.hasMany(Story);
 
 /**
