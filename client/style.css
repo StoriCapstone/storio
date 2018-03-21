@@ -1,3 +1,8 @@
+html{
+  padding:0px;
+  margin:0px;
+}
+
 body {
   font-family: sans-serif;
   background: linear-gradient(hsl(46, 100%, 74%),rgb(255, 166, 0));
@@ -7,7 +12,7 @@ body {
   min-height:100vh ;
   display:flex;
   justify-content: center;
-
+position: relative;
 }
 
 a {
@@ -25,6 +30,19 @@ nav a {
 form div {
   margin: 1em;
 }
+.hoverProgress{
+  transition:all .7s;
+  margin:1vw;
+}
+.noVis{
+  opacity:0;
+}
+.vis{
+  opacity:1;
+}
+#controlPlayerPanel{
+  display:flex;
+}
 #siteTitle{
   margin-left: .9vw;
   font-size: 30pt;
@@ -37,38 +55,63 @@ form div {
 
 } */
 #navBarFlex{
-  margin-bottom: 2vw;
   display:flex;
-  justify-content: space-between;
+ /* // justify-content: space-between; */
   align-items: center;
   width:100vw;
-  height:10vh;
-  background-color: rgba(248, 153, 124, 0.361);
+  height:13vh;
+  background: linear-gradient( hsl(46, 100%, 74%),rgb(247, 156, 21));
+
+  /* background-color: rgba(248, 153, 124, 0.361); */
+  margin:0px;
   /* border-bottom-right-radius:1vw;
   border-bottom-left-radius:1vw; */
 box-shadow: 0 0 .7vw .00000005vw rgb(150, 141, 119);
-
-
 }
-#titleLogoFlex{
-  display:flex;
-  margin-right: 65vw;
-  align-items: center;
+nav{
+  flex:1;
+margin-right:3vw;
+}
 
+#titleLogoFlex{
+  flex:6;
+  display:flex;
+  /* //margin-right: 65vw; */
+  align-items: center;
+  margin-right: auto;
+  margin-left: 1.5vw;
 }
 #titleLogoImg{
-  width:7vw;
-  height:7vw;
+  width:6vw;
+
 }
 #viewContainer{
   padding:1vw;
   border-radius: 1vw;
+
+  background: linear-gradient(hsl(46, 92%, 65%),rgb(255, 166, 0));
   width:90vw;
-  /* box-shadow: 0 0 .3vw .00000005vw rgb(150, 141, 119); */
+  box-shadow: 0 0 1.2vw .05vw rgb(243, 221, 166);
   height:100vh;
   overflow: hidden;
+  position:relative;
+  top:-6vw;
+  z-index: 0;
+}
+#mainPlayer{
+  background-color: rgb(40, 21, 213);
+  padding:0px;
+  margin-top: 0px;
+  position: relative;
+  top:-2.3vw;
+}
+.point{
+  position: absolute;
 
-
+  width: .1vw;
+  height:100vw;
+  border-radius: 2vw;
+  background-color: rgb(204, 5, 5);
 }
 #mediaWindow {
   transition: opacity .5s;
@@ -83,16 +126,23 @@ box-shadow: 0 0 .7vw .00000005vw rgb(150, 141, 119);
   margin:.3vw;
   height:3vw;
   background-color: rgba(136, 36, 97, 0.562);
-  box-shadow: 0 0 .1vw .00000005vw rgb(133, 129, 121);
+  box-shadow: 0 0 .3vw .005vw rgb(70, 69, 67);
+  transition: all .2s
 }
-#mediaViewerPage{
+.audioControlBtn:hover{
+  box-shadow: 0 0 .7vw .05vw rgb(53, 52, 52);
+
+  background-color: rgba(221, 91, 171, 0.562);
+
+}
+/* #mediaViewerPage{
   height:60%;
   display:flex;
   flex-direction: column;
   overflow: hidden;
-  /* justify-content: center; */
   align-items: center;
-}
+} */
+
 #mediaContainer{
   width:50vw;
   /* background-color:rgb(241, 134, 115); */
@@ -122,22 +172,50 @@ width:auto;
   display:flex;
   margin-bottom: 1.5vw;
 justify-content: center;
+box-shadow: 0 0 .45vw .00000000000005vw rgb(94, 94, 93);
+width:28vw;
+padding:.7vw;
+border-radius: 1vw;
+
+  /* background: linear-gradient( rgba(231, 143, 85, 0.301), rgba(231, 143, 85, 0.901)); */
+
+background-color: rgba(231, 143, 85, 0.301)
+
 }
 
+/* #waveContainer{
 
+} */
 .wave{
+  background-color: rgba(216, 159, 121, 0.301);
+overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 .4vw .00000000000005vw rgb(105, 105, 103);
+margin-top: 2.9vw;
   cursor: pointer;
   width:70vw;
+  z-index: 2;
   /* border:1px solid rgb(146, 145, 145); */
   border-radius: 1vw;
   padding:.6vw;
-  margin-bottom: 1vw;
 }
 #storyTitle{
-  font-size: 20pt;
-  margin-bottom: 3vw;
+  box-shadow: 0 -.17vw .5vw .05vw rgb(243, 221, 166);
+  border-top-right-radius: 1vw;
+  border-top-left-radius:  1vw;
+  background-color :hsl(46, 92%, 65%);
+  width:40vw;
 
+  font-size: 1.6em;
+  margin-bottom: 6vw;
+  padding-top: 2vw;
+  z-index: 1;
+  /* box-shadow: 3vw 3vw .7vw .00000000000005vw rgb(135, 133, 128); */
+height:7vw;
+position: relative;
+bottom:-2.2vw;
 }
+
 
 .hide{
   display: none;
@@ -188,4 +266,18 @@ justify-content: center;
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+@media (max-width: 620px) {
+
+  #storyTitle {
+    font-size: .7em;
+ }
+
+}
+@media (min-width: 1000px) {
+
+  #storyTitle {
+     font-size: 2em;
+  }
+
 }

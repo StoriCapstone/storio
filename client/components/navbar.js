@@ -7,7 +7,7 @@ import { logout } from '../store'
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div id="navBarFlex">
     <div id="titleLogoFlex">
-      <h1 id="siteTitle">STORIO</h1>
+      <h1 id="siteTitle">storio</h1>
       <img id="titleLogoImg" src="/storiLogo.png" />
     </div>
     <nav>
