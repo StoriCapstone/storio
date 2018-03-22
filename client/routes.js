@@ -15,7 +15,7 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
 
-  
+
   render () {
     const {isLoggedIn, } = this.props
 

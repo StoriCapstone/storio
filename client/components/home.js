@@ -1,17 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import AWSTest from './AWStest'
+import { connect, } from 'react-redux'
 /**
  * COMPONENT
  */
 export const Home = (props) => {
-  const { email } = props
   return (
     <div>
-      <div id='newActivity'>Here's where we show a 'feed'</div>
-      <div id='userStories'>Stories made by the user</div>
-      <div id='userGroups'>Groups to which user belongs</div>
+      <div id="newActivity">Here's where we show a 'feed'</div>
+      <div id="userStories">Stories made by the user</div>
+      <div id="userGroups">Groups to which user belongs</div>
     </div>
   )
 }
@@ -19,13 +16,9 @@ export const Home = (props) => {
  * CONTAINER
  */
 const madDispatch = null
-const mapState = (state) => {
-  return {
-    email: state.user.email
-  }
-}
+const mapState = null
 
-export default connect(mapState,madDispatch)(Home)
+export default connect(mapState, madDispatch)(Home)
 
 
 //-------IDEAS--------
