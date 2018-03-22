@@ -60,7 +60,9 @@ form div {
   align-items: center;
   width:100vw;
   height:13vh;
-  background: linear-gradient( hsl(46, 100%, 74%),rgb(247, 156, 21));
+  /* background: linear-gradient(rgb(247, 195, 82), rgb(182, 183, 248),rgb(87, 126, 233)); */
+
+  background: linear-gradient( hsl(46, 100%, 74%),rgb(253, 182, 76));
 
   /* background-color: rgba(248, 153, 124, 0.361); */
   margin:0px;
@@ -72,6 +74,68 @@ nav{
   flex:1;
 margin-right:3vw;
 }
+
+.optionImg{
+  /* background: radial-gradient(rgb(247, 208, 137),rgba(16, 158, 253, 0.802)); */
+  box-shadow: 0 0 1.2vw .05vw rgba(28, 27, 27, 0.37);
+
+  background: linear-gradient(90deg,rgb(87, 126, 233), rgb(182, 183, 248),rgb(87, 126, 233));
+  border-radius: 2vw;
+padding:2vw;
+  width:10vw;
+  height:auto;
+  transition: all .3s;
+
+  margin-bottom:2.3vw;
+  margin-top: 4vw;
+  cursor: pointer;
+
+}
+
+.optionImg:hover{
+
+  transform: scale(1.01);
+  box-shadow: 0 0 3vw .05vw rgba(17, 16, 16, 0.425);
+  background: linear-gradient(90deg,rgb(87, 126, 233), rgb(217, 217, 238),rgb(87, 126, 233));
+
+  /* background: linear-gradient(90deg,rgb(10, 42, 133), rgb(181, 182, 242),rgb(10, 42, 133)); */
+
+
+}
+.optionLabel{
+  font-size: 20pt;
+  color:rgb(54, 53, 53);
+}
+/* #orDiv{
+  font-size: 25pt;
+} */
+#welcomeMsg{
+  font-size: 18pt;
+  margin-top: 7vw;
+}
+#motto{
+  font-size: 34pt;
+  margin-top: 5vw;
+  font-weight: 150;
+  color:rgb(54, 53, 53)
+
+}
+#mainOptions{
+  justify-content: center;
+  display:flex;
+  height:50vh;
+  width:80vw;
+  align-items: center;
+}
+.singleOption{
+  width:18vw;
+}
+/* .singleOption:hover{
+} */
+
+/* .fas{
+
+} */
 
 #titleLogoFlex{
   flex:6;
