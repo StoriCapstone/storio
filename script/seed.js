@@ -157,6 +157,15 @@ const createStories = numToCreate => {
   return storyPromises
 };
 
+const setStoryOwners = (stories, users) => {
+  const storyPromises = []
+  for ( let story of stories){
+    const storyPromise = story.setUser(users[chance.integer({min: 0, max: users.length - 1, })])
+    storyPromises.push(storyPromise)
+  }
+  return storyPromises
+}
+
 //Seeding begins here!
 
 async function seed() {
@@ -176,6 +185,10 @@ async function seed() {
 
   const stories = await Promise.all(createStories(storiesToCreate))
   console.log(`seeded ${stories.length} stories`);
+
+  const storyOwners = await Promise.all(setStoryOwners(stories, users))
+  console.log(`associated ${storyOwners.length} stories to owners`);
+
   console.log(`seeded successfully`);
 }
 
