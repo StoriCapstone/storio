@@ -58,10 +58,11 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
     handleSubmit: event => {
         event.preventDefault()
-        if (event.target.fileOrUrl.value === 'file'){
-            console.log(event.target.file[1].files[0])
-        }
-        else if (event.target.fileOrUrl === 'url'){
+        // if (event.target.fileOrUrl.value === 'file'){
+
+        // }
+       // else
+        if (event.target.fileOrUrl === 'url'){
             console.log({
                 storyId: 1,
                 media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options: {caption: event.target.caption.value, name: event.target.name.value, }, }, ],

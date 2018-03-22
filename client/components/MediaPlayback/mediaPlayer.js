@@ -81,15 +81,12 @@ class MediaPlayer extends React.Component {
   }
 
   pointAdder(event) {
-    console.log('fireD')
     let point = document.createElement('div')
     point.className = 'point'
-    console.log('x: ', event.clientX, 'y: ', event.clientY, 'point', point)
     point.style.left = (event.clientX) + 'px'
     point.style.top = (event.clientY) + 'px'
     point.style.backgroundColor = 'Blue'
     let wave = document.getElementsByClassName('wave')[0]
-    console.log(wave.getBoundingClientRect())
     wave.appendChild(point);
   }
 
