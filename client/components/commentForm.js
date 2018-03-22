@@ -4,12 +4,12 @@ import { newCommentContent, clearCommentForm, } from '../store'
 
 const CommentForm = props => {
     return (
-        <div>
-            <form onSubmit={props.handleCommentSubmit} >
-                <input onChange={props.handleContentChange} type="text" name="content" value={props.newCommentContent} />
-                <input type="submit" />
-            </form>
-        </div>
+        <form onSubmit={props.handleCommentSubmit} >
+            <label>Add Comment</label>
+            <textarea onChange={props.handleContentChange} name="content" value={props.newCommentContent} />
+            <br />
+            <input type="submit" />
+        </form>
     )
 }
 const mapState = (state) => ({

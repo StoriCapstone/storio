@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor, } from './components'
 
 import {me, } from './store'
+import SingleStory from './components/singleStoryView';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ class Routes extends Component {
         <Route path = "/addMediaForm" component = {RecordingEditor} />
         {/* temp for testing */}
         <Route path = "/recorder" component = {Recorder} />
+        <Route path = "/singleStory" component = {SingleStory} />
 
         {
           isLoggedIn &&
