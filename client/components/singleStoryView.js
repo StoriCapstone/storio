@@ -4,11 +4,11 @@ import MediaPlayer from './MediaPlayback/mediaPlayer'
 import CommentForm from './commentForm'
 
 
-const singleComment = (props) => {
+const SingleComment = (props) => {
 return (
     <div>
-        <h4>{props.user.displayName}</h4>
-        <p>{props.commentContent}</p>
+        <h4>{props.commentObj.user.displayName}</h4>
+        <p>{props.commentObj.content}</p>
     </div>
 )
 }
@@ -19,6 +19,7 @@ const SingleStory = (props) => {
             <MediaPlayer />
             <h2>Comments:</h2>
             {Object.keys(props.currentUser).length ? <CommentForm /> : <p>Sign in to leave comments</p>}
+            {props.allComments.map(commentObj => <SingleComment key={commentObj.id} commentObj={commentObj} />)}
         </div>
     )
 }
