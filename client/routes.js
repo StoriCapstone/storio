@@ -1,18 +1,20 @@
+
 import React, {Component, } from 'react'
 import {connect, } from 'react-redux'
 import {withRouter, Route, Switch, } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor, } from './components'
-
 import {me, } from './store'
+
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
   }
+
 
   render () {
     const {isLoggedIn, } = this.props
@@ -20,19 +22,19 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={UserHome} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path = "/mediaPlayer" component = {MediaPlayer} />
         <Route path = "/addMediaForm" component = {RecordingEditor} />
         {/* temp for testing */}
         <Route path = "/recorder" component = {Recorder} />
-
         {
           isLoggedIn &&
-            <Switch>
-              {/* Routes placed here are only available after logging in */}
-              <Route path="/home" component={UserHome} />
-            </Switch>
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+          </Switch>
         }
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
@@ -40,7 +42,6 @@ class Routes extends Component {
     )
   }
 }
-
 /**
  * CONTAINER
  */
@@ -51,15 +52,13 @@ const mapState = (state) => {
     isLoggedIn: !!state.user.id,
   }
 }
-
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me())
     },
   }
 }
-
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Routes))
