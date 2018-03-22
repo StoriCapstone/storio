@@ -18,8 +18,8 @@ const usersToCreate = 50; // minimum of 2 hard coded users will be generated
 const groupsToCreate = 15;
 const maxGroupNameWords = 5;
 
-const minGroupMembers = 1
-const maxGroupMembers = 15 // if larger than usersToCreate, it will default to usersToCreate
+const minGroupMembers = 1;
+const maxGroupMembers = 15; // if larger than usersToCreate, it will default to usersToCreate
 
 // Generator Functions
 const createUsers = numToCreate => {
@@ -72,29 +72,31 @@ const createGroups = numToCreate => {
     const groupPromise = Group.create({
       name: genGroupName(maxGroupNameWords),
     });
-    groupPromises.push(groupPromise)
+    groupPromises.push(groupPromise);
   }
-  return groupPromises
+  return groupPromises;
 };
 
 const addMembersToGroups = (groups, users, min, max) => {
-  const groupPromises = []
-  for (let group of groups){
-    const members = chance.integer({min, max, })
-    const addEveryone = users.length < members
-    const usersToAssociate = addEveryone ? new Set(users) : new Set()
-    if (!addEveryone){
-      while (usersToAssociate.size < members){
-        const randomUser = chance.integer({min: 0, max: users.length, })
-        usersToAssociate.add(users[randomUser])
+  const groupPromises = [];
+  for (let group of groups) {
+    const members = chance.integer({ min, max, });
+    const addEveryone = users.length < members;
+    const usersToAssociate = addEveryone ? new Set(users) : new Set();
+    if (!addEveryone) {
+      while (usersToAssociate.size < members) {
+        const randomUser = chance.integer({ min: 0, max: users.length, });
+        usersToAssociate.add(users[randomUser]);
       }
     }
-    const groupPromise = group.addUsers([...usersToAssociate], {through: 'UserGroup', })
-    groupPromises.push(groupPromise)
+    const groupPromise = group.addUsers([...usersToAssociate, ], {
+      through: 'UserGroup',
+    });
+    groupPromises.push(groupPromise);
   }
 
-  return groupPromises
-}
+  return groupPromises;
+};
 
 //Seeding begins here!
 
@@ -108,7 +110,9 @@ async function seed() {
   const groups = await Promise.all(createGroups(groupsToCreate));
   console.log(`seeded ${groups.length} groups`);
 
-  const associatedGroups = await Promise.all(addMembersToGroups(groups, users, minGroupMembers, maxGroupMembers))
+  const associatedGroups = await Promise.all(
+    addMembersToGroups(groups, users, minGroupMembers, maxGroupMembers),
+  );
   console.log(`associated ${associatedGroups.length} groups`);
   console.log(`seeded successfully`);
 }
