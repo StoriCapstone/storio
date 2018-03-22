@@ -6,12 +6,14 @@ import user from './user'
 import {default as addMediaForm, } from './addMediaForm';
 import {default as waveform, } from './waveform';
 import {default as comments, } from './comments';
+import {default as story, } from './story'
 
 const reducer = combineReducers({
   user,
   addMediaForm,
   waveform,
   comments,
+  story,
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -24,3 +26,4 @@ export * from './user'
 export * from './addMediaForm'
 export * from './waveform'
 export * from './comments'
+export * from './story'
