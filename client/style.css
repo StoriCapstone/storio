@@ -96,7 +96,11 @@ padding:2vw;
   cursor: pointer;
 
 }
-
+#testTools{
+  display:flex;
+  flex-direction: column;
+  margin-top:15vw;
+}
 .optionImg:hover{
 
   transform: scale(1.01);
