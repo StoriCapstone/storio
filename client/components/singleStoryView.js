@@ -25,16 +25,18 @@ class SingleStory extends React.Component{
     render(){
     return (
         <div>
+        <p>by {this.props.story.user.displayName}</p>
             <MediaPlayer />
             <h2>Comments:</h2>
-            {Object.keys(this.props.currentUser).length ? <CommentForm story={this.props.match.params.id} /> : <p>Sign in to leave comments</p>}
+            {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p>Sign in to leave comments</p>}
             {this.props.allComments.map(commentObj => <SingleComment key={commentObj.id} commentObj={commentObj} />)}
         </div>
     )}
 }
 const mapState = (state) => ({
     currentUser: state.user,
-    allComments: state.comments.comments,
+    allComments: state.story.comments,
+    story: state.story,
 });
 const mapDispatch = (dispatch) => ({
     fetchStory: function (id){
