@@ -55,8 +55,6 @@ class MediaPlayer extends React.Component {
   }
 
   componentDidMount() {
-    this.attachMouseMarker()
-
     let intervalSet = false
     this.$el = ReactDOM.findDOMNode(this)
     this.$waveform = this.$el.querySelector('.wave')
