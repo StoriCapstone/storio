@@ -15,6 +15,8 @@ User.hasMany(Story);
 
 Story.hasMany(Comment);
 Comment.belongsTo(Story);
+User.hasMany(Comment);
+Comment.belongsTo(User);
 
 User.belongsToMany(Group, {through: 'UserGroup', });
 Group.belongsToMany(User, {through: 'UserGroup', });
