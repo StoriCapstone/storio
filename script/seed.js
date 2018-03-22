@@ -10,8 +10,9 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const { User, Group, } = require('../server/db/models');
+const { User, Group, Story, } = require('../server/db/models');
 const chance = require('chance')(50015); // seeded with a number for 'repeated' randomizations
+const moment = require('moment');
 
 // Constants for seeding dynamically
 const usersToCreate = 50; // minimum of 2 hard coded users will be generated
@@ -21,6 +22,8 @@ const maxGroupNameWords = 5;
 const minGroupMembers = 1;
 const maxGroupMembers = 15; // if larger than usersToCreate, it will default to usersToCreate
 
+const maxStoryTitle = 3;
+const storiesToCreate = 20;
 // Generator Functions
 const createUsers = numToCreate => {
   const userPromises = [
@@ -56,7 +59,7 @@ const createUsers = numToCreate => {
   return userPromises;
 };
 
-const genGroupName = max => {
+const genName = max => {
   const min = 1;
   const words = chance.integer({ min, max, });
   const wordArr = [];
@@ -70,7 +73,7 @@ const createGroups = numToCreate => {
   const groupPromises = [];
   for (let i = 0; i < numToCreate; i++) {
     const groupPromise = Group.create({
-      name: genGroupName(maxGroupNameWords),
+      name: genName(maxGroupNameWords),
     });
     groupPromises.push(groupPromise);
   }
@@ -98,6 +101,62 @@ const addMembersToGroups = (groups, users, min, max) => {
   return groupPromises;
 };
 
+const createStories = numToCreate => {
+  const storyPromises = [];
+  const genres = [
+    'Crime',
+    'Memorial',
+    'History',
+    'Family',
+    'Scary',
+    'Funny',
+    'Educational',
+  ];
+  const stories = [
+    {
+      url:
+        'https://upload.wikimedia.org/wikipedia/commons/5/5e/Ada_Lovelace_%28As_Told_By_U.S._Chief_Technology_Officer_Megan_Smith%29.mp3',
+      mediaLength: 42,
+    },
+    {
+      url:
+        'https://upload.wikimedia.org/wikipedia/commons/a/a5/Uncle_Josh_and_the_Insurance_Company_-_Cal_Stewart.mp3',
+      mediaLength: 152,
+    },
+    {
+      url: 'http://www.obamadownloads.com/mp3s/cairo-speech.mp3',
+      mediaLength: 3302,
+    },
+    {
+      url: 'http://www.obamadownloads.com/mp3s/reelection-speech.mp3',
+      mediaLength: 1226,
+    },
+    {
+      url: 'http://www.obamadownloads.com/mp3s/nobel-peace-speech.mp3',
+      mediaLength: 2160,
+    },
+  ];
+  for (let i = 0; i < numToCreate; i++) {
+    const name = genName(maxStoryTitle);
+    const genre = genres[chance.integer({ min: 0, max: genres.length - 1, })];
+    const releaseDate = chance.bool({likelihood: 20, }) ?
+      moment(chance.date({year: chance.integer({min: 2019, max: 2100, }), })).format('YYYY-MM-DD hh:mm:ss') :
+      null
+    const { url, mediaLength, } = stories[
+      chance.integer({ min: 0, max: stories.length - 1, })
+    ];
+    const storyPromise = Story.create({
+      name,
+      genre,
+      releaseDate,
+      url,
+      mediaLength,
+    });
+    storyPromises.push(storyPromise);
+  }
+  return storyPromises
+};
+
 //Seeding begins here!
 
 async function seed() {
@@ -114,6 +173,9 @@ async function seed() {
     addMembersToGroups(groups, users, minGroupMembers, maxGroupMembers),
   );
   console.log(`associated ${associatedGroups.length} groups`);
+
+  const stories = await Promise.all(createStories(storiesToCreate))
+  console.log(`seeded ${stories.length} stories`);
   console.log(`seeded successfully`);
 }
 
