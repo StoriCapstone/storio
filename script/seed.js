@@ -24,6 +24,7 @@ const maxGroupMembers = 15; // if larger than usersToCreate, it will default to 
 
 const maxStoryTitle = 3;
 const storiesToCreate = 20;
+const maxStoryGroups = 3; // this represents the maximum number of groups that will be assigned. Not guaranteed
 // Generator Functions
 const createUsers = numToCreate => {
   const userPromises = [
@@ -166,6 +167,22 @@ const setStoryOwners = (stories, users) => {
   return storyPromises
 }
 
+const setStoryGroups = async (stories, maxGroups) => {
+  const storyGroupPromises = []
+  for (let story of stories){
+    const user = await story.getUser()
+    const groups = await user.getGroups()
+    let i = 0
+    while (i++ < maxGroups && groups.length){
+      const randomGroupIdx = chance.integer({min: 0, max: groups.length - 1, })
+      const storyGroupPromise = await story.addGroups(groups[randomGroupIdx])
+      storyGroupPromises.push(storyGroupPromise)
+      groups.slice(randomGroupIdx, 1)
+    }
+  }
+  return storyGroupPromises
+}
+
 //Seeding begins here!
 
 async function seed() {
@@ -188,6 +205,9 @@ async function seed() {
 
   const storyOwners = await Promise.all(setStoryOwners(stories, users))
   console.log(`associated ${storyOwners.length} stories to owners`);
+
+  const storyGroups = await setStoryGroups(storyOwners, maxStoryGroups)
+  console.log(`There are now ${storyGroups.length} stories to group associations`);
 
   console.log(`seeded successfully`);
 }
