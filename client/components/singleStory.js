@@ -20,6 +20,7 @@ class SingleStory extends React.Component {
     )
   }
 }
+
 const mapDispatch = null
 const mapState = null
 export default connect(mapDispatch, matchState)(SingleStory)

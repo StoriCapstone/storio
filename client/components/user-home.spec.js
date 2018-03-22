@@ -1,12 +1,16 @@
 /* global describe beforeEach it */
 
-import {expect} from 'chai'
+import {expect, } from 'chai'
 import React from 'react'
-import enzyme, {shallow} from 'enzyme'
+import enzyme, {shallow, } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+<<<<<<< HEAD
+=======
+import {UserHome, } from './user-home'
+>>>>>>> master
 
 const adapter = new Adapter()
-enzyme.configure({adapter})
+enzyme.configure({adapter, })
 
 describe('UserHome', () => {
   let userHome

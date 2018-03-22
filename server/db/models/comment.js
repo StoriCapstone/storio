@@ -6,9 +6,9 @@ const Comment = db.define('comment', {  //belongs to a user and to a story by as
     type: Sequelize.TEXT,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
-  }
+      notEmpty: true,
+    },
+  },
 })
 
 module.exports = Comment

@@ -9,13 +9,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 
     <div id="titleLogoFlex">
     <Link to="/home">
-
       <h1 id="siteTitle">storio</h1>
       </Link>
       <Link to="/home">
-
       <img id="titleLogoImg" src="/storiLogo.png" />
-      </Link>
+       </Link>       
     </div>
 
     <nav>

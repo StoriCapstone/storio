@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, } from 'react-redux'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer.js'
 import VideoPlayer from './videoPlayer.js'
@@ -28,7 +28,7 @@ class MediaPlayer extends React.Component {
               type: 'img',
               start: 3,
               end: 5,
-              options: { caption: 'hi' }
+              options: { caption: 'hi', },
             },
 
             {
@@ -37,18 +37,18 @@ class MediaPlayer extends React.Component {
               type: 'img',
               start: 7,
               end: 9,
-              options: { caption: 'hi' }
+              options: { caption: 'hi', },
             },
             {
               src: 'https://www.youtube.com/watch?v=-5Ilq3kFxek',
               type: 'video',
               start: 12,
               end: 14,
-              options: { caption: 'hi' }
+              options: { caption: 'hi', },
             },
-          ]
+          ],
       },
-      currentMedia: {}
+      currentMedia: {},
     }
     this.handleWaveformHover = this.handleWaveformHover.bind(this)
     this.attachMouseMarker = this.attachMouseMarker.bind(this)
@@ -142,13 +142,13 @@ this.pointAdder= this.pointAdder.bind(this)
       let progress = this.wavesurfer.getCurrentTime()
       if (this.state.allMedia.media[nextUp]) {
         if (progress >= this.state.allMedia.media[nextUp].start) {
-          this.setState({ currentMedia: this.state.allMedia.media[nextUp++], isShowing: true })
+          this.setState({ currentMedia: this.state.allMedia.media[nextUp++], isShowing: true, })
           if (this.state.currentMedia.type === 'video') this.wavesurfer.pause()
         }
       }
       let finishTime = this.state.currentMedia.end || null
       if (finishTime && progress >= finishTime) {
-        this.setState({ isShowing: false })
+        this.setState({ isShowing: false, })
       }
     }, 1000)
   }
@@ -174,8 +174,8 @@ this.pointAdder= this.pointAdder.bind(this)
           <AudioControls audio={this.wavesurfer} />
         </div>
         <div id="mediaContainer" >
-          <div id="mediaList" style={this.state.isShowing ? { zIndex: 2, opacity: '0' } : { zIndex: 2, opacity: '1' }} />
-          <div id="mediaWindow" style={this.state.isShowing ? { opacity: '1' } : { opacity: '0' }}>
+          <div id="mediaList" style={this.state.isShowing ? { zIndex: 2, opacity: '0', } : { zIndex: 2, opacity: '1', }} />
+          <div id="mediaWindow" style={this.state.isShowing ? { opacity: '1', } : { opacity: '0', }}>
             <div>
               {this.state.currentMedia.type && this.state.currentMedia.type === 'img' ?
                 <img id="mediaImg" src={this.state.currentMedia.src} />
@@ -192,7 +192,7 @@ this.pointAdder= this.pointAdder.bind(this)
 }
 
 MediaPlayer.defaultProps = {
-  storySrc: 'sample.mp3'
+  storySrc: 'sample.mp3',
 }
 
 /**

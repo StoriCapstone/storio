@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer.js'
-import store, { setCurrentWaveform, currentTime, toggleAddMediaForm } from '../store'
+import store, { setCurrentWaveform, currentTime, toggleAddMediaForm, } from '../store'
 
 
 var testData = {
@@ -10,8 +10,8 @@ var testData = {
     type: 'img',
     start: 0,
     end: 15,
-    options: { caption: 'hi' }
-  }]
+    options: { caption: 'hi', },
+  }, ],
 }
 export default class Waveform extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class Waveform extends React.Component {
     this.wavesurfer = WaveSurfer.create({
       container: this.$waveform,
       waveColor: 'violet',
-      progressColor: 'purple'
+      progressColor: 'purple',
     })
     //  var wavesurfer = this.wavesurfer
     //  var wavesurfer = {... wavesurfer, wavesurfer.prototype }
@@ -69,7 +69,7 @@ componentWillUnmount() {
 }
 render() {
   return (
-    <div className="waveform" onMouseMove = {(event)=>(console.log(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration()).toFixed(2)))}>
+    <div className="waveform" onMouseMove = {(event) => (console.log(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration()).toFixed(2)))}>
       <div className="wave" onClick={this.handleWaveformClick} />
       <button onClick={this.handleAddMediaClick}>add media</button>
       <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
@@ -78,5 +78,5 @@ render() {
 }
 }
 Waveform.defaultProps = {
-  src: 'sample.mp3'
+  src: 'sample.mp3',
 }
