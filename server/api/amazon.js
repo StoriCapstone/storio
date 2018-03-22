@@ -9,7 +9,7 @@ var s3Config = {
   accessKey: process.env.S3_ACCESS_KEY,
   secretKey: process.env.S3_SECRET_KEY,
   bucket: process.env.S3_BUCKET,
-  region: process.env.S3_REGION
+  region: process.env.S3_REGION,
 };
 
 router.get('/s3_credentials', function(request, response) {
@@ -17,7 +17,7 @@ router.get('/s3_credentials', function(request, response) {
     var filename =
       crypto.randomBytes(16).toString('hex') +
       path.extname(request.query.filename);
-    response.json(s3.s3Credentials(s3Config, {filename: filename, contentType: request.query.content_type}));
+    response.json(s3.s3Credentials(s3Config, {filename: filename, contentType: request.query.content_type, }));
   } else {
     response.status(400).send('filename is required');
   }

@@ -1,4 +1,3 @@
-var crypto = require('crypto');
 
 // This is the entry function that produces data for the frontend
 // config is hash of S3 configuration:
