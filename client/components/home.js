@@ -5,20 +5,16 @@ import AWSTest from './AWStest'
 /**
  * COMPONENT
  */
-export const Browse = (props) => {
+export const Home = (props) => {
   const { email } = props
-//newsactivity is a scrolling newsfeed of recent activity
   return (
     <div>
-      <h3>Welcome, {email}</h3>
       <div id='newActivity'>Here's where we show a 'feed'</div>
       <div id='userStories'>Stories made by the user</div>
       <div id='userGroups'>Groups to which user belongs</div>
-
     </div>
   )
 }
-
 /**
  * CONTAINER
  */
@@ -29,6 +25,8 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState,madDispatch)(Browse)
+export default connect(mapState,madDispatch)(Home)
 
 
+//-------IDEAS--------
+ //newsactivity is a scrolling newsfeed of recent activity

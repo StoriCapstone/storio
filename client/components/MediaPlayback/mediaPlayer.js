@@ -97,8 +97,8 @@ this.pointAdder= this.pointAdder.bind(this)
 
         point.className = 'point'
         console.log('x: ',event.clientX, 'y: ',event.clientY, 'point', point)
-        point.style.left = (event.clientX-130)+'px'
-        point.style.top = (event.clientY-200)+'px'
+        point.style.left = (event.clientX)+'px'
+        point.style.top = (event.clientY)+'px'
         point.style.backgroundColor = 'Blue'
 
         let wave = document.getElementsByClassName('wave')[0]

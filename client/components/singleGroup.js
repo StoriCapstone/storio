@@ -4,12 +4,7 @@ import { connect } from 'react-redux'
 class SingleGroup extends React.Component {
   constructor(props) {
     super(props);
-
-      }
-
-
-//allmemboers tall and to the left, horizontal stack recent and all stories
-
+  }
   render() {
     return (
       <div id="pageContainer">
@@ -21,7 +16,6 @@ class SingleGroup extends React.Component {
         <AllStories />
         <AllMembers />
       </div>
-
     )
   }
 }
@@ -29,3 +23,6 @@ class SingleGroup extends React.Component {
 const mapDispatch = null
 const mapState = null
 export default connect(mapDispatch, matchState)(SingleGroup)
+
+//-----IDEAS-----
+  //allmemboers tall and to the left, horizontal stack recent and all stories

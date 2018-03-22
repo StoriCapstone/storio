@@ -5,17 +5,11 @@ import AWSTest from './AWStest'
 /**
  * COMPONENT
  */
- const AllItem = (props) => {
-//newsactivity is a scrolling newsfeed of recent activity
+const AllItem = (props) => {
   return (
-    <div>
-
-      <div id='userGroups'>Groups to which user belongs</div>
-
-    </div>
+    <div></div>
   )
 }
-
 /**
  * CONTAINER
  */
@@ -26,6 +20,10 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState,madDispatch)(AllItem)
+export default connect(mapState, madDispatch)(AllItem)
 
 
+//----IDEAS-----
+ //This is a generic component to display any number of 'cards'
+ //'Cards' can display a single story, user, group etc.
+ //Will be used to create the 'allMembers, allStories, allGroups view etc.
