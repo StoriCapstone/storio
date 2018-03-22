@@ -114,6 +114,7 @@ class Recorder extends React.Component {
 
           // callback for events
           recorder.onComplete = function(rec, blob) { // eslint-disable-line no-unused-vars
+
             //FileSaver.saveAs(blob, 'hello world.mp3');
             // save it somewhere if need filesaver, npm install it
 
