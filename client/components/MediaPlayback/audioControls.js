@@ -1,5 +1,5 @@
 import React from 'react';
-import store, {currentTime} from '../../store'
+import store, {currentTime, } from '../../store'
 
 class AudioControls extends React.Component {
   constructor(props) {

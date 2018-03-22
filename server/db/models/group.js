@@ -7,9 +7,9 @@ name: {
     unique: true,
     allowNull: false,
     validate: {
-        notEmpty: true
-    }
-}
+        notEmpty: true,
+    },
+},
 });
 
 module.exports = Group;

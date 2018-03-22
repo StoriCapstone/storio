@@ -267,6 +267,7 @@ bottom:-2.2vw;
   visibility: visible;
   opacity: 1;
 }
+<<<<<<< HEAD:client/style.css
 @media (max-width: 620px) {
 
   #storyTitle {
@@ -281,3 +282,9 @@ bottom:-2.2vw;
   }
 
 }
+=======
+
+
+/* testing */
+
+>>>>>>> 3d0722d559e3313f9edc7d816bcfd97732e71aa5:public/style.css

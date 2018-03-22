@@ -6,33 +6,33 @@ const Media = db.define('media', {  //media belongs to a story, will have story 
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   start: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   duration: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   mediaType: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   caption: {
-    type: Sequelize.TEXT
-  }
+    type: Sequelize.TEXT,
+  },
 })
 
 module.exports = Media

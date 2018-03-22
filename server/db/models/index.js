@@ -10,6 +10,20 @@ const Comment = require('./comment')
  *
  *    BlogPost.belongsTo(User)
  */
+Story.belongsTo(User);
+User.hasMany(Story);
+
+Story.hasMany(Comment);
+Comment.belongsTo(Story);
+
+User.belongsToMany(Group, {through: 'UserGroup', });
+Group.belongsToMany(User, {through: 'UserGroup', });
+
+Story.hasMany(Media);
+Media.belongsTo(Story);
+
+Story.belongsToMany(Group, {through: 'StoryGroup', } );
+Group.hasMany(Story);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -22,6 +36,6 @@ module.exports = {
   User,
   Media,
   Comment,
-  Story
+  Story,
 
 }

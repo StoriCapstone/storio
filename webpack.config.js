@@ -4,12 +4,12 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   entry: [
     '@babel/polyfill', // enables async-await
-    './client/index.js'
+    './client/index.js',
   ],
   output: {
     path: __dirname,
     filename: './public/bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   devtool: 'source-map',
   module: {
@@ -17,6 +17,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
+<<<<<<< HEAD
         loader: 'babel-loader'
       },
 
@@ -31,4 +32,10 @@ module.exports = {
 
 
   }
+=======
+        loader: 'babel-loader',
+      },
+    ],
+  },
+>>>>>>> 3d0722d559e3313f9edc7d816bcfd97732e71aa5
 }
