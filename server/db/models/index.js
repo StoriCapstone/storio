@@ -23,7 +23,7 @@ Story.hasMany(Media);
 Media.belongsTo(Story);
 
 Story.belongsToMany(Group, {through: 'StoryGroup', } );
-Group.hasMany(Story);
+Group.belongsToMany(Story, {through: 'StoryGroup', } );
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
