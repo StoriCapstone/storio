@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect, } from 'react-redux'
+import { Link } from 'react-router-dom'
 import AmazonUpload from './amazonUpload';
 /**
  * COMPONENT
@@ -19,25 +20,31 @@ export const UserHome = (props) => {
       }
       <div id="mainOptions">
         <div className="singleOption">
-          <img className="optionImg" src="/microphone.png" />
-          <div className="optionLabel">Record</div>
+          <Link to='/recorder'>
+            <img className="optionImg" src="/microphone.png" />
+            <div className="optionLabel">Record</div>
+          </Link>
         </div>
         <div className="singleOption">
-          <img className="optionImg" src="/search.png" />
-          <div className="optionLabel">Explore</div>
+          <Link to='/Browse'>
+            <img className="optionImg" src="/search.png" />
+            <div className="optionLabel">Explore</div>
+          </Link>
         </div>
         <div className="singleOption">
-          <img className="optionImg" src="/home.png" />
-          <div className="optionLabel">Home</div>
+          <Link to='/home'>
+            <img className="optionImg" src="/home.png" />
+            <div className="optionLabel">Home</div>
+          </Link>
         </div>
       </div>
-      <div id = "testTools">
+      <div id="testTools">
         <button onClick={() => props.history.push('/mediaPlayer')}>GO TO PLAYER</button>
         <button onClick={() => props.history.push('/addMediaForm')}>GO TO EDIT STORY PAGE</button>
         <button onClick={() => props.history.push('/recorder')}>GO TO RECORDER</button>
         <AmazonUpload />
       </div>
-    </div>
+    </div >
   )
 }
 

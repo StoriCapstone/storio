@@ -33,6 +33,7 @@ export default class Waveform extends React.Component {
     })
     //  var wavesurfer = this.wavesurfer
     //  var wavesurfer = {... wavesurfer, wavesurfer.prototype }
+    console.log('this')
     this.wavesurfer.load(this.props.src)
     store.dispatch(setCurrentWaveform(this.wavesurfer))
     var me = this.wavesurfer

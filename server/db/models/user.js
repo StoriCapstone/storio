@@ -41,8 +41,14 @@ const User = db.define('user', {
   displayName: {
     type: Sequelize.STRING,
     allowNull: false,
-  },
-})
+  }},
+  {
+    scopes: {
+      populated: () => ({
+        include: [{ all: true }]
+      })
+    }
+  });
 
 module.exports = User
 
