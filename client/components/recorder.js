@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect, } from 'react-redux';
 import AmazonUpload from './amazonUpload'
-import { selectMP3toEdit } from '../store/addMediaForm'
+import { selectMP3toEdit, } from '../store/addMediaForm'
 //import FileSaver from 'file-saver';
 require('../../public/web-audio-recorder-js/WebAudioRecorder');
 
@@ -154,7 +154,7 @@ class Recorder extends React.Component {
       clearInterval(this.state.intervalID)
       this.setState({ intervalID: null, })
     }
-    this.setState({ doneRecording: true })
+    this.setState({ doneRecording: true, })
     this.getRecordingTime()
     this.state.recorder.finishRecording();
     this.state.audioSrc.disconnect();
@@ -191,7 +191,7 @@ class Recorder extends React.Component {
 
 const mapStateToProps = null;
 const mapDispatchtoProps = (dispatch) => ({
-  handleGoToEditor: (blob) => dispatch(selectMP3toEdit(blob))
+  handleGoToEditor: (blob) => dispatch(selectMP3toEdit(blob)),
 })
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Recorder);

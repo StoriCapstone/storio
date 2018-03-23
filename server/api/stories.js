@@ -1,6 +1,6 @@
 
 const router = require('express').Router()
-const { Story } = require('../db/models')
+const { Story, } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {   //get all Storys
@@ -24,9 +24,9 @@ router.post('/', (req, res, next) => {   //create a Story
 router.put('/:id', (req, res, next) => {   //update a Story
   Story.update(req.body, {
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
-    returning: true
+    returning: true,
   })
     .then(_ => Story.scope('populated').findById(req.params.id)) ///and return the updated Story
     .then(reloadedStory => res.json(reloadedStory))
@@ -36,7 +36,7 @@ router.put('/:id', (req, res, next) => {   //update a Story
 router.delete('/:id', (req, res, next) => {   //delete a Story
   Story.destroy({
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
   })
     .then(deleted => {

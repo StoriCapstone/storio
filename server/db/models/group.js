@@ -9,14 +9,14 @@ const Group = db.define('group', {
         validate: {
             notEmpty: true,
         },
-    }
+    },
 },
     {
         scopes: {
             populated: () => ({
-                include: [{ all: true }]
-            })
-        }
+                include: [{ all: true, }, ],
+            }),
+        },
     });
 
 module.exports = Group;

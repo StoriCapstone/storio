@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect, } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, } from 'react-router-dom'
 import AmazonUpload from './amazonUpload';
 /**
  * COMPONENT
@@ -20,19 +20,19 @@ export const UserHome = (props) => {
       }
       <div id="mainOptions">
         <div className="singleOption">
-          <Link to='/recorder'>
+          <Link to="/recorder">
             <img className="optionImg" src="/microphone.png" />
             <div className="optionLabel">Record</div>
           </Link>
         </div>
         <div className="singleOption">
-          <Link to='/Browse'>
+          <Link to="/Browse">
             <img className="optionImg" src="/search.png" />
             <div className="optionLabel">Explore</div>
           </Link>
         </div>
         <div className="singleOption">
-          <Link to='/home'>
+          <Link to="/home">
             <img className="optionImg" src="/home.png" />
             <div className="optionLabel">Home</div>
           </Link>

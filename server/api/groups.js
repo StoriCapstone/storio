@@ -1,6 +1,6 @@
 
 const router = require('express').Router()
-const { Group } = require('../db/models')
+const { Group, } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {   //get all groups
@@ -24,9 +24,9 @@ router.post('/', (req, res, next) => {   //create a group
 router.put('/:id', (req, res, next) => {   //update a group
   Group.update(req.body, {
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
-    returning: true
+    returning: true,
   })
     .then(_ => Group.scope('populated').findById(req.params.id)) ///and return the updated group
     .then(reloadedGroup => res.json(reloadedGroup))
@@ -36,7 +36,7 @@ router.put('/:id', (req, res, next) => {   //update a group
 router.delete('/:id', (req, res, next) => {   //delete a group
   Group.destroy({
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
   })
     .then(deleted => {

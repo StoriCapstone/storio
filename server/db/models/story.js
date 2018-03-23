@@ -41,13 +41,13 @@ const Story = db.define('story', {
   },
   releaseDate: {
     type: Sequelize.DATE, //there may be a more appropriate data type
-  }},
+  }, },
   {
     scopes: {
       populated: () => ({
-        include: [{ all: true }]
-      })
-    }
+        include: [{ all: true, }, ],
+      }),
+    },
   });
 
 Story.prototype.getUsersWhoCanView = async function() {
