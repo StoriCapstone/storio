@@ -9,3 +9,7 @@ export {Login, Signup, } from './auth-form'
 export {default as MediaPlayer, } from './MediaPlayback/mediaPlayer'
 export {default as RecordingEditor, } from './RecordingEditor'
 export {default as Recorder, } from './recorder'
+export {default as Browse, } from './browse'
+export {default as Home } from './home'
+
+

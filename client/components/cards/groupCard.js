@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect, } from 'react-redux'
 
-const GroupCard = () => {
+const GroupCard = (props) => {
 
   return (
-    <div id="groupCardContainer">
-      <div id="groupName">{props.group.name}</div>
-      <img id="groupCardImg" src="/groupImg" />
+    <div className="groupCard cardContainer">
+      <div className="groupName">{props.group.name}</div>
+      <img className="groupCardImg" src="/groupImg" />
       {/*button here to view/request membership depending on user status*/}
     </div>
   )

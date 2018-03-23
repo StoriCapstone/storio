@@ -5,11 +5,16 @@ import {composeWithDevTools, } from 'redux-devtools-extension'
 import user from './user'
 import {default as addMediaForm, } from './addMediaForm';
 import {default as waveform, } from './waveform';
+import {default as groups, } from './groups';
+import {default as stories, } from './stories';
+
 
 const reducer = combineReducers({
   user,
   addMediaForm,
   waveform,
+  groups,
+  stories
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -21,3 +26,6 @@ export default store
 export * from './user'
 export * from './addMediaForm'
 export * from './waveform'
+export * from './groups'
+export * from './stories'
+

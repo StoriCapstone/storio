@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect, } from 'react-redux'
 
-const StoryCard = () => {
+const StoryCard = (props) => {
 
   return (
-    <div id="storyCardContainer">
-      <div id="storyName">{props.story.name}</div>
-      <img id="storyCardImg" src="/groupImg" />
+    <div className="storyCard cardContainer">
+      <div className="storyName">{props.story.name}</div>
+      <img className="storyCardImg" src="/groupImg" />
       {/*button here to view/request Storyship depending on user status*/}
     </div>
   )

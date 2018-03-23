@@ -17,7 +17,9 @@ body {
 
 a {
   text-decoration: none;
+  color:black
 }
+
 
 label {
   display: block;
@@ -52,6 +54,26 @@ form div {
   margin-left: .9vw;
   font-size: 30pt;
   margin-right: .5vw;
+}
+#mainPage{
+  width:85vw;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.allItemsContainer{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cardContainer{
+  display:flex;
+  flex-direction: column;
+  width:12vw;
+  height:10vw;
+  border:1px solid black;
+  margin:2vw;
+  padding:.5vw;
 }
 /* .waveform{
 

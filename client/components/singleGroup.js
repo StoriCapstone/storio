@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect, } from 'react-redux'
+import AllItem from './allItem'
 
 const SingleGroup = () => {
 
   return (
     <div id="pageContainer">
       <div id="headerFlex">
-        <div id="groupName" />
-        <img id="singleGroupImg" src="groupImg" />
+        <div id="groupName">{props.group.name}</div>
+        <img id="singleGroupImg" src="/groupImg.jpg" />
       </div>
+      <AllItem items = {props.group.stories} type = 'story' />
+      <AllItem items = {props.group.users} type = 'member'/>
       {/*}
       <MostRecent />
       <AllStories />

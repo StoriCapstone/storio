@@ -26,13 +26,13 @@ export const UserHome = (props) => {
           </Link>
         </div>
         <div className="singleOption">
-          <Link to="/Browse">
+          <Link to="/browse">
             <img className="optionImg" src="/search.png" />
             <div className="optionLabel">Explore</div>
           </Link>
         </div>
         <div className="singleOption">
-          <Link to="/home">
+          <Link to="/customHome">
             <img className="optionImg" src="/home.png" />
             <div className="optionLabel">Home</div>
           </Link>
