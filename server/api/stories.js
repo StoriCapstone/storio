@@ -1,6 +1,6 @@
 
 const router = require('express').Router()
-import { Story } from '../db/models'
+const { Story } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {   //get all Storys

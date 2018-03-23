@@ -1,6 +1,6 @@
 
 const router = require('express').Router()
-import { Group } from '../db/models'
+const { Group } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {   //get all groups
