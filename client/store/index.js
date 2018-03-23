@@ -5,14 +5,14 @@ import {composeWithDevTools, } from 'redux-devtools-extension'
 import user from './user'
 import {default as addMediaForm, } from './addMediaForm';
 import {default as waveform, } from './waveform';
-import {default as comments, } from './comments';
+import {default as commentForm, } from './comments';
 import {default as story, } from './story'
 
 const reducer = combineReducers({
   user,
   addMediaForm,
   waveform,
-  comments,
+  commentForm,
   story,
 })
 const middleware = composeWithDevTools(applyMiddleware(

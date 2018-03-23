@@ -14,7 +14,7 @@ const CommentForm = props => {
     )
 }
 const mapState = (state) => ({
-    newCommentContent: state.comments.content,
+    newCommentContent: state.commentForm.content,
     user: state.user,
     story: state.story,
 })

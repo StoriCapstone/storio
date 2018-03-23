@@ -30,7 +30,7 @@ class Routes extends Component {
         <Route path = "/addMediaForm" component = {RecordingEditor} />
         {/* temp for testing */}
         <Route path = "/recorder" component = {Recorder} />
-        <Route path = "/singleStory" component = {SingleStory} />
+        <Route path = "/singleStory/:id" component = {SingleStory} />
 
         {
           isLoggedIn &&
