@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db');
-const { User, Group, Story, } = require('../server/db/models');
+const { User, Group, Story, Comment, } = require('../server/db/models');
 const chance = require('chance')(50015); // seeded with a number for 'repeated' randomizations
 const moment = require('moment');
 
@@ -25,6 +25,8 @@ const maxGroupMembers = 15; // if larger than usersToCreate, it will default to 
 const maxStoryTitle = 3;
 const storiesToCreate = 20;
 const maxStoryGroups = 3; // this represents the maximum number of groups that will be assigned. Not guaranteed
+
+const maxStoryComments = 30 // we will randomly generate up to these many comments, max 1 per user thus it is possible for no comments
 // Generator Functions
 const createUsers = numToCreate => {
   const userPromises = [
@@ -183,6 +185,26 @@ const setStoryGroups = async (stories, maxGroups) => {
   return storyGroupPromises
 }
 
+const genStoryComments = async (stories, maxComments) => {
+  const commentPromises = []
+  for (let story of stories){
+    const users = await story.getUsersWhoCanView()
+    const commentsToCreate = chance.integer({min: 0, max: maxComments, })
+    let i = 0
+    while (i++ < commentsToCreate && users.length){
+      const randomUserIdx = chance.integer({min: 0, max: users.length - 1, })
+      const content = chance.paragraph({sentences: 2, })
+      const newComment = await Comment.create({ content, })
+      await newComment.setUser(users[randomUserIdx])
+      const storyPromise = await story.addComment(newComment)
+      users.splice(randomUserIdx, 1)
+      commentPromises.push(storyPromise)
+    }
+  }
+
+  return commentPromises
+}
+
 //Seeding begins here!
 
 async function seed() {
@@ -209,6 +231,8 @@ async function seed() {
   const storyGroups = await setStoryGroups(storyOwners, maxStoryGroups)
   console.log(`There are now ${storyGroups.length} stories to group associations`);
 
+  const storyComments = await genStoryComments(stories, maxStoryComments)
+  console.log(`There are now ${storyComments.length} comments on stories`);
   console.log(`seeded successfully`);
 }
 
