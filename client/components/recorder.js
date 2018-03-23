@@ -1,6 +1,8 @@
 'use strict';
 import React from 'react';
 import { connect, } from 'react-redux';
+import AmazonUpload from './amazonUpload'
+import { selectMP3toEdit, } from '../store/addMediaForm'
 //import FileSaver from 'file-saver';
 require('../../public/web-audio-recorder-js/WebAudioRecorder');
 
@@ -11,6 +13,7 @@ class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      doneRecording: false,
       recorder: undefined,
       animationId: null, //candidate fro removal
       audioSrc: null,
@@ -21,6 +24,7 @@ class Recorder extends React.Component {
     this.handleStartRecording = this.handleStartRecording.bind(this);
     this.handleStopRecording = this.handleStopRecording.bind(this);
     this.getRecordingTime = this.getRecordingTime.bind(this);
+    //this.assignBlobForUpload = this.assignBlobForUpload.bind(this)
   }
   clearCanvas() {
     const canvas = this.recorderVisualizer;
@@ -111,21 +115,17 @@ class Recorder extends React.Component {
           this.setState({ recorder, });
 
           this.setUpVisualizer(analyser);
-
+          const self = this
           // callback for events
-          recorder.onComplete = function(rec, blob) { // eslint-disable-line no-unused-vars
-
-            //FileSaver.saveAs(blob, 'hello world.mp3');
-            // save it somewhere if need filesaver, npm install it
-
-            // todo when S3 is ready
+          recorder.onComplete = function (rec, blob) { // eslint-disable-line no-unused-vars
+            self.props.handleGoToEditor(blob) //use this to place the blob on state
           };
         });
     } else {
       Recorder.recordingError('Unable to find Media Devices.')
     }
   }
-  static recordingError(msg){
+  static recordingError(msg) {
     alert('There was an error when attempting to record: \n' + msg)
   }
   getRecordingTime() {
@@ -136,7 +136,7 @@ class Recorder extends React.Component {
     const milisecs = (time - Math.floor(time)).toFixed(5) * 1000;
     const recordingTime = `${minutes}:${
       seconds < 10 ? '0' + seconds : seconds
-    }.${milisecs < 100 ? '0' : ''}${milisecs < 10 ? '0' : ''}${milisecs}`;
+      }.${milisecs < 100 ? '0' : ''}${milisecs < 10 ? '0' : ''}${milisecs}`;
     this.setState({ recordingTime, });
   }
   async handleStartRecording() {
@@ -150,10 +150,11 @@ class Recorder extends React.Component {
     }
   }
   handleStopRecording() {
-    if (this.state.intervalID !== null){
+    if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID)
       this.setState({ intervalID: null, })
     }
+    this.setState({ doneRecording: true, })
     this.getRecordingTime()
     this.state.recorder.finishRecording();
     this.state.audioSrc.disconnect();
@@ -164,20 +165,24 @@ class Recorder extends React.Component {
       <div>
         <div>
           <h2>{this.state.recordingTime}</h2>
-        <div>
-          <canvas
-            className="visualizer"
-            width="640"
-            height="100"
-            ref={canvas => {
-              this.recorderVisualizer = canvas;
-            }}
-          />
-        </div>
+          <div>
+            <canvas
+              className="visualizer"
+              width="640"
+              height="100"
+              ref={canvas => {
+                this.recorderVisualizer = canvas;
+              }}
+            />
+          </div>
         </div>
         <div>
           <button onClick={this.handleStartRecording}>Start</button>
           <button onClick={this.handleStopRecording}>Stop</button>
+          {
+
+
+          }
         </div>
       </div>
     );
@@ -185,6 +190,8 @@ class Recorder extends React.Component {
 }
 
 const mapStateToProps = null;
-const mapDispatchtoProps = null;
+const mapDispatchtoProps = (dispatch) => ({
+  handleGoToEditor: (blob) => dispatch(selectMP3toEdit(blob)),
+})
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Recorder);
