@@ -1,13 +1,10 @@
 'use strict';
 import React from 'react';
 import { connect, } from 'react-redux';
-import Amplify, { Storage, } from 'aws-amplify';
-
-import awsExports from '../../aws-exports';
-import SparkMD5 from 'spark-md5';
+// import { Storage, } from 'aws-amplify';
+import { addBlobToS3, } from '../utils';
 import { selectMP3toEdit, } from '../store/';
 
-Amplify.configure(awsExports);
 // Storage.configure(awsExports)
 
 // import FileSaver from 'file-saver';
@@ -16,21 +13,6 @@ require('../../public/web-audio-recorder-js/WebAudioRecorder');
 /**
  * COMPONENT
  */
-const addBlobToS3 = (blob, extension) => {
-  return new Promise((resolve, reject) => {
-    const blobFile = new FileReader();
-    blobFile.readAsArrayBuffer(blob);
-    blobFile.onloadend = function() {
-      const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
-      const fileName = `${hash}.${extension}`;
-      Storage.put(fileName, blob)
-        .then(result => {
-          resolve(result.key);
-        })
-        .catch(err => reject(err));
-    };
-  });
-};
 
 class Recorder extends React.Component {
   constructor(props) {
