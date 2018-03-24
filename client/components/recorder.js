@@ -3,7 +3,7 @@ import React from 'react';
 import { connect, } from 'react-redux';
 import Amplify, { Storage, } from 'aws-amplify';
 
-import awsExports from '../../src/aws-exports';
+import awsExports from '../../aws-exports';
 import SparkMD5 from 'spark-md5';
 import { selectMP3toEdit, } from '../store/';
 
@@ -140,12 +140,12 @@ class Recorder extends React.Component {
                     console.log('resultPath: ', resultPath);
 
                   })
- */
+                  */
                 })
                 .catch(err => console.log('err:', err));
+              };
             };
-          };
-        });
+          });
     } else {
       Recorder.recordingError('Unable to find Media Devices.');
     }
