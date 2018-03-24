@@ -16,7 +16,7 @@ const AllItem = (props) => {
         props.type === 'group' ?
           props.items.map((group) => <GroupCard group={group} />)
           :
-          props.tyoe === 'member' ?
+          props.type === 'member' ?
 
             props.items.map((member) => <MemberCard member={member} />)
             :
