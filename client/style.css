@@ -37,6 +37,22 @@ nav a {
 form div {
   margin: 1em;
 }
+.rateStory{
+  display:flex;
+  width:85vw;
+  height:8vh;
+  background-color: red;
+}
+.voteBtnFlex{
+  display:flex;
+  flex-direction: column;
+  width:8vw;
+}
+.ratingBtn{
+  width:6vw;
+  height:4vh;
+}
+
 .hoverProgress{
   transition:all .7s;
   margin:1vw;
@@ -75,12 +91,19 @@ form div {
   margin:2vw;
   padding:.5vw;
 }
-/* .waveform{
+.imgWrapper{
+  overflow:hidden;
+  max-height: 7vw;
+  border-radius: .5vw;
 
 }
-.wave{
+.cardImg{
+  border-radius: .5vw;
 
-} */
+  width:7vw;
+height:auto ;
+  height :auto;
+}
 #navBarFlex{
   display:flex;
  /* // justify-content: space-between; */
@@ -104,7 +127,7 @@ margin-right:3vw;
 
 .optionImg{
   /* background: radial-gradient(rgb(247, 208, 137),rgba(16, 158, 253, 0.802)); */
-  box-shadow: 0 0 1.2vw .05vw rgba(28, 27, 27, 0.37);
+  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 2vw .05vw rgb(27, 26, 24);
 
   background: linear-gradient(90deg,rgb(87, 126, 233), rgb(182, 183, 248),rgb(87, 126, 233));
   border-radius: 2vw;
@@ -124,9 +147,10 @@ padding:2vw;
   margin-top:15vw;
 }
 .optionImg:hover{
+  box-shadow: 0 0 3vw .05vw rgba(17, 16, 16, 0.425), inset 0 0 2vw .05vw rgb(27, 26, 24);
 
   transform: scale(1.01);
-  box-shadow: 0 0 3vw .05vw rgba(17, 16, 16, 0.425);
+
   background: linear-gradient(90deg,rgb(87, 126, 233), rgb(217, 217, 238),rgb(87, 126, 233));
 }
 

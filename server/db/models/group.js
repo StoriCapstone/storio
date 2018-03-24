@@ -10,6 +10,10 @@ const Group = db.define('group', {
             notEmpty: true,
         },
     },
+    thumbnailUrl: {
+        type: Sequelize.STRING,
+        defaultValue:'/groups.png'
+      },
 },
     {
         scopes: {

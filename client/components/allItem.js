@@ -3,6 +3,7 @@ import { connect, } from 'react-redux'
 import StoryCard from './cards/storyCard'
 import MemberCard from './cards/memberCard'
 import GroupCard from './cards/groupCard'
+import RatingStory from './rateStory'
 
 /**
  * COMPONENT
@@ -16,7 +17,11 @@ const AllItem = (props) => {
         props.type === 'group' ?
           props.items.map((group) => <GroupCard group={group} />)
           :
+          props.tyoe === 'member' ?
+
           props.items.map((member) => <MemberCard member={member} />)
+          :
+          props.items.map((rateStory) => <RateStory story={rateStory} />)
       }
     </div>
   )

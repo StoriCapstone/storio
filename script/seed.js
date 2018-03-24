@@ -45,6 +45,9 @@ const createUsers = numToCreate => {
       password: '123',
     }),
   ];
+
+  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg', , '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png'] //higher chance of default image
+
   const numToGen = numToCreate - userPromises.length;
   const emails = chance.unique(chance.email, numToGen);
   const userNames = chance.unique(chance.twitter, numToGen);
@@ -54,6 +57,7 @@ const createUsers = numToCreate => {
       password: chance.string(),
       firstName: chance.first(),
       lastName: chance.last(),
+      avatarUrl: avatars[chance.integer({ min: 0, max: avatars.length - 1, })],
       displayName: userNames.pop().slice(1), // twitter handles start with @
     });
     userPromises.push(userPromise);
@@ -95,7 +99,7 @@ const addMembersToGroups = (groups, users, min, max) => {
         usersToAssociate.add(users[randomUser]);
       }
     }
-    const groupPromise = group.addUsers([...usersToAssociate, ], {
+    const groupPromise = group.addUsers([...usersToAssociate,], {
       through: 'UserGroup',
     });
     groupPromises.push(groupPromise);
@@ -139,21 +143,32 @@ const createStories = numToCreate => {
       mediaLength: 2160,
     },
   ];
+
+  const thumbnails = ['/Test_assets/storyPhotos/artPalette.jpg', '/Test_assets/storyPhotos/bird.jpeg', '/Test_assets/storyPhotos/download.jpeg', '/Test_assets/storyPhotos/download(1).jpeg', '/Test_assets/storyPhotos/flag.jpeg', '/Test_assets/storyPhotos/road.jpg', '/microphone.png', '/microphone.png', '/microphone.png', '/microphone.png'] //higher chance of default image
+  const MAX_RANDOM_UPVOTES = 300
+  const MAX_RANDOM_DOWNVOTES = 40
+
   for (let i = 0; i < numToCreate; i++) {
     const name = genName(maxStoryTitle);
     const genre = genres[chance.integer({ min: 0, max: genres.length - 1, })];
-    const releaseDate = chance.bool({likelihood: 20, }) ?
-      moment(chance.date({year: chance.integer({min: 2019, max: 2100, }), })).format('YYYY-MM-DD hh:mm:ss') :
+    const thumbnailUrl = thumbnails[chance.integer({ min: 0, max: thumbnails.length - 1, })];
+    const releaseDate = chance.bool({ likelihood: 20, }) ?
+      moment(chance.date({ year: chance.integer({ min: 2019, max: 2100, }), })).format('YYYY-MM-DD hh:mm:ss') :
       null
     const { url, mediaLength, } = stories[
       chance.integer({ min: 0, max: stories.length - 1, })
     ];
+    const upvotes = chance.integer({ min: 0, max: MAX_RANDOM_UPVOTES, });
+    const downvotes = chance.integer({ min: 0, max: MAX_RANDOM_DOWNVOTES, });
     const storyPromise = Story.create({
       name,
       genre,
+      thumbnailUrl,
       releaseDate,
       url,
       mediaLength,
+      upvotes,
+      downvotes
     });
     storyPromises.push(storyPromise);
   }
@@ -162,8 +177,8 @@ const createStories = numToCreate => {
 
 const setStoryOwners = (stories, users) => {
   const storyPromises = []
-  for ( let story of stories){
-    const storyPromise = story.setUser(users[chance.integer({min: 0, max: users.length - 1, })])
+  for (let story of stories) {
+    const storyPromise = story.setUser(users[chance.integer({ min: 0, max: users.length - 1, })])
     storyPromises.push(storyPromise)
   }
   return storyPromises
@@ -171,12 +186,12 @@ const setStoryOwners = (stories, users) => {
 
 const setStoryGroups = async (stories, maxGroups) => {
   const storyGroupPromises = []
-  for (let story of stories){
+  for (let story of stories) {
     const user = await story.getUser()
     const groups = await user.getGroups()
     let i = 0
-    while (i++ < maxGroups && groups.length){
-      const randomGroupIdx = chance.integer({min: 0, max: groups.length - 1, })
+    while (i++ < maxGroups && groups.length) {
+      const randomGroupIdx = chance.integer({ min: 0, max: groups.length - 1, })
       const storyGroupPromise = await story.addGroups(groups[randomGroupIdx])
       storyGroupPromises.push(storyGroupPromise)
       groups.slice(randomGroupIdx, 1)
@@ -187,13 +202,13 @@ const setStoryGroups = async (stories, maxGroups) => {
 
 const genStoryComments = async (stories, maxComments) => {
   const commentPromises = []
-  for (let story of stories){
+  for (let story of stories) {
     const users = await story.getUsersWhoCanView()
-    const commentsToCreate = chance.integer({min: 0, max: maxComments, })
+    const commentsToCreate = chance.integer({ min: 0, max: maxComments, })
     let i = 0
-    while (i++ < commentsToCreate && users.length){
-      const randomUserIdx = chance.integer({min: 0, max: users.length - 1, })
-      const content = chance.paragraph({sentences: 2, })
+    while (i++ < commentsToCreate && users.length) {
+      const randomUserIdx = chance.integer({ min: 0, max: users.length - 1, })
+      const content = chance.paragraph({ sentences: 2, })
       const newComment = await Comment.create({ content, })
       await newComment.setUser(users[randomUserIdx])
       const storyPromise = await story.addComment(newComment)

@@ -6,7 +6,9 @@ const StoryCard = (props) => {
   return (
     <div className="storyCard cardContainer">
       <div className="storyName">{props.story.name}</div>
-      <img className="storyCardImg" src="/groupImg" />
+      <div className="imgWrapper">
+        <img className="storyCardImg cardImg" src={props.story.thumbnailUrl} />
+      </div>
       {/*button here to view/request Storyship depending on user status*/}
     </div>
   )

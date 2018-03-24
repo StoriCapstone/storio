@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, } from 'react-redux'
-import AllItem from './AllItem'
+import AllItem from './allItem'
 /**
  * COMPONENT
  */

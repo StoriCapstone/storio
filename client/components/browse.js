@@ -7,10 +7,13 @@ import AllItem from './allItem'
 export const Browse = (props) => {
   return (
     <div id = "pageContainer">
-    <h1>Stories</h1>
+    <h1>Featured Stories</h1>
     <AllItem items = {props.featuredStories} type = 'story' />
-    <h1>Groups</h1>
-
+    <h1>User Favorites</h1>
+    {
+      props.trending.map((story)=><RateStory story={story}/>)
+    }
+    <h1>Featured Groups</h1>
     <AllItem items = {props.featuredGroups} type = 'group' />
     </div>
   )
@@ -18,11 +21,13 @@ export const Browse = (props) => {
 /**
  * CONTAINER
  */
+
 const madDispatch = null
 const mapState = (state)=>{
   return {
   featuredStories:state.stories,
-  featuredGroups: state.groups
+  featuredGroups: state.groups,
+  trending: state.stories.sort((a,b)=>a.numLikes>b.numLikes).slice(0,10)
   }
 }
 

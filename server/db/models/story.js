@@ -41,16 +41,29 @@ const Story = db.define('story', {
   },
   releaseDate: {
     type: Sequelize.DATE, //there may be a more appropriate data type
-  }, },
+  },
+  thumbnailUrl: {
+    type: Sequelize.STRING,
+    defaultValue: '/microphone.png'
+  },
+  upvotes: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  downvotes: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+},
   {
     scopes: {
       populated: () => ({
-        include: [{ all: true, }, ],
+        include: [{ all: true, },],
       }),
     },
   });
 
-Story.prototype.getUsersWhoCanView = async function() {
+Story.prototype.getUsersWhoCanView = async function () {
   const storyId = this.id
   const sql = `
   SELECT
