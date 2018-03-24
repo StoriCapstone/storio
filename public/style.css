@@ -41,6 +41,31 @@ nav a {
 form div {
   margin: 1em;
 }
+#modalContainer{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#loginOrSignup{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius:1vw;
+  white-space: nowrap;
+  width:12vw;
+}
+.loginOrSignup{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border:1px solid black;
+  border-radius:1vw;
+  white-space: nowrap;
+  width:8vw;
+}
 .addBtn{
   display:flex;
   align-items: center;

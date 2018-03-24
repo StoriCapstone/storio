@@ -1,12 +1,12 @@
 
-import React, {Component, } from 'react'
-import {connect, } from 'react-redux'
-import {withRouter, Route, Switch, } from 'react-router-dom'
+import React, { Component, } from 'react'
+import { connect, } from 'react-redux'
+import { withRouter, Route, Switch, } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor,Browse,Home} from './components'
-import {me, story,group} from './store'
-import {fetchAllStories} from './store/stories'
-import {fetchAllGroups} from './store/groups'
+import { Modal, Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor, Browse, Home } from './components'
+import { me, story, group } from './store'
+import { fetchAllStories } from './store/stories'
+import { fetchAllGroups } from './store/groups'
 
 import SingleStory from './components/singleStoryView';
 
@@ -20,22 +20,23 @@ class Routes extends Component {
   }
 
 
-  render () {
-    const {isLoggedIn, } = this.props
+  render() {
+    const { isLoggedIn, } = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={UserHome} />
-        <Route path = '/customHome' component = {Home} />
-        <Route path= "/browse" component = {Browse} />
+        <Route path='/customHome' component={Home} />
+        <Route path="/browse" component={Browse} />
+        <Route path='/loginModal' component={Modal} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path = "/mediaPlayer" component = {MediaPlayer} />
-        <Route path = "/addMediaForm" component = {RecordingEditor} />
+        <Route path="/mediaPlayer" component={MediaPlayer} />
+        <Route path="/addMediaForm" component={RecordingEditor} />
         {/* temp for testing */}
-        <Route path = "/recorder" component = {Recorder} />
-        <Route path = "/singleStory/:id" component = {SingleStory} />
+        <Route path="/recorder" component={Recorder} />
+        <Route path="/singleStory/:id" component={SingleStory} />
 
         {
           isLoggedIn &&

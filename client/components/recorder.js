@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect, } from 'react-redux';
 import Amplify, { Storage, } from 'aws-amplify';
-
+import Modal from './modal'
 import awsExports from '../../aws-exports';
 import SparkMD5 from 'spark-md5';
 import { selectMP3toEdit, } from '../store/';
@@ -43,7 +43,7 @@ class Recorder extends React.Component {
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   }
   componentDidMount() {
-    this.clearCanvas();
+    if (this.props.isLoggedIn) this.clearCanvas();
   }
   setUpVisualizer(analyser) {
     const canvas = this.recorderVisualizer;
@@ -118,11 +118,11 @@ class Recorder extends React.Component {
           this.recorder = recorder;
           const handleGoToEditor = this.props.handleGoToEditor;
           // callback for events
-          recorder.onComplete = function(rec, blob) {
+          recorder.onComplete = function (rec, blob) {
             // eslint-disable-line no-unused-vars
             const blobFile = new FileReader();
             blobFile.readAsArrayBuffer(blob);
-            blobFile.onloadend = function() {
+            blobFile.onloadend = function () {
               const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
               const fileName = hash + '.mp3';
               // FileSaver.saveAs(blob, fileName);
@@ -143,9 +143,9 @@ class Recorder extends React.Component {
                   */
                 })
                 .catch(err => console.log('err:', err));
-              };
             };
-          });
+          };
+        });
     } else {
       Recorder.recordingError('Unable to find Media Devices.');
     }
@@ -161,9 +161,9 @@ class Recorder extends React.Component {
     const milisecs = (time - Math.floor(time)).toFixed(5) * 1000;
     const recordingTime = `${minutes}:${
       seconds < 10 ? '0' + seconds : seconds
-    }.${milisecs < 100 ? '0' : ''}${
+      }.${milisecs < 100 ? '0' : ''}${
       milisecs < 10 ? '0' : ''
-    }${milisecs} ${msg}`.trim();
+      }${milisecs} ${msg}`.trim();
     this.setState({ recordingTime, });
   }
   handleStartRecording() {
@@ -225,30 +225,47 @@ class Recorder extends React.Component {
   render() {
     return (
       <div>
+
         <div>
-          <h2>{this.state.recordingTime}</h2>
           <div>
-            <canvas
-              className="visualizer"
-              width="640"
-              height="100"
-              ref={canvas => {
-                this.recorderVisualizer = canvas;
-              }}
-            />
+            <h2>{this.state.recordingTime}</h2>
+            <div>
+              <canvas
+                className="visualizer"
+                width="640"
+                height="100"
+                ref={canvas => {
+                  this.recorderVisualizer = canvas;
+                }}
+              />
+            </div>
+          </div>
+          <div>
+            <button onClick={() => {
+              this.props.isLoggedIn ?
+                this.handleStartRecording()
+                :
+                this.props.history.push('/loginModal')
+            }}>Start</button>
+            <button onClick={this.handleStopRecording}>Stop</button>
           </div>
         </div>
-        <div>
-          <button onClick={this.handleStartRecording}>Start</button>
-          <button onClick={this.handleStopRecording}>Stop</button>
-          {}
-        </div>
+        {this.props.isLoggedIn ?
+          ''
+          :
+          <Modal />
+        }
       </div>
     );
   }
 }
 
-const mapStateToProps = null;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: !!state.user.id,
+  }
+}
+
 const mapDispatchtoProps = dispatch => ({
   handleGoToEditor: blob => dispatch(selectMP3toEdit(blob)),
 });

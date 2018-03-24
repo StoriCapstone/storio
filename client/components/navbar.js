@@ -8,7 +8,7 @@ const Navbar = ({ handleClick, isLoggedIn, }) => (
   <div id="navBarFlex">
 
     <div id="titleLogoFlex">
-    <Link to="/home">
+    <Link to="/">
       <h1 id="siteTitle">storio</h1>
       </Link>
       <Link to="/home">
