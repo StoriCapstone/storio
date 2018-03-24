@@ -48,7 +48,7 @@ export default function (state = initialState, action){
             return {...action.story, }
         case GET_NEW_COMMENT:
             if (action.comment.storyId === state.id){
-            return {...state, comments: [...state.comments, {...action.comment, user: action.comment.user, }, ], }
+            return {...state, comments: [...state.comments, {...action.comment, user: {...action.comment.user, }, }, ], }
         }
         else {
             return {...state, }
