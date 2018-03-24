@@ -4,7 +4,6 @@ import StoryCard from './cards/storyCard'
 import MemberCard from './cards/memberCard'
 import GroupCard from './cards/groupCard'
 import RatingStory from './rateStory'
-
 /**
  * COMPONENT
  */
@@ -19,9 +18,9 @@ const AllItem = (props) => {
           :
           props.tyoe === 'member' ?
 
-          props.items.map((member) => <MemberCard member={member} />)
-          :
-          props.items.map((rateStory) => <RateStory story={rateStory} />)
+            props.items.map((member) => <MemberCard member={member} />)
+            :
+            props.items.map((rateStory) => <RateStory story={rateStory} />)
       }
     </div>
   )

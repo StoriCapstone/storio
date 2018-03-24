@@ -24,35 +24,34 @@ let initialState = {}
 
 //thunk creator
 export const fetchStoryThunk = (storyId) => (dispatch) => {
-    console.log(storyId)
     Axios.get(`/api/story/${storyId}`)
-    .then(res => res.data)
-    .then(storyObj => {
-        dispatch(fetchStory(storyObj[0]))
-    })
+        .then(res => res.data)
+        .then(storyObj => {
+            dispatch(fetchStory(storyObj[0]))
+        })
 }
 
 export const getNewCommentThunk = (comment) => (dispatch) => {
     dispatch(getNewComment(comment))
     Axios.post(`/api/story/${comment.storyId}`, comment)
-    .then(res => res.data)
-    .then(newComment => {
-        socket.emit('new-comment', newComment)
-    })
+        .then(res => res.data)
+        .then(newComment => {
+            socket.emit('new-comment', newComment)
+        })
 }
 
 //reducer
-export default function (state = initialState, action){
-    switch (action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
         case FETCH_STORY:
-            return {...action.story, }
+            return { ...action.story, }
         case GET_NEW_COMMENT:
-            if (action.comment.storyId === state.id){
-            return {...state, comments: [...state.comments, {...action.comment, user: {...action.comment.user, }, }, ], }
-        }
-        else {
-            return {...state, }
-        }
+            if (action.comment.storyId === state.id) {
+                return { ...state, comments: [...state.comments, { ...action.comment, user: { ...action.comment.user, }, }, ], }
+            }
+            else {
+                return { ...state, }
+            }
         default:
             return state
     }

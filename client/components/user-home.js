@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect, } from 'react-redux'
 import { Link, } from 'react-router-dom'
-import AmazonUpload from './amazonUpload';
 /**
  * COMPONENT
  */
@@ -42,7 +41,6 @@ export const UserHome = (props) => {
         <button onClick={() => props.history.push('/mediaPlayer')}>GO TO PLAYER</button>
         <button onClick={() => props.history.push('/addMediaForm')}>GO TO EDIT STORY PAGE</button>
         <button onClick={() => props.history.push('/recorder')}>GO TO RECORDER</button>
-        <AmazonUpload />
       </div>
     </div >
   )

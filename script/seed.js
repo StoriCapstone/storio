@@ -9,6 +9,9 @@
  *
  * Now that you've got the main idea, check it out in practice below!
  */
+
+ //TODO improve random generation or story/user names
+
 const db = require('../server/db');
 const { User, Group, Story, Comment, } = require('../server/db/models');
 const chance = require('chance')(50015); // seeded with a number for 'repeated' randomizations
@@ -46,7 +49,8 @@ const createUsers = numToCreate => {
     }),
   ];
 
-  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg',  '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', ] //higher chance of default image
+  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg', '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', ] //higher chance of default image
+  //we may ultimately remove the above array if we replace with loremPixel...TBD
 
   const numToGen = numToCreate - userPromises.length;
   const emails = chance.unique(chance.email, numToGen);

@@ -108,19 +108,24 @@ form div {
   margin-right:30vw;;
 }
 .rateStory{
+  transition:all .2s;
   padding:.7vw;
   display:flex;
   width:80vw;
   height:5vh;
-  background-color: rgba(255, 0, 0, 0.349);
+  /* background-color: rgba(255, 0, 0, 0.349); */
   margin:.4vw;
-  border-radius:.4vw;
+  border-radius:.5vw;
   align-items: center;
   box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
 
   /* box-shadow: 0 0 .7vw .00000005vw rgb(39, 37, 34); */
   background: linear-gradient(-90deg,rgba(255, 224, 122,.3), rgba(255, 0, 0, 0.349));
 
+}
+.rateStory:hover{
+  background: linear-gradient(-90deg,rgba(255, 224, 122, 0.568), rgba(255, 0, 0, 0.616));
+  transform: scale(1.04)
 }
 .ratingTitle{
   font-size: 1.3rem;
