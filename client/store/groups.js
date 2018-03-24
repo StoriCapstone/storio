@@ -7,19 +7,19 @@ const DELETE_GROUP = 'DELETE_GROUP';
 
 /* ------------       ACTION CREATOR     ------------------ */
 const getAllGroups = groups => ({
-  type: GET_ALL_GROUPS, groups
+  type: GET_ALL_GROUPS, groups,
 });
 
 const editGroup = group => ({
-  type: EDIT_GROUP, group
+  type: EDIT_GROUP, group,
 });
 
 const postNewGroup = group => ({
-  type: POST_NEW_GROUP, group
+  type: POST_NEW_GROUP, group,
 })
 
 const deleteGroup = id => ({
-  type: DELETE_GROUP, id
+  type: DELETE_GROUP, id,
 })
 
 /* ------------       THUNK CREATORS     ------------------ */
@@ -56,7 +56,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_GROUPS:
       return action.groups;
     case POST_NEW_GROUP:
-      return [...state, action.group]
+      return [...state, action.group, ]
     case EDIT_GROUP:
       return state.map(group => {
         if (GROUP.id === action.group.id) {

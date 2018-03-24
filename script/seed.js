@@ -46,7 +46,7 @@ const createUsers = numToCreate => {
     }),
   ];
 
-  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg', , '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png'] //higher chance of default image
+  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg',  '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', ] //higher chance of default image
 
   const numToGen = numToCreate - userPromises.length;
   const emails = chance.unique(chance.email, numToGen);
@@ -99,7 +99,7 @@ const addMembersToGroups = (groups, users, min, max) => {
         usersToAssociate.add(users[randomUser]);
       }
     }
-    const groupPromise = group.addUsers([...usersToAssociate,], {
+    const groupPromise = group.addUsers([...usersToAssociate, ], {
       through: 'UserGroup',
     });
     groupPromises.push(groupPromise);
@@ -168,7 +168,7 @@ const createStories = numToCreate => {
       url,
       mediaLength,
       upvotes,
-      downvotes
+      downvotes,
     });
     storyPromises.push(storyPromise);
   }

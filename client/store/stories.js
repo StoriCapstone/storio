@@ -7,19 +7,19 @@ const DELETE_STORY = 'DELETE_STORY';
 
 /* ------------       ACTION CREATOR     ------------------ */
 const getAllStories = stories => ({
-  type: GET_ALL_STORIES, stories
+  type: GET_ALL_STORIES, stories,
 });
 
 const editStory = story => ({
-  type: EDIT_STORY, story
+  type: EDIT_STORY, story,
 });
 
 const postNewStory = story => ({
-  type: POST_NEW_STORY, story
+  type: POST_NEW_STORY, story,
 })
 
 const deleteStory = id => ({
-  type: DELETE_STORY, id
+  type: DELETE_STORY, id,
 })
 
 /* ------------       THUNK CREATORS     ------------------ */
@@ -56,7 +56,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_STORIES:
       return action.stories;
     case POST_NEW_STORY:
-      return [...state, action.story]
+      return [...state, action.story, ]
     case EDIT_STORY:
       return state.map(story => {
         if (STORY.id === action.story.id) {

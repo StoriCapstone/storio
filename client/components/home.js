@@ -14,8 +14,8 @@ export const Home = (props) => {
       <button className= "addStoryBtn addBtn">+ Story</button>
       </div>
       {
-        props.user.stories.length?
-      <AllItem items = {props.user.stories} type = 'story'/>
+        props.user.stories.length ?
+      <AllItem items = {props.user.stories} type = "story" />
       :
       <div>
       <div>You haven't recorded any stories</div>
@@ -25,7 +25,7 @@ export const Home = (props) => {
       <h1 className = "homeLabel">Your groups</h1>
       <button className = "addGroupBtn addBtn">+ Group</button>
       </div>
-      <AllItem items = {props.user.groups} type = 'group'/>
+      <AllItem items = {props.user.groups} type = "group" />
     </div>
   )
 }
@@ -33,9 +33,9 @@ export const Home = (props) => {
  * CONTAINER
  */
 const madDispatch = null
-const mapState = (state)=>{
+const mapState = (state) => {
   return {
-    user:state.user
+    user: state.user,
   }
 }
 

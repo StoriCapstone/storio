@@ -12,7 +12,7 @@ const Group = db.define('group', {
     },
     thumbnailUrl: {
         type: Sequelize.STRING,
-        defaultValue:'/groups.png'
+        defaultValue: '/groups.png',
       },
 },
     {

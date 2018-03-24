@@ -21,18 +21,18 @@ export default class Modaly extends React.Component {
     return (
       <div>
 
-        <Modal open={open} onClose={this.onCloseModal} little styles = {{modal:{borderRadius:'1vw'}}}>
+        <Modal open={open} onClose={this.onCloseModal} little styles={{ modal: { borderRadius: '1vw' } }}>
           <div id='modalContainer'>
-          <h2>You must be logged in to begin recording!</h2>
-        <div id='loginOrSignup'>
-          <Link className='loginOrSignup' to='/login'>Login</Link>
-          <div>or</div>
-          <Link className='loginOrSignup' to='/signup'>Sign up</Link>
-        </div>
-        </div>
+            <h2>You must be logged in to begin recording!</h2>
+            <div id='loginOrSignup'>
+              <Link className='loginOrSignup' to='/login'>Login</Link>
+              <div>or</div>
+              <Link className='loginOrSignup' to='/signup'>Sign up</Link>
+            </div>
+          </div>
         </Modal >
       </div >
-    );
+    )
   }
 }
 

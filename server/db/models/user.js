@@ -40,7 +40,7 @@ const User = db.define('user', {
   },
   avatarUrl: {
     type: Sequelize.STRING,
-    defaultValue:'/Test_assets/portraits/noAvatar.png'
+    defaultValue: '/Test_assets/portraits/noAvatar.png',
 
   },
   displayName: {

@@ -8,28 +8,27 @@ import Carousel from './carousel'
  */
 export const Browse = (props) => {
   return (
-    <div id = "pageContainer">
-    <h1 className = "browseHeader" >Featured Stories</h1>
-    <Carousel id = "featuredCarousel" items = {props.featuredStories} />
-    <h1 className = "browseHeader">User Favorites</h1>
-    {
-      props.trending.map((story)=><RateStory story={story}/>)
-    }
-    <h1>Featured Groups</h1>
-    <AllItem items = {props.featuredGroups} type = 'group' />
+    <div id="pageContainer">
+      <h1 className="browseHeader" >Featured Stories</h1>
+      <Carousel id="featuredCarousel" items={props.featuredStories} />
+      <h1 className="browseHeader">User Favorites</h1>
+      {
+        props.trending.map((story) => <RateStory story={story} />)
+      }
+      <h1 className="browseHeader">Featured Groups</h1>
+      <AllItem items={props.featuredGroups} type="group" />
     </div>
   )
 }
 /**
  * CONTAINER
  */
-
 const madDispatch = null
-const mapState = (state)=>{
+const mapState = (state) => {
   return {
-  featuredStories:state.stories,
-  featuredGroups: state.groups,
-  trending: state.stories.sort((a,b)=>a.numLikes>b.numLikes).slice(0,10)
+    featuredStories: state.stories,
+    featuredGroups: state.groups,
+    trending: state.stories.sort((a, b) => (a.upvotes-a.downvotes) > (b.upvotes-b.downvotes)).slice(0, 10),
   }
 }
 

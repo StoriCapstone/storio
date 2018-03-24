@@ -5,12 +5,12 @@ const RateStory = (props) => {
 
   return (
     <div className="rateStory">
-    <div className = 'votes'>{props.story.upvotes-props.story.downvotes}</div>
-      <div className='voteBtnFlex'>
-        <button className='ratingBtn'><i class="fas fa-caret-up fa-lg"></i>
+    <div className = "votes">{props.story.upvotes - props.story.downvotes}</div>
+      <div className="voteBtnFlex">
+        <button className="ratingBtn"><i className="fas fa-caret-up fa-lg" />
 
         </button>
-        <button className='ratingBtn'><i class="fas fa-caret-down fa-lg"></i>
+        <button className="ratingBtn"><i className="fas fa-caret-down fa-lg" />
 
         </button>
       </div>

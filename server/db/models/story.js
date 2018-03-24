@@ -44,21 +44,21 @@ const Story = db.define('story', {
   },
   thumbnailUrl: {
     type: Sequelize.STRING,
-    defaultValue: '/microphone.png'
+    defaultValue: '/microphone.png',
   },
   upvotes: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
   },
   downvotes: {
     type: Sequelize.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
   },
 },
   {
     scopes: {
       populated: () => ({
-        include: [{ all: true, },],
+        include: [{ all: true, }, ],
       }),
     },
   });

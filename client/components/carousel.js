@@ -3,7 +3,6 @@ import Carousel from 'nuka-carousel';
 import StoryCard from './cards/storyCard'
 
 
-
 export default class extends React.Component {
 
 
@@ -11,7 +10,7 @@ export default class extends React.Component {
 
     console.log(this.props.items)
     return (
-      <div id = 'carouselWrapper'>
+      <div id = "carouselWrapper">
       <Carousel
        autoplay = {true}
       cellSpacing ={50}
@@ -38,7 +37,7 @@ export default class extends React.Component {
     >
 
 
-        {this.props.items.map((story)=><StoryCard specialClassName = 'carouselCard' story = {story} />)}
+        {this.props.items.map((story) => <StoryCard specialClassName = "carouselCard" story = {story} />)}
       </Carousel>
       </div>
     );
