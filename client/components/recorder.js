@@ -168,10 +168,7 @@ class Recorder extends React.Component {
       const intervalID = setInterval(this.getRecordingTime, 100); // tenth of a second
       this.setState({ intervalID, });
     } else {
-      switch (secs) {
-        case 3:
-          this.clearCanvas(255, 0, 0); // red
-          break;
+      switch (secs + 1) {
         case 2:
           this.clearCanvas(255, 255, 0); // yellow
           break;
@@ -179,6 +176,7 @@ class Recorder extends React.Component {
           this.clearCanvas(0, 255, 0); // green
           break;
         default:
+          this.clearCanvas(255, 0, 0); // red
           break;
       }
       this.setState({ recordingTime: secs, });
