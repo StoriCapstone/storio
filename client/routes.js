@@ -3,17 +3,12 @@ import React, {Component, } from 'react'
 import {connect, } from 'react-redux'
 import {withRouter, Route, Switch, } from 'react-router-dom'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
 import { Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor,Browse,Home} from './components'
 import {me, story,group} from './store'
 import {fetchAllStories} from './store/stories'
 import {fetchAllGroups} from './store/groups'
 
-=======
-import { Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor, } from './components'
-import {me, } from './store'
 import SingleStory from './components/singleStoryView';
->>>>>>> master
 
 
 /**
