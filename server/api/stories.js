@@ -3,7 +3,7 @@ const router = require('express').Router()
 const { Story, } = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {   //get all Storys
+router.get('/', (req, res, next) => {   //get all Stories
   Story.scope('populated').findAll()
     .then((result) => res.json(result))
     .catch(next)

@@ -21,13 +21,13 @@ let initialState = {
 }
 
 //reducer
-export default function (state = initialState, action){
-    switch (action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
         case NEW_COMMENT_CONTENT:
-            return {...state, content: action.content, }
+            return { ...state, content: action.content, }
         case CLEAR_COMMENT_FORM:
-            return {...state, content: '', }
-       default:
+            return { ...state, content: '', }
+        default:
             return state
     }
 }

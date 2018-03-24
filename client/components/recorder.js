@@ -1,10 +1,14 @@
 'use strict';
 import React from 'react';
 import { connect, } from 'react-redux';
-// import { Storage, } from 'aws-amplify';
-import { addBlobToS3, } from '../utils';
+import Amplify, { Storage, } from 'aws-amplify';
+import Modal from './modal'
+import awsExports from '../../aws-exports';
+import SparkMD5 from 'spark-md5';
 import { selectMP3toEdit, } from '../store/';
+import { Link, } from 'react-router-dom'
 
+Amplify.configure(awsExports);
 // Storage.configure(awsExports)
 
 // import FileSaver from 'file-saver';
@@ -13,7 +17,6 @@ require('../../public/web-audio-recorder-js/WebAudioRecorder');
 /**
  * COMPONENT
  */
-
 class Recorder extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,7 @@ class Recorder extends React.Component {
       recorder: undefined,
       recordingTime: 'Not Recording',
       intervalID: null,
+      isPaused: false,
     };
     this.animationId = null;
     this.getAudio = this.getAudio.bind(this);
@@ -29,6 +33,8 @@ class Recorder extends React.Component {
     this.handleStopRecording = this.handleStopRecording.bind(this);
     this.getRecordingTime = this.getRecordingTime.bind(this);
     this.countDown = this.countDown.bind(this);
+    this.handlePauseRecording = this.handlePauseRecording.bind(this)
+    this.handleResumeRecording = this.handleResumeRecording.bind(this)
     // this.getAudio()
   }
   clearCanvas(red = 0, green = 0, blue = 0) {
@@ -41,7 +47,7 @@ class Recorder extends React.Component {
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   }
   componentDidMount() {
-    this.clearCanvas();
+    if (this.props.isLoggedIn) this.clearCanvas();
   }
   setUpVisualizer(analyser) {
     const canvas = this.recorderVisualizer;
@@ -116,13 +122,32 @@ class Recorder extends React.Component {
           this.recorder = recorder;
           const handleGoToEditor = this.props.handleGoToEditor;
           // callback for events
-          recorder.onComplete = (rec, blob) => {
-            addBlobToS3(blob, 'mp3').then(fileName => {
+          recorder.onComplete = function (rec, blob) {
+            // eslint-disable-line no-unused-vars
+            const blobFile = new FileReader();
+            blobFile.readAsArrayBuffer(blob);
+            blobFile.onloadend = function () {
+              const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
+              const fileName = hash + '.mp3';
+              // FileSaver.saveAs(blob, fileName);
               handleGoToEditor(blob);
-              // Storage.get(fileName).then(resultPath => {
-              //   console.log('resultPath: ', resultPath);
-              // });
-            });
+              Storage.put(fileName, blob)
+                .then(result => {
+                  const newFileName = result;
+                  // todo we should save a reference into teh database
+
+                  /*  ----- this is how we get a url given a known filename.
+                  this url can be used anywhere else to grab the file
+
+                  Storage.get(fileName)
+                  .then(resultPath => {
+                    console.log('resultPath: ', resultPath);
+
+                  })
+                  */
+                })
+                .catch(err => console.log('err:', err));
+            };
           };
         });
     } else {
@@ -140,9 +165,9 @@ class Recorder extends React.Component {
     const milisecs = (time - Math.floor(time)).toFixed(5) * 1000;
     const recordingTime = `${minutes}:${
       seconds < 10 ? '0' + seconds : seconds
-    }.${milisecs < 100 ? '0' : ''}${
+      }.${milisecs < 100 ? '0' : ''}${
       milisecs < 10 ? '0' : ''
-    }${milisecs} ${msg}`.trim();
+      }${milisecs} ${msg}`.trim();
     this.setState({ recordingTime, });
   }
   handleStartRecording() {
@@ -182,10 +207,24 @@ class Recorder extends React.Component {
       }, 1000);
     }
   }
+
+  handlePauseRecording() { //TODO
+    this.setState({ isPaused: true, })
+    this.state.recorder.stop()
+  }
+
+  handleResumeRecording() {
+    this.setState({ isPaused: true, }) //TODO
+    this.state.recorder.record()
+  }
+
+  handleResetRecording() { //TODO
+
+  }
   handleStopRecording() {
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID);
-      this.setState({ intervalID: null, });
+      this.setState({ intervalID: null, doneRecording: true, });
     }
     if (this.animationId !== null) {
       //let the animation die before stopping
@@ -204,30 +243,64 @@ class Recorder extends React.Component {
   render() {
     return (
       <div>
+
         <div>
-          <h2>{this.state.recordingTime}</h2>
           <div>
-            <canvas
-              className="visualizer"
-              width="640"
-              height="100"
-              ref={canvas => {
-                this.recorderVisualizer = canvas;
-              }}
-            />
+            <h2>{this.state.recordingTime}</h2>
+            <div>
+              <canvas
+                className="visualizer"
+                width="800"
+                height="150"
+                ref={canvas => {
+                  this.recorderVisualizer = canvas;
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <button onClick={this.handleStartRecording}>Start</button>
-          <button onClick={this.handleStopRecording}>Stop</button>
-          {}
+          {this.state.doneRecording ?
+            <div id="doneOptions">
+              <button className="recorderBtn" >Reset</button>
+              <button className="recorderBtn" >Listen</button>
+              <Link id="editorLink" to="addMediaForm">Go to Editor </Link>
+            </div>
+            :
+            <div>
+              <div>
+                <button
+className="recorderBtn" onClick={() => {
+                  this.props.isLoggedIn ?
+                    this.handleStartRecording()
+                    :
+                    this.props.history.push('/loginModal')
+                }}>Start</button>
+                {
+                  this.state.isPaused ?
+                    <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
+                    :
+                    <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
+                }
+                <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
+              </div>
+              {this.props.isLoggedIn ?
+                ''
+                :
+                <Modal />
+              }
+            </div>}
         </div>
       </div>
+
     );
   }
 }
 
-const mapStateToProps = null;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: !!state.user.id,
+  }
+}
+
 const mapDispatchtoProps = dispatch => ({
   handleGoToEditor: blob => dispatch(selectMP3toEdit(blob)),
 });

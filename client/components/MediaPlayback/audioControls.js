@@ -1,19 +1,19 @@
 import React from 'react';
-import store, {currentTime, } from '../../store'
+import store, { currentTime, } from '../../store'
 
 class AudioControls extends React.Component {
   constructor(props) {
     super(props);
-   // this.state = { isVisible: this.props.isVisible };
+    // this.state = { isVisible: this.props.isVisible };
     this.state = store.getState();
 
     // this.handleLoad = this.handleLoad.bind(this)
   }
-  componentDidMount(){
+  componentDidMount() {
     this.unsubscribe = store.subscribe(() => store.getState())
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.unsubscribe()
   }
 
@@ -25,8 +25,8 @@ class AudioControls extends React.Component {
             this.props.audio.skipBackward()
             var self = this
             setTimeout(() =>
-            store.dispatch(currentTime(self.props.audio.getCurrentTime()))
-            , 0)
+              store.dispatch(currentTime(self.props.audio.getCurrentTime()))
+              , 0)
           }
           } id="seekBackSlow">
           <i className="fas fa-step-backward" />
@@ -40,8 +40,8 @@ class AudioControls extends React.Component {
             this.props.audio.skipBackward()
             var self = this
             setTimeout(() =>
-            store.dispatch(currentTime(self.props.audio.getCurrentTime()))
-            , 0)
+              store.dispatch(currentTime(self.props.audio.getCurrentTime()))
+              , 0)
           }} id="seekBackFast">
           <i className="fas fa-fast-backward" />
         </button>
@@ -58,19 +58,19 @@ class AudioControls extends React.Component {
             this.props.audio.skipForward()
             var self = this
             setTimeout(() =>
-            store.dispatch(currentTime(self.props.audio.getCurrentTime()))
-            , 0)
+              store.dispatch(currentTime(self.props.audio.getCurrentTime()))
+              , 0)
           }} id="seekForwardFast">
           <i className="fas fa-fast-forward" />
         </button>
         <button
-className="audioControlBtn" onClick={() => {
-          this.props.audio.skipForward()
-          var self = this
+          className="audioControlBtn" onClick={() => {
+            this.props.audio.skipForward()
+            var self = this
             setTimeout(() =>
-            store.dispatch(currentTime(self.props.audio.getCurrentTime()))
-            , 0)
-        }} id="seekForwardSlow">
+              store.dispatch(currentTime(self.props.audio.getCurrentTime()))
+              , 0)
+          }} id="seekForwardSlow">
           <i className="fas fa-step-forward" />
         </button>
 

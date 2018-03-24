@@ -8,20 +8,20 @@ const Navbar = ({ handleClick, isLoggedIn, }) => (
   <div id="navBarFlex">
 
     <div id="titleLogoFlex">
-    <Link to="/home">
-      <h1 id="siteTitle">storio</h1>
+      <Link to="/">
+        <h1 id="siteTitle">storio</h1>
       </Link>
       <Link to="/home">
-      <img id="titleLogoImg" src="/storiLogo.png" />
-       </Link>
+        <img id="titleLogoImg" src="/storiLogo.png" />
+      </Link>
     </div>
 
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
+          <Link to="/customHome">Home</Link>
+          <a href="/login" onClick={handleClick}>
             Logout
           </a>
         </div>

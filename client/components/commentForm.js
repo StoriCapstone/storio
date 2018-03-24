@@ -4,7 +4,7 @@ import { newCommentContent, clearCommentForm, getNewCommentThunk, } from '../sto
 
 const CommentForm = props => {
     return (
-        <form onSubmit={(event) => props.handleCommentSubmit(event, props.story.id, props.user.id, props.user )} >
+        <form onSubmit={(event) => props.handleCommentSubmit(event, props.story.id, props.user.id, props.user)} >
             <label>Add Comment</label>
             <p>{props.user.displayName}</p>
             <textarea onChange={props.handleContentChange} name="content" value={props.newCommentContent} />

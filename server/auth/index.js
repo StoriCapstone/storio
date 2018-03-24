@@ -3,7 +3,7 @@ const User = require('../db/models/user')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
-  User.scope('populated').findOne({where: {email: req.body.email, }, }) //added scope to eager load
+  User.scope('populated').findOne({ where: { email: req.body.email, }, }) //added scope to eager load
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
@@ -36,8 +36,15 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+
+router.get('/me', (req, res) => { //This route is redefined so that it always eager loads the user
+  User.scope('populated').findOne({ where: { email: req.user.email, }, }) //added scope to eager load
+    .then(user => res.json(user))
 })
 
+// router.get('/me', (req, res) => {
+//   res.json(req.user)
+// })
+
 router.use('/google', require('./google'))
+

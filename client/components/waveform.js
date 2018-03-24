@@ -26,18 +26,20 @@ export default class Waveform extends React.Component {
     })
     this.$el = ReactDOM.findDOMNode(this)
     this.$waveform = this.$el.querySelector('.wave')
-    this.wavesurfer = WaveSurfer.create({
+    this.wavesurfer = WaveSurfer.create({ //updated this to make styling the same across waveforms
       container: this.$waveform,
-      waveColor: 'violet',
+      waveColor: '#5b76f7',
       progressColor: 'purple',
+      height: '90',
+      hideScrollbar: true,
+      barHeight: 3,
+      barWidth: 2,
     })
     //  var wavesurfer = this.wavesurfer
     //  var wavesurfer = {... wavesurfer, wavesurfer.prototype }
-    console.log('this')
     this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3)
     store.dispatch(setCurrentWaveform(this.wavesurfer))
     var me = this.wavesurfer
-    console.log('ME= ', this.wavesurfer)
     this.wavesurfer.on('ready', function () {
       me.play();
     });
@@ -56,27 +58,27 @@ export default class Waveform extends React.Component {
   //   store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
   // )
 
-handleWaveformClick() {
-  setTimeout(() =>
-    store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
-    , 0)
-}
-//   }
-//   }
-//
-componentWillUnmount() {
-  this.unsubscribe();
-  this.wavesurfer.unAll()
-}
-render() {
-  return (
-    <div className="waveform" onMouseMove = {(event) => (console.log(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration()).toFixed(2)))}>
-      <div className="wave" onClick={this.handleWaveformClick} />
-      <button onClick={this.handleAddMediaClick}>add media</button>
-      <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
-    </div>
-  )
-}
+  handleWaveformClick() {
+    setTimeout(() =>
+      store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
+      , 0)
+  }
+  //   }
+  //   }
+  //
+  componentWillUnmount() {
+    this.unsubscribe();
+    this.wavesurfer.unAll()
+  }
+  render() {
+    return (
+      <div className="waveform" onMouseMove={(event) => (console.log(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration()).toFixed(2)))}>
+        <div className="wave" onClick={this.handleWaveformClick} />
+        <button onClick={this.handleAddMediaClick}>add media</button>
+        <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
+      </div>
+    )
+  }
 }
 // Waveform.defaultProps = {
 //   src: 'sample.mp3',
