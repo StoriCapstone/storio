@@ -11,7 +11,7 @@ export const UserHome = (props) => {
 
 
   return (
-    <div>
+    <div id = "pageContainer">
       {
         props.email ?
           <h3 id="welcomeMsg" >Welcome, {email}</h3>

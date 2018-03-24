@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect, } from 'react-redux'
 import AllItem from './allItem'
+import RateStory from './rateStory'
 /**
  * COMPONENT
  */
@@ -25,7 +26,7 @@ export const Browse = (props) => {
 const madDispatch = null
 const mapState = (state)=>{
   return {
-  featuredStories:state.stories,
+  featuredStories:state.stories.slice(0,10),
   featuredGroups: state.groups,
   trending: state.stories.sort((a,b)=>a.numLikes>b.numLikes).slice(0,10)
   }

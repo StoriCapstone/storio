@@ -6,14 +6,16 @@ const RateStory = (props) => {
   return (
     <div className="rateStory">
       <div className='voteBtnFlex'>
-        <button className='ratingBtn'>upvote</button>
-        <button className='ratingBtn'>downvote</button>
+        <button className='ratingBtn'><i class="fas fa-caret-up fa-lg"></i>
+
+        </button>
+        <button className='ratingBtn'><i class="fas fa-caret-down fa-lg"></i>
+
+        </button>
       </div>
-      <div className="ratingTitile">{props.story.name}</div>
-      <div className="author">{props.story.title}</div>
-      <div className="imgWrapper">
+      <div className="ratingTitle">{props.story.name}</div>
+      <div className="author">{props.story.user.firstName}</div>
         <img className="ratingImg" src={props.story.thumbnailUrl} />
-      </div>
       {/*button here to view/request Storyship depending on user status*/}
     </div>
   )

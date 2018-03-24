@@ -144,14 +144,14 @@ const createStories = numToCreate => {
     },
   ];
 
-  const thumbnails = ['/Test_assets/storyPhotos/artPalette.jpg', '/Test_assets/storyPhotos/bird.jpeg', '/Test_assets/storyPhotos/download.jpeg', '/Test_assets/storyPhotos/download(1).jpeg', '/Test_assets/storyPhotos/flag.jpeg', '/Test_assets/storyPhotos/road.jpg', '/microphone.png', '/microphone.png', '/microphone.png', '/microphone.png'] //higher chance of default image
+  //const thumbnails = [`http://lorempixel.com/400/200/?v='] //higher chance of default image
   const MAX_RANDOM_UPVOTES = 300
   const MAX_RANDOM_DOWNVOTES = 40
 
   for (let i = 0; i < numToCreate; i++) {
     const name = genName(maxStoryTitle);
     const genre = genres[chance.integer({ min: 0, max: genres.length - 1, })];
-    const thumbnailUrl = thumbnails[chance.integer({ min: 0, max: thumbnails.length - 1, })];
+    const thumbnailUrl = `http://lorempixel.com/400/200/?v=${chance.integer({ min: 0, max: 100, })}`
     const releaseDate = chance.bool({ likelihood: 20, }) ?
       moment(chance.date({ year: chance.integer({ min: 2019, max: 2100, }), })).format('YYYY-MM-DD hh:mm:ss') :
       null
