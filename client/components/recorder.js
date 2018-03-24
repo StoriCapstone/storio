@@ -1,9 +1,16 @@
 'use strict';
 import React from 'react';
 import { connect, } from 'react-redux';
-import AmazonUpload from './amazonUpload'
-import { selectMP3toEdit, } from '../store/addMediaForm'
-//import FileSaver from 'file-saver';
+ import Amplify, { Storage, } from  'aws-amplify'
+
+import awsExports from '../../src/aws-exports';
+import SparkMD5 from 'spark-md5'
+import { selectMP3toEdit, } from '../store/'
+
+Amplify.configure(awsExports)
+// Storage.configure(awsExports)
+
+// import FileSaver from 'file-saver';
 require('../../public/web-audio-recorder-js/WebAudioRecorder');
 
 /**
@@ -16,15 +23,15 @@ class Recorder extends React.Component {
       doneRecording: false,
       recorder: undefined,
       animationId: null, //candidate fro removal
-      audioSrc: null,
-      recordingTime: null,
+      recordingTime: 'Not Recording',
       intervalID: null,
     };
     this.getAudio = this.getAudio.bind(this);
     this.handleStartRecording = this.handleStartRecording.bind(this);
     this.handleStopRecording = this.handleStopRecording.bind(this);
     this.getRecordingTime = this.getRecordingTime.bind(this);
-    //this.assignBlobForUpload = this.assignBlobForUpload.bind(this)
+    this.countDown = this.countDown.bind(this);
+    // this.getAudio()
   }
   clearCanvas() {
     const canvas = this.recorderVisualizer;
@@ -96,9 +103,7 @@ class Recorder extends React.Component {
           // Feed the HTMLMediaElement into it
           var audioCtx = new AudioContext();
           var source = audioCtx.createMediaStreamSource(stream);
-          this.setState({ audioSrc: source, });
-          var analyser = audioCtx.createAnalyser();
-          source.connect(analyser);
+          this.analyser = audioCtx.createAnalyser();
           const configs = {
             workerDir: `/web-audio-recorder-js/`,
             encoding: 'mp3',
@@ -111,14 +116,39 @@ class Recorder extends React.Component {
               recorder[key] = recorder[key].bind(recorder);
             }
           }
+          this.audioSrc = source
 
-          this.setState({ recorder, });
-
-          this.setUpVisualizer(analyser);
-          const self = this
+          this.recorder = recorder
+          const handleGoToEditor = this.props.handleGoToEditor
+          handleGoToEditor({})
           // callback for events
-          recorder.onComplete = function (rec, blob) { // eslint-disable-line no-unused-vars
-            self.props.handleGoToEditor(blob) //use this to place the blob on state
+          recorder.onComplete = function(rec, blob) { // eslint-disable-line no-unused-vars
+            const blobFile = new FileReader();
+            blobFile.readAsArrayBuffer(blob);
+            blobFile.onloadend = function () {
+              const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
+              const fileName = hash + '.mp3'
+              // FileSaver.saveAs(blob, fileName);
+              handleGoToEditor(blob)
+              Storage.put(fileName, blob)
+                .then(result => {
+                  const newFileName = result
+                  // todo we should save a reference into teh database
+
+
+                  /*  ----- this is how we get a url given a known filename.
+                  this url can be used anywhere else to grab the file
+
+                  Storage.get(fileName)
+                  .then(resultPath => {
+                    console.log('resultPath: ', resultPath);
+
+                  })
+ */
+                })
+                .catch(err => console.log('err:', err));
+            };
+
           };
         });
     } else {
@@ -128,36 +158,52 @@ class Recorder extends React.Component {
   static recordingError(msg) {
     alert('There was an error when attempting to record: \n' + msg)
   }
-  getRecordingTime() {
-    const recorder = this.state.recorder;
+  getRecordingTime(msg = '') {
+    const recorder = this.recorder;
     const time = recorder.recordingTime();
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     const milisecs = (time - Math.floor(time)).toFixed(5) * 1000;
     const recordingTime = `${minutes}:${
       seconds < 10 ? '0' + seconds : seconds
-      }.${milisecs < 100 ? '0' : ''}${milisecs < 10 ? '0' : ''}${milisecs}`;
+    }.${milisecs < 100 ? '0' : ''}${milisecs < 10 ? '0' : ''}${milisecs} ${msg}`.trim();
     this.setState({ recordingTime, });
   }
-  async handleStartRecording() {
+   handleStartRecording() {
     try {
-      await this.getAudio(); //once audio is grabbed!
-      this.state.recorder.startRecording();
-      const intervalID = setInterval(this.getRecordingTime, 100); // tenth of a second
-      this.setState({ intervalID, });
+      this.getAudio() //once audio is grabbed!
+      .then(() => {
+        this.countDown(3)
+      })
     } catch (error) {
       Recorder.recordingError('Unable to start recording')
     }
+  }
+  countDown(secs) {
+    if (!secs){
+      this.audioSrc.connect(this.analyser); //new
+      this.setUpVisualizer(this.analyser);
+      this.recorder.startRecording();
+      const intervalID = setInterval(this.getRecordingTime, 100); // tenth of a second
+      this.setState({ intervalID, });
+    } else {
+      setTimeout(() => {
+        this.setState( {recordingTime: secs, })
+        this.countDown(secs - 1)
+      }, 1000)
+    }
+
   }
   handleStopRecording() {
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID)
       this.setState({ intervalID: null, })
     }
-    this.setState({ doneRecording: true, })
-    this.getRecordingTime()
-    this.state.recorder.finishRecording();
-    this.state.audioSrc.disconnect();
+    if (this.recorder){
+      this.getRecordingTime( '- Recording Stopped')
+      this.recorder.finishRecording();
+      this.audioSrc.disconnect();
+    }
   }
 
   render() {
