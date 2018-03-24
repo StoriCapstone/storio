@@ -8,9 +8,23 @@ export const Home = (props) => {
   return (
     <div id = "pageContainer">
       <div id="newActivity">Here's where we show a 'feed'</div>
-      <h1>Your Stories</h1>
+      <div className = "titleAndAddBtnFlex">
+
+      <h1 className = "homeLabel">Your Stories</h1>
+      <button className= "addStoryBtn addBtn">+ Story</button>
+      </div>
+      {
+        props.user.stories.length?
       <AllItem items = {props.user.stories} type = 'story'/>
-      <h1>Your groups</h1>
+      :
+      <div>
+      <div>You haven't recorded any stories</div>
+      </div>
+      }
+      <div className = "titleAndAddBtnFlex">
+      <h1 className = "homeLabel">Your groups</h1>
+      <button className = "addGroupBtn addBtn">+ Group</button>
+      </div>
       <AllItem items = {props.user.groups} type = 'group'/>
     </div>
   )

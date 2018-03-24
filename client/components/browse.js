@@ -2,15 +2,16 @@ import React from 'react'
 import { connect, } from 'react-redux'
 import AllItem from './allItem'
 import RateStory from './rateStory'
+import Carousel from './carousel'
 /**
  * COMPONENT
  */
 export const Browse = (props) => {
   return (
     <div id = "pageContainer">
-    <h1>Featured Stories</h1>
-    <AllItem items = {props.featuredStories} type = 'story' />
-    <h1>User Favorites</h1>
+    <h1 className = "browseHeader" >Featured Stories</h1>
+    <Carousel id = "featuredCarousel" items = {props.featuredStories} />
+    <h1 className = "browseHeader">User Favorites</h1>
     {
       props.trending.map((story)=><RateStory story={story}/>)
     }
@@ -26,7 +27,7 @@ export const Browse = (props) => {
 const madDispatch = null
 const mapState = (state)=>{
   return {
-  featuredStories:state.stories.slice(0,10),
+  featuredStories:state.stories,
   featuredGroups: state.groups,
   trending: state.stories.sort((a,b)=>a.numLikes>b.numLikes).slice(0,10)
   }

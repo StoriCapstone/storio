@@ -5,6 +5,7 @@ const RateStory = (props) => {
 
   return (
     <div className="rateStory">
+    <div className = 'votes'>{props.story.upvotes-props.story.downvotes}</div>
       <div className='voteBtnFlex'>
         <button className='ratingBtn'><i class="fas fa-caret-up fa-lg"></i>
 
@@ -14,7 +15,7 @@ const RateStory = (props) => {
         </button>
       </div>
       <div className="ratingTitle">{props.story.name}</div>
-      <div className="author">{props.story.user.firstName}</div>
+      <div className="author">By {props.story.user.firstName}</div>
         <img className="ratingImg" src={props.story.thumbnailUrl} />
       {/*button here to view/request Storyship depending on user status*/}
     </div>
