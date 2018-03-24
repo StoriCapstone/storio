@@ -41,8 +41,14 @@ const Story = db.define('story', {
   },
   releaseDate: {
     type: Sequelize.DATE, //there may be a more appropriate data type
-  }, //for stories which are available in the future
-});
+  }, },
+  {
+    scopes: {
+      populated: () => ({
+        include: [{ all: true, }, ],
+      }),
+    },
+  });
 
 Story.prototype.getUsersWhoCanView = async function() {
   const storyId = this.id

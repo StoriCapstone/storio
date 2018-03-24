@@ -21,6 +21,7 @@ class Recorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      doneRecording: false,
       recorder: undefined,
       animationId: null, //candidate fro removal
       recordingTime: 'Not Recording',
@@ -146,7 +147,7 @@ class Recorder extends React.Component {
       Recorder.recordingError('Unable to find Media Devices.')
     }
   }
-  static recordingError(msg){
+  static recordingError(msg) {
     alert('There was an error when attempting to record: \n' + msg)
   }
   getRecordingTime(msg = '') {
@@ -186,7 +187,7 @@ class Recorder extends React.Component {
 
   }
   handleStopRecording() {
-    if (this.state.intervalID !== null){
+    if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID)
       this.setState({ intervalID: null, })
     }
@@ -202,20 +203,24 @@ class Recorder extends React.Component {
       <div>
         <div>
           <h2>{this.state.recordingTime}</h2>
-        <div>
-          <canvas
-            className="visualizer"
-            width="640"
-            height="100"
-            ref={canvas => {
-              this.recorderVisualizer = canvas;
-            }}
-          />
-        </div>
+          <div>
+            <canvas
+              className="visualizer"
+              width="640"
+              height="100"
+              ref={canvas => {
+                this.recorderVisualizer = canvas;
+              }}
+            />
+          </div>
         </div>
         <div>
           <button onClick={this.handleStartRecording}>Start</button>
           <button onClick={this.handleStopRecording}>Stop</button>
+          {
+
+
+          }
         </div>
       </div>
     );
