@@ -16,6 +16,22 @@ require('../../public/web-audio-recorder-js/WebAudioRecorder');
 /**
  * COMPONENT
  */
+const addBlobToS3 = (blob, extension) => {
+  return new Promise((resolve, reject) => {
+    const blobFile = new FileReader();
+    blobFile.readAsArrayBuffer(blob);
+    blobFile.onloadend = function() {
+      const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
+      const fileName = `${hash}.${extension}`;
+      Storage.put(fileName, blob)
+        .then(result => {
+          resolve(result.key);
+        })
+        .catch(err => reject(err));
+    };
+  });
+};
+
 class Recorder extends React.Component {
   constructor(props) {
     super(props);
@@ -118,34 +134,15 @@ class Recorder extends React.Component {
           this.recorder = recorder;
           const handleGoToEditor = this.props.handleGoToEditor;
           // callback for events
-          recorder.onComplete = function(rec, blob) {
-            // eslint-disable-line no-unused-vars
-            const blobFile = new FileReader();
-            blobFile.readAsArrayBuffer(blob);
-            blobFile.onloadend = function() {
-              const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
-              const fileName = hash + '.mp3';
-              // FileSaver.saveAs(blob, fileName);
+          recorder.onComplete = (rec, blob) => {
+            addBlobToS3(blob, 'mp3').then(fileName => {
               handleGoToEditor(blob);
-              Storage.put(fileName, blob)
-                .then(result => {
-                  const newFileName = result;
-                  // todo we should save a reference into teh database
-
-                  /*  ----- this is how we get a url given a known filename.
-                  this url can be used anywhere else to grab the file
-
-                  Storage.get(fileName)
-                  .then(resultPath => {
-                    console.log('resultPath: ', resultPath);
-
-                  })
-                  */
-                })
-                .catch(err => console.log('err:', err));
-              };
-            };
-          });
+              // Storage.get(fileName).then(resultPath => {
+              //   console.log('resultPath: ', resultPath);
+              // });
+            });
+          };
+        });
     } else {
       Recorder.recordingError('Unable to find Media Devices.');
     }
