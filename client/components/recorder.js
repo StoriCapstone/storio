@@ -1,13 +1,13 @@
 'use strict';
 import React from 'react';
 import { connect, } from 'react-redux';
- import Amplify, { Storage, } from  'aws-amplify'
+import Amplify, { Storage, } from 'aws-amplify';
 
 import awsExports from '../../src/aws-exports';
-import SparkMD5 from 'spark-md5'
-import { selectMP3toEdit, } from '../store/'
+import SparkMD5 from 'spark-md5';
+import { selectMP3toEdit, } from '../store/';
 
-Amplify.configure(awsExports)
+Amplify.configure(awsExports);
 // Storage.configure(awsExports)
 
 // import FileSaver from 'file-saver';
@@ -22,10 +22,10 @@ class Recorder extends React.Component {
     this.state = {
       doneRecording: false,
       recorder: undefined,
-      animationId: null, //candidate fro removal
       recordingTime: 'Not Recording',
       intervalID: null,
     };
+    this.animationId = null;
     this.getAudio = this.getAudio.bind(this);
     this.handleStartRecording = this.handleStartRecording.bind(this);
     this.handleStopRecording = this.handleStopRecording.bind(this);
@@ -33,13 +33,13 @@ class Recorder extends React.Component {
     this.countDown = this.countDown.bind(this);
     // this.getAudio()
   }
-  clearCanvas() {
+  clearCanvas(red = 0, green = 0, blue = 0) {
     const canvas = this.recorderVisualizer;
     const WIDTH = canvas.width;
     const HEIGHT = canvas.height;
     const canvasCtx = canvas.getContext('2d');
 
-    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+    canvasCtx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   }
   componentDidMount() {
@@ -59,12 +59,9 @@ class Recorder extends React.Component {
     const canvasCtx = canvas.getContext('2d');
 
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-
+    this.isDrawing = true;
     var drawAlt = () => {
-      //drawVisual = requestAnimationFrame(drawAlt);
-
-      var animationId = requestAnimationFrame(drawAlt);
-      this.setState({ animationId, });
+      this.animationId = requestAnimationFrame(drawAlt);
 
       analyser.getByteFrequencyData(dataArrayAlt);
 
@@ -116,25 +113,24 @@ class Recorder extends React.Component {
               recorder[key] = recorder[key].bind(recorder);
             }
           }
-          this.audioSrc = source
+          this.audioSrc = source;
 
-          this.recorder = recorder
-          const handleGoToEditor = this.props.handleGoToEditor
-          handleGoToEditor({})
+          this.recorder = recorder;
+          const handleGoToEditor = this.props.handleGoToEditor;
           // callback for events
-          recorder.onComplete = function(rec, blob) { // eslint-disable-line no-unused-vars
+          recorder.onComplete = function(rec, blob) {
+            // eslint-disable-line no-unused-vars
             const blobFile = new FileReader();
             blobFile.readAsArrayBuffer(blob);
-            blobFile.onloadend = function () {
+            blobFile.onloadend = function() {
               const hash = SparkMD5.ArrayBuffer.hash(blobFile.result);
-              const fileName = hash + '.mp3'
+              const fileName = hash + '.mp3';
               // FileSaver.saveAs(blob, fileName);
-              handleGoToEditor(blob)
+              handleGoToEditor(blob);
               Storage.put(fileName, blob)
                 .then(result => {
-                  const newFileName = result
+                  const newFileName = result;
                   // todo we should save a reference into teh database
-
 
                   /*  ----- this is how we get a url given a known filename.
                   this url can be used anywhere else to grab the file
@@ -148,15 +144,14 @@ class Recorder extends React.Component {
                 })
                 .catch(err => console.log('err:', err));
             };
-
           };
         });
     } else {
-      Recorder.recordingError('Unable to find Media Devices.')
+      Recorder.recordingError('Unable to find Media Devices.');
     }
   }
   static recordingError(msg) {
-    alert('There was an error when attempting to record: \n' + msg)
+    alert('There was an error when attempting to record: \n' + msg);
   }
   getRecordingTime(msg = '') {
     const recorder = this.recorder;
@@ -166,41 +161,62 @@ class Recorder extends React.Component {
     const milisecs = (time - Math.floor(time)).toFixed(5) * 1000;
     const recordingTime = `${minutes}:${
       seconds < 10 ? '0' + seconds : seconds
-    }.${milisecs < 100 ? '0' : ''}${milisecs < 10 ? '0' : ''}${milisecs} ${msg}`.trim();
+    }.${milisecs < 100 ? '0' : ''}${
+      milisecs < 10 ? '0' : ''
+    }${milisecs} ${msg}`.trim();
     this.setState({ recordingTime, });
   }
-   handleStartRecording() {
+  handleStartRecording() {
     try {
       this.getAudio() //once audio is grabbed!
-      .then(() => {
-        this.countDown(3)
-      })
+        .then(() => {
+          this.countDown(3);
+        });
     } catch (error) {
-      Recorder.recordingError('Unable to start recording')
+      Recorder.recordingError('Unable to start recording');
     }
   }
   countDown(secs) {
-    if (!secs){
+    if (secs === -1) {
       this.audioSrc.connect(this.analyser); //new
       this.setUpVisualizer(this.analyser);
       this.recorder.startRecording();
       const intervalID = setInterval(this.getRecordingTime, 100); // tenth of a second
       this.setState({ intervalID, });
     } else {
+      switch (secs) {
+        case 3:
+          this.clearCanvas(255, 0, 0); // red
+          break;
+        case 2:
+          this.clearCanvas(255, 255, 0); // yellow
+          break;
+        case 1:
+          this.clearCanvas(0, 255, 0); // green
+          break;
+        default:
+          break;
+      }
+      this.setState({ recordingTime: secs, });
       setTimeout(() => {
-        this.setState( {recordingTime: secs, })
-        this.countDown(secs - 1)
-      }, 1000)
+        this.countDown(secs - 1);
+      }, 1000);
     }
-
   }
   handleStopRecording() {
     if (this.state.intervalID !== null) {
-      clearInterval(this.state.intervalID)
-      this.setState({ intervalID: null, })
+      clearInterval(this.state.intervalID);
+      this.setState({ intervalID: null, });
     }
-    if (this.recorder){
-      this.getRecordingTime( '- Recording Stopped')
+    if (this.animationId !== null) {
+      //let the animation die before stopping
+      setTimeout(() => {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
+      }, 2000);
+    }
+    if (this.recorder) {
+      this.getRecordingTime(' - Recording Stopped');
       this.recorder.finishRecording();
       this.audioSrc.disconnect();
     }
@@ -225,10 +241,7 @@ class Recorder extends React.Component {
         <div>
           <button onClick={this.handleStartRecording}>Start</button>
           <button onClick={this.handleStopRecording}>Stop</button>
-          {
-
-
-          }
+          {}
         </div>
       </div>
     );
@@ -236,8 +249,8 @@ class Recorder extends React.Component {
 }
 
 const mapStateToProps = null;
-const mapDispatchtoProps = (dispatch) => ({
-  handleGoToEditor: (blob) => dispatch(selectMP3toEdit(blob)),
-})
+const mapDispatchtoProps = dispatch => ({
+  handleGoToEditor: blob => dispatch(selectMP3toEdit(blob)),
+});
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Recorder);
