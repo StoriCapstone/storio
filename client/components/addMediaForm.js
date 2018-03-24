@@ -15,28 +15,26 @@ const AddMediaForm = props => {
     return (
 
         <form onSubmit={props.handleSubmit} id="addMedia" className={props.show ? '' : 'hide'}>
-        <input type="radio" defaultChecked onChange={props.handleFileOrUrlChange} name={'fileOrUrl'} value={'file'} id={'file'} />
-        <label htmlFor="file">import file</label>
-        <input type="radio" name={'fileOrUrl'} onChange={props.handleFileOrUrlChange} value={'url'} id={'url'} />
-        <label htmlFor="url">url of media</label>
+            <input type="radio" defaultChecked onChange={props.handleFileOrUrlChange} name={'fileOrUrl'} value={'file'} id={'file'} />
+            <label htmlFor="file">import file</label>
+            <input type="radio" name={'fileOrUrl'} onChange={props.handleFileOrUrlChange} value={'url'} id={'url'} />
+            <label htmlFor="url">url of media</label>
             {props.selectedOption === 'file' ?
                 <fieldset form="addMedia">
-                <label>Upload media</label>
-                <input type="file" name={'file'} />
+                    <label>Upload media</label>
+                    <input type="file" name={'file'} />
                 </fieldset>
-                 :
-                 <fieldset form="addMedia">
-                 <label>Url</label>
-                 <input type="text" name={'src'} />
-                 <label>select type</label>
-                 <input type="radio" defaultChecked name={'type'} value={'img'} id={'type1'} />
-                 <label htmlFor="type1">image</label>
-                 <input type="radio" name={'type'} value={'video'} id={'type2'} />
-                 <label htmlFor="type2">video</label>
-                 </fieldset>
-                }
-
-
+                :
+                <fieldset form="addMedia">
+                    <label>Url</label>
+                    <input type="text" name={'src'} />
+                    <label>select type</label>
+                    <input type="radio" defaultChecked name={'type'} value={'img'} id={'type1'} />
+                    <label htmlFor="type1">image</label>
+                    <input type="radio" name={'type'} value={'video'} id={'type2'} />
+                    <label htmlFor="type2">video</label>
+                </fieldset>
+            }
             <label>start at:</label>
             <input type="number" value={props.time.toFixed(2)} name={'start'} />
             <label> Duration</label>
@@ -61,11 +59,11 @@ const mapDispatch = (dispatch) => ({
         // if (event.target.fileOrUrl.value === 'file'){
 
         // }
-       // else
-        if (event.target.fileOrUrl === 'url'){
+        // else
+        if (event.target.fileOrUrl === 'url') {
             console.log({
                 storyId: 1,
-                media: [{src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options: {caption: event.target.caption.value, name: event.target.name.value, }, }, ],
+                media: [{ src: event.target.src.value, type: event.target.type.value, start: (+event.target.start.value), end: (+event.target.start.value) + (+event.target.duration.value), options: { caption: event.target.caption.value, name: event.target.name.value, }, },],
             })
         }
     },

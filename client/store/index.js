@@ -1,15 +1,15 @@
-import {createStore, combineReducers, applyMiddleware, } from 'redux'
+import { createStore, combineReducers, applyMiddleware, } from 'redux'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
-import {composeWithDevTools, } from 'redux-devtools-extension'
+import { composeWithDevTools, } from 'redux-devtools-extension'
 import user from './user'
-import {default as addMediaForm, } from './addMediaForm';
-import {default as waveform, } from './waveform';
-import {default as groups, } from './groups';
-import {default as stories, } from './stories';
+import { default as addMediaForm, } from './addMediaForm';
+import { default as waveform, } from './waveform';
+import { default as groups, } from './groups';
+import { default as stories, } from './stories';
 
-import {default as commentForm, } from './comments';
-import {default as story, } from './story'
+import { default as commentForm, } from './comments';
+import { default as story, } from './story'
 
 const reducer = combineReducers({
   user,
@@ -22,7 +22,7 @@ const reducer = combineReducers({
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
-  createLogger({collapsed: true, })
+  createLogger({ collapsed: true, })
 ))
 const store = createStore(reducer, middleware)
 

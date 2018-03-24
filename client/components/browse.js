@@ -28,7 +28,7 @@ const mapState = (state) => {
   return {
     featuredStories: state.stories,
     featuredGroups: state.groups,
-    trending: state.stories.sort((a, b) =>  (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).slice(0, 10),
+    trending: state.stories.sort((a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)).slice(0, 10),
   }
 }
 

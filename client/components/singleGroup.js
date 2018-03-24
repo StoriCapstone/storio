@@ -11,8 +11,8 @@ const SingleGroup = () => {
         <div id="groupName">{props.group.name}</div>
         <img id="singleGroupImg" src="/groupImg.jpg" />
       </div>
-      <AllItem items = {props.group.stories} type = "story" />
-      <AllItem items = {props.group.users} type = "member" />
+      <AllItem items={props.group.stories} type="story" />
+      <AllItem items={props.group.users} type="member" />
       {/*}
       <MostRecent />
       <AllStories />

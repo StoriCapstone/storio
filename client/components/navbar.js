@@ -8,12 +8,12 @@ const Navbar = ({ handleClick, isLoggedIn, }) => (
   <div id="navBarFlex">
 
     <div id="titleLogoFlex">
-    <Link to="/">
-      <h1 id="siteTitle">storio</h1>
+      <Link to="/">
+        <h1 id="siteTitle">storio</h1>
       </Link>
       <Link to="/home">
-      <img id="titleLogoImg" src="/storiLogo.png" />
-       </Link>
+        <img id="titleLogoImg" src="/storiLogo.png" />
+      </Link>
     </div>
 
     <nav>

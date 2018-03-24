@@ -11,7 +11,7 @@ var testData = {
     start: 0,
     end: 15,
     options: { caption: 'hi', },
-  }, ],
+  },],
 }
 export default class Waveform extends React.Component {
   constructor(props) {
@@ -37,11 +37,9 @@ export default class Waveform extends React.Component {
     })
     //  var wavesurfer = this.wavesurfer
     //  var wavesurfer = {... wavesurfer, wavesurfer.prototype }
-    console.log('this')
     this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3)
     store.dispatch(setCurrentWaveform(this.wavesurfer))
     var me = this.wavesurfer
-    console.log('ME= ', this.wavesurfer)
     this.wavesurfer.on('ready', function () {
       me.play();
     });

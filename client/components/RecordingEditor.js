@@ -8,9 +8,9 @@ import AudioControls from './MediaPlayback/audioControls'
 const Editor = (props) => {
   return (<div>
     <Waveform />
-    <AudioControls audio={ props.currentWaveform } />
+    <AudioControls audio={props.currentWaveform} />
     <AddMediaForm />
-    </div>);
+  </div>);
 };
 
 const mapState = (state) => ({
