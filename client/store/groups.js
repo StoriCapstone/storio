@@ -56,7 +56,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_GROUPS:
       return action.groups;
     case POST_NEW_GROUP:
-      return [...state, action.group,]
+      return [...state, action.group, ]
     case EDIT_GROUP:
       return state.map(group => {
         if (GROUP.id === action.group.id) {

@@ -6,7 +6,7 @@ import Modal from './modal'
 import awsExports from '../../aws-exports';
 import SparkMD5 from 'spark-md5';
 import { selectMP3toEdit, } from '../store/';
-import { Link } from 'react-router-dom'
+import { Link, } from 'react-router-dom'
 
 Amplify.configure(awsExports);
 // Storage.configure(awsExports)
@@ -25,7 +25,7 @@ class Recorder extends React.Component {
       recorder: undefined,
       recordingTime: 'Not Recording',
       intervalID: null,
-      isPaused: false
+      isPaused: false,
     };
     this.animationId = null;
     this.getAudio = this.getAudio.bind(this);
@@ -209,12 +209,12 @@ class Recorder extends React.Component {
   }
 
   handlePauseRecording() { //TODO
-    this.setState({ isPaused: true })
+    this.setState({ isPaused: true, })
     this.state.recorder.stop()
   }
 
   handleResumeRecording() {
-    this.setState({ isPaused: true }) //TODO
+    this.setState({ isPaused: true, }) //TODO
     this.state.recorder.record()
   }
 
@@ -224,7 +224,7 @@ class Recorder extends React.Component {
   handleStopRecording() {
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID);
-      this.setState({ intervalID: null, doneRecording: true });
+      this.setState({ intervalID: null, doneRecording: true, });
     }
     if (this.animationId !== null) {
       //let the animation die before stopping
@@ -259,15 +259,16 @@ class Recorder extends React.Component {
             </div>
           </div>
           {this.state.doneRecording ?
-            <div id='doneOptions'>
-              <button className='recorderBtn' >Reset</button>
-              <button className='recorderBtn' >Listen</button>
-              <Link id='editorLink' to='addMediaForm'>Go to Editor </Link>
+            <div id="doneOptions">
+              <button className="recorderBtn" >Reset</button>
+              <button className="recorderBtn" >Listen</button>
+              <Link id="editorLink" to="addMediaForm">Go to Editor </Link>
             </div>
             :
             <div>
               <div>
-                <button className='recorderBtn' onClick={() => {
+                <button
+className="recorderBtn" onClick={() => {
                   this.props.isLoggedIn ?
                     this.handleStartRecording()
                     :
@@ -275,11 +276,11 @@ class Recorder extends React.Component {
                 }}>Start</button>
                 {
                   this.state.isPaused ?
-                    <button className='recorderBtn' onClick={this.handleResumeRecording}>Resume</button>
+                    <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
                     :
-                    <button className='recorderBtn' onClick={this.handlePauseRecording}>Pause</button>
+                    <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
                 }
-                <button className='recorderBtn' onClick={this.handleStopRecording}>Stop</button>
+                <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
               </div>
               {this.props.isLoggedIn ?
                 ''

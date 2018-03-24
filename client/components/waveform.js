@@ -11,7 +11,7 @@ var testData = {
     start: 0,
     end: 15,
     options: { caption: 'hi', },
-  },],
+  }, ],
 }
 export default class Waveform extends React.Component {
   constructor(props) {

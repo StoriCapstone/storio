@@ -56,7 +56,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_STORIES:
       return action.stories;
     case POST_NEW_STORY:
-      return [...state, action.story,]
+      return [...state, action.story, ]
     case EDIT_STORY:
       return state.map(story => {
         if (STORY.id === action.story.id) {
