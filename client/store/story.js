@@ -33,10 +33,10 @@ export const fetchStoryThunk = (storyId) => (dispatch) => {
 }
 
 export const getNewCommentThunk = (comment) => (dispatch) => {
+    dispatch(getNewComment(comment))
     Axios.post(`/api/story/${comment.storyId}`, comment)
     .then(res => res.data)
     .then(newComment => {
-        dispatch(getNewComment(newComment))
         socket.emit('new-comment', newComment)
     })
 }
@@ -48,7 +48,7 @@ export default function (state = initialState, action){
             return {...action.story, }
         case GET_NEW_COMMENT:
             if (action.comment.storyId === state.id){
-            return {...state, comments: [...state.comments, action.comment, ], }
+            return {...state, comments: [...state.comments, {...action.comment, user: action.comment.user, }, ], }
         }
         else {
             return {...state, }

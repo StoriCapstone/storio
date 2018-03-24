@@ -4,7 +4,7 @@ import { newCommentContent, clearCommentForm, getNewCommentThunk, } from '../sto
 
 const CommentForm = props => {
     return (
-        <form onSubmit={(event) => props.handleCommentSubmit(event, props.story.id, props.user.id)} >
+        <form onSubmit={(event) => props.handleCommentSubmit(event, props.story.id, props.user.id, props.user )} >
             <label>Add Comment</label>
             <p>{props.user.displayName}</p>
             <textarea onChange={props.handleContentChange} name="content" value={props.newCommentContent} />
@@ -20,12 +20,13 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-    handleCommentSubmit: (event, storyId, userId) => {
+    handleCommentSubmit: (event, storyId, userId, user) => {
         event.preventDefault()
         dispatch(getNewCommentThunk({
             content: event.target.content.value,
             storyId,
             userId,
+            user,
         }))
         dispatch(clearCommentForm())
     },
