@@ -16,7 +16,8 @@ const RateStory = (props) => {
       </div>
       <div className="ratingTitle">{props.story.name}</div>
       <div className="author">By {props.story.user.firstName}</div>
-      <img className="ratingImg" src={props.story.thumbnailUrl} />
+
+      <img className="ratingImg" src='./playBtn.png' />
       {/*button here to view/request Storyship depending on user status*/}
     </div>
   )

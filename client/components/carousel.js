@@ -11,7 +11,7 @@ export default class extends React.Component {
       <div id="carouselWrapper">
         <Carousel
           autoplay={true}
-          cellSpacing={50}
+          // cellSpacing={1}
           framePadding="0"
           frameOverflow="visible"
           width="100%"
