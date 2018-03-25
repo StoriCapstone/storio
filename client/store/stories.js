@@ -30,10 +30,16 @@ export const fetchAllStories = () => dispatch => {
     .catch(err => console.error(err));
 }
 
-export const postStory = newStory => dispatch => {
+export const postStory = (newStory, cb) => dispatch => {
   axios.post('/api/stories', newStory)
-    .then(res => { return res.data })
-    .then(addedStory => dispatch(postNewStory(addedStory)))
+    .then(res => {
+      dispatch(postNewStory(res))
+      if (cb){
+        dispatch(() => cb(res.data))
+      }
+      return res.data
+    })
+    // .then(addedStory => ))
     .catch(err => console.error(err));
 }
 

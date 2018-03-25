@@ -15,7 +15,7 @@ export const currentTime = time => ({
     type: CURRENT_TIME,
 })
 
-export const selectMP3toEdit = (blob) => ({ type: SELECT_MP3_TO_EDIT, blob, })
+export const selectMP3toEdit = (blob, story) => ({ type: SELECT_MP3_TO_EDIT, blob, story })
 
 //initial state
 
@@ -23,6 +23,7 @@ var initialState = {
     selectedOption: 'file',
     time: 0,
     currentMP3: null,
+    story: null,
 }
 
 //reducer
@@ -34,7 +35,7 @@ export default function (state = initialState, action) {
         case CURRENT_TIME:
             return { ...state, time: action.time, }
         case SELECT_MP3_TO_EDIT:
-            return { ...state, currentMP3: action.blob, }
+            return { ...state, currentMP3: action.blob, story: action.story, }
         default:
             return state
     }
