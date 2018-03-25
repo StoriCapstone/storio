@@ -269,9 +269,12 @@ width:100vw;
 }
 
 .browseHeader{
-
+display:flex;
+justify-content: center;
+align-items: center;
 background-color: rgba(247, 186, 56, 0.986);
-
+height:2vw;
+border-radius: .4vw;
 color:hsl(250, 91%, 22%);
 font-size: 1.1rem;
 width:6.9vw;
