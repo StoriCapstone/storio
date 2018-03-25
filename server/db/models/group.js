@@ -25,7 +25,7 @@ const Group = db.define('group', {
     {
         scopes: {
             populated: () => ({
-                include: [{ all: true, },],
+                include: [{ all: true, }, ],
             }),
         },
     });

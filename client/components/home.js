@@ -12,13 +12,13 @@ class Home extends React.Component {
     super(props)
     this.state = {
       isAdding: false,
-      addingStoryVsGroup: null
+      addingStoryVsGroup: null,
     }
     this.handleNewSubmission = this.handleNewSubmission.bind(this)
   }
 
   handleNewSubmission(type) {
-    this.setState({ isAdding: true, addingStoryVsGroup: type })
+    this.setState({ isAdding: true, addingStoryVsGroup: type, })
 
   }
   render() {
@@ -28,8 +28,8 @@ class Home extends React.Component {
         {
           this.state.isAdding ?
             (this.state.addingStoryVsGroup === 'story' ?
-              <AddStoryModal parent = {this}/>
-              : <AddGroupModal parent = {this} handleSubmit = {this.props.createNewGroup}/>
+              <AddStoryModal parent = {this} />
+              : <AddGroupModal parent = {this} handleSubmit = {this.props.createNewGroup} />
             )
             : null
         }
@@ -37,7 +37,7 @@ class Home extends React.Component {
         <div className="titleAndAddBtnFlex">
           <h1 className="homeLabel">Your Stories</h1>
           <button onClick={() => this.handleNewSubmission('story')} className="addStoryBtn addBtn">
-            <img src='/plusSign.png' className='addBtnImg' />Story</button>
+            <img src="/plusSign.png" className="addBtnImg" />Story</button>
         </div>
         {
           this.props.user.stories.length ?
@@ -50,7 +50,7 @@ class Home extends React.Component {
         <div className="titleAndAddBtnFlex">
           <h1 className="homeLabel">Your groups</h1>
           <button onClick={() => this.handleNewSubmission('group')} className="addGroupBtn addBtn">
-            <img src='/plusSign.png' className='addBtnImg' /> Group</button>
+            <img src="/plusSign.png" className="addBtnImg" /> Group</button>
         </div>
         <AllItem items={this.props.user.groups} type="group" />
       </div>
@@ -62,7 +62,7 @@ class Home extends React.Component {
  */
 const madDispatch = (dispatch) => {
   return {
-  createNewGroup:(newGroup)=> dispatch(createGroupThunk(newGroup))
+  createNewGroup: (newGroup) => dispatch(createGroupThunk(newGroup)),
   }
 }
 const mapState = (state) => {

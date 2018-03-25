@@ -65,7 +65,7 @@ const Story = db.define('story', {
   {
     scopes: {
       populated: () => ({
-        include: [{ all: true, },],
+        include: [{ all: true, }, ],
       }),
     },
   });

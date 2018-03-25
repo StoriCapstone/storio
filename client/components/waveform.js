@@ -37,7 +37,7 @@ export default class Waveform extends React.Component {
     })
     //  var wavesurfer = this.wavesurfer
     //  var wavesurfer = {... wavesurfer, wavesurfer.prototype }
-    if(this.state.addMediaForm.currentMP3){ //added this so we can arrive at this component with recording from out recorder
+    if (this.state.addMediaForm.currentMP3){ //added this so we can arrive at this component with recording from out recorder
     this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3) // in case they have URL instead
     }
     store.dispatch(setCurrentWaveform(this.wavesurfer))

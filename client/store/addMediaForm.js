@@ -15,7 +15,7 @@ export const currentTime = time => ({
     type: CURRENT_TIME,
 })
 
-export const selectMP3toEdit = (blob, story) => ({ type: SELECT_MP3_TO_EDIT, blob, story })
+export const selectMP3toEdit = (blob, story) => ({ type: SELECT_MP3_TO_EDIT, blob, story, })
 
 //initial state
 
