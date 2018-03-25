@@ -21,7 +21,7 @@ body {
 
 a {
   text-decoration: none;
-  color:black
+  color:hsl(233, 58%, 43%)
 }
 
 
@@ -115,7 +115,7 @@ form div {
   height:5vh;
   /* background-color: rgba(255, 0, 0, 0.349); */
   margin:.4vw;
-  border-radius:.5svw;
+  border-radius:.5vw;
   align-items: center;
   box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
 
@@ -199,6 +199,7 @@ form div {
 #siteTitle{
   margin-left: .9vw;
   font-size: 30pt;
+  color:hsl(233, 53%, 42%);
   margin-right: .5vw;
 }
 #mainPage{
@@ -213,10 +214,10 @@ form div {
   justify-content: center;
 }
 #pageContainer{
-  background: linear-gradient(hsl(39, 95%, 60%),rgb(255, 166, 0));
+  /* background: linear-gradient(hsl(39, 95%, 60%),rgb(255, 166, 0)); */
   border-radius: 1vw;
   margin-top:1vw;
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+  /* box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24); */
 
 display:flex;
 flex-direction: column;
@@ -278,8 +279,8 @@ box-shadow: 0 0 1.2vw .3vw rgba(28, 27, 27, 0.61),inset 0 0 1.1vw .3vw rgb(27, 2
   height:13vh;
   /* background: linear-gradient(rgb(247, 195, 82), rgb(182, 183, 248),rgb(87, 126, 233)); */
   box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
-  border-bottom-left-radius: 1.3vw;
-  border-bottom-right-radius: 1.3vw;
+  /* border-bottom-left-radius: 1.3vw; */
+  /* border-bottom-right-radius: 1.3vw; */
   background: linear-gradient( hsl(46, 100%, 74%),rgb(250, 153, 7));
 
   /* background-color: rgba(248, 153, 124, 0.361); */
@@ -294,14 +295,15 @@ margin-right:3vw;
 
 .optionImg{
   /* background: radial-gradient(rgb(247, 208, 137),rgba(16, 158, 253, 0.802)); */
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 2vw .05vw rgb(27, 26, 24);
+  box-shadow: 0 0 2.3vw .8vw rgba(28, 27, 27, 0.37),inset 0 0 1.7vw .2vw rgb(27, 26, 24);
+  background: linear-gradient(90deg,rgba(250, 153, 7,0.7), hsla(46, 100%, 74%, 0.89),rgba(250, 153, 7,0.7));
 
-  background: linear-gradient(90deg,rgb(87, 126, 233), rgb(182, 183, 248),rgb(87, 126, 233));
-  border-radius: 2vw;
+  /* background: linear-gradient(90deg,rgb(87, 126, 233), rgb(182, 183, 248),rgb(87, 126, 233)); */
+  border-radius: 1.2vw;
 padding:2vw;
   width:10vw;
   height:auto;
-  transition: all .3s;
+  transition: all .15s;
 
   margin-bottom:2.3vw;
   margin-top: 4vw;
@@ -314,21 +316,25 @@ padding:2vw;
   margin-top:15vw;
 }
 .optionImg:hover{
-  box-shadow: 0 0 3vw .05vw rgba(17, 16, 16, 0.425), inset 0 0 2vw .05vw rgb(27, 26, 24);
+  background: linear-gradient(90deg,rgba(250, 153, 7, 0.819), hsl(46, 100%, 76%),rgba(250, 153, 7, 0.819));
 
-  transform: scale(1.01);
+  box-shadow: 0 0 2.3vw .8vw rgba(28, 27, 27, 0.37),inset 0 0 2.3vw .35vw rgb(27, 26, 24);
+transform:scale(.99)
 
-  background: linear-gradient(90deg,rgb(87, 126, 233), rgb(217, 217, 238),rgb(87, 126, 233));
+  /* background: linear-gradient(90deg,rgb(87, 126, 233), rgb(217, 217, 238),rgb(87, 126, 233)); */
 }
 
 .optionLabel{
   font-size: 20pt;
   color:rgb(54, 53, 53);
+  color:hsl(46, 90%, 62%)
+
 }
 
 #welcomeMsg{
   font-size: 18pt;
   margin-top: 7vw;
+  color:hsl(46, 90%, 62%)
 }
 
 #motto{

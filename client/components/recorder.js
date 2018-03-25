@@ -103,6 +103,7 @@ class Recorder extends React.Component {
           // Create a MediaStreamAudioSourceNode
           // Feed the HTMLMediaElement into it
           var audioCtx = new AudioContext();
+          window.audio = audioCtx //global access to the audio context for play/pause
           var source = audioCtx.createMediaStreamSource(stream);
           this.analyser = audioCtx.createAnalyser();
           const configs = {
@@ -210,12 +211,15 @@ class Recorder extends React.Component {
 
   handlePauseRecording() { //TODO
     this.setState({ isPaused: true, })
-    this.state.recorder.stop()
+    console.log(this.recorder)
+    window.audio.suspend()
   }
 
   handleResumeRecording() {
-    this.setState({ isPaused: true, }) //TODO
-    this.state.recorder.record()
+    this.setState({ isPaused: false, }) //TODO
+    console.log('fired')
+
+    window.audio.resume()
   }
 
   handleResetRecording() { //TODO
@@ -268,12 +272,12 @@ class Recorder extends React.Component {
             <div>
               <div>
                 <button
-className="recorderBtn" onClick={() => {
-                  this.props.isLoggedIn ?
-                    this.handleStartRecording()
-                    :
-                    this.props.history.push('/loginModal')
-                }}>Start</button>
+                  className="recorderBtn" onClick={() => {
+                    this.props.isLoggedIn ?
+                      this.handleStartRecording()
+                      :
+                      this.props.history.push('/loginModal')
+                  }}>Start</button>
                 {
                   this.state.isPaused ?
                     <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
