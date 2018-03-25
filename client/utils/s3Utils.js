@@ -24,7 +24,23 @@ const addBlobToS3 = (blob, extension) => {
     };
   });
 };
+/*
+  This function will given a url/key, it will check if it needs
+  to get an url from s3, and if so, does so. it will return
+  a promise for a possibly temporary url.
+  DRY FTW!
+ */
+const getMediaUrl = async (keyOrUrl = '') => {
+  if (keyOrUrl.startsWith('http:') || keyOrUrl.startsWith('https:')){
+    return keyOrUrl
+  }
+  else {
+    const s3Url = await Storage.get(keyOrUrl)
+    return s3Url
+  }
+};
 
 module.exports = {
   addBlobToS3,
+  getMediaUrl,
 };
