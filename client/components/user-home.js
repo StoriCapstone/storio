@@ -20,19 +20,19 @@ export const UserHome = (props) => {
       <div id="mainOptions">
         <div className="singleOption">
           <Link to="/recorder">
-            <img className="optionImg" src="/microphone.png" />
+            <img className="optionImg" src="/microphoneBlue.png" />
             <div className="optionLabel">Record</div>
           </Link>
         </div>
         <div className="singleOption">
           <Link to="/browse">
-            <img className="optionImg" src="/search.png" />
+            <img className="optionImg" src="/searchBlue.png" />
             <div className="optionLabel">Explore</div>
           </Link>
         </div>
         <div className="singleOption">
           <Link to="/customHome">
-            <img className="optionImg" src="/home.png" />
+            <img className="optionImg" src="/homeBlue.png" />
             <div className="optionLabel">Home</div>
           </Link>
         </div>

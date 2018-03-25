@@ -7,7 +7,7 @@ body {
   font-family: sans-serif;
   /* background-color: rgb(171, 69, 240); */
 
-    background: linear-gradient(hsl(233, 62%, 60%),rgb(10, 19, 80));
+    background: linear-gradient(hsl(233, 61%, 41%),rgb(4, 9, 47));
 
   /* background: linear-gradient(hsl(46, 100%, 74%),rgb(255, 166, 0)); */
   font-family: 'Raleway', sans-serif;
@@ -21,14 +21,26 @@ body {
 
 a {
   text-decoration: none;
-  color:black
+  color:hsl(233, 58%, 43%)
 }
 
 
 label {
   display: block;
 }
+.headerFlex{
+  display:flex;
+  justify-content: flex-start;
+  height:2.2vw;
+  background: linear-gradient(90deg,rgba(252, 173, 77, 0.668), rgba(244, 208, 119, 0.6));
+  align-items: center;
+  margin-bottom: 2vw;
+  width: 95vw;
+  border-radius: .5vw;
 
+  /* background: linear-gradient(90deg,rgba(98, 18, 110, 0.392),rgba(211, 138, 223, 0.392)); */
+
+}
 nav a {
   margin: 1em;
   font-size: 14pt;
@@ -51,13 +63,14 @@ form div {
   border:none;
   outline:none;
   box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
-  background: linear-gradient(90deg,rgb(110, 110, 110), rgb(203, 203, 204),rgb(111, 111, 112));
+  background: linear-gradient(90deg,rgba(228, 68, 68, 0.692), rgb(206, 111, 97),rgba(216, 60, 60, 0.692));
 
 
 }
 .visualizer{
-  border-radius:1vw;
+  border-radius:.6vw;
   margin-bottom: 2vw;
+  background-color:yellow;
 }
 #modalContainer{
   display:flex;
@@ -107,20 +120,30 @@ form div {
 .homeLabel{
   margin-right:30vw;;
 }
+.listenBtn{
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  font-size: 1rem;
+  margin-left:auto;
+  border-radius: .5vw;
+  background-color: blue
+}
 .rateStory{
   transition:all .2s;
   padding:.7vw;
   display:flex;
   width:80vw;
-  height:5vh;
+  height:6vh;
   /* background-color: rgba(255, 0, 0, 0.349); */
-  margin:.4vw;
-  border-radius:.5svw;
+  margin:.3vw;
+  border-radius:.5vw;
   align-items: center;
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+  box-shadow: 0 0 .1vw .1vw rgba(254, 212, 42, 0.925),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+  background: linear-gradient( 90deg,rgb(1, 7, 75),rgb(0, 17, 148));
 
   /* box-shadow: 0 0 .7vw .00000005vw rgb(39, 37, 34); */
-  background: linear-gradient(-90deg,rgba(255, 224, 122,.3), rgba(255, 0, 0, 0.349));
+  /* background: linear-gradient( -90deg,rgb(255, 206, 122),rgb(250, 112, 7)); */
 
 }
 .rateStory:hover{
@@ -130,20 +153,24 @@ form div {
 .ratingTitle{
   font-size: 1.3rem;
   margin-right: 1.5vw;
+  color:gold;
 }
 .author{
   font-size: 1rem;
+  color:gold;
+
 }
 .ratingImg{
-  margin-right:.4vw;
+  margin-right:.3vw;
   margin-left: auto;
-  box-shadow: 0 0 .7vw .00000005vw rgb(39, 37, 34);
+  /* box-shadow: 0 0 .7vw .00000005vw rgb(39, 37, 34); */
   border-radius: .7vw;
-  width:5.3vw;
+  width:2.83vw;
   height:auto;
 }
 
 .voteBtnFlex{
+  justify-content: space-between;
   margin-right: 2vw;
   display:flex;
   flex-direction: column;
@@ -163,7 +190,7 @@ form div {
   border-radius: .4vw;
   box-shadow: 0 0 .5vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 .3vw .03vw rgb(27, 26, 24);
   border:none;
-  background-color: rgba(209, 11, 209, 0.4);
+  background-color: rgb(212, 13, 13);
   transition: all .2s
 }
 .ratingBtn:hover{
@@ -174,7 +201,7 @@ form div {
   width:3vw;
   padding:.5vw;
   border-radius: .4vw;
-    background-color: rgba(146, 200, 250, 0.774);
+    background-color: rgba(252, 183, 34, 0.886);
 
   box-shadow: 0 0 .5vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 .3vw .03vw rgb(27, 26, 24);
 
@@ -199,12 +226,13 @@ form div {
 #siteTitle{
   margin-left: .9vw;
   font-size: 30pt;
+  color:hsl(233, 53%, 42%);
   margin-right: .5vw;
 }
 #mainPage{
   width:85vw;
   display:flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
 }
 .allItemsContainer{
@@ -213,34 +241,58 @@ form div {
   justify-content: center;
 }
 #pageContainer{
-  background: linear-gradient(hsl(39, 95%, 60%),rgb(255, 166, 0));
+  /* background: linear-gradient(hsl(39, 95%, 60%),rgb(255, 166, 0)); */
   border-radius: 1vw;
   margin-top:1vw;
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+  /* box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24); */
 
 display:flex;
 flex-direction: column;
-width:97vw;
+width:100vw;
 }
 
 #carouselWrapper{
   display:flex;
   align-items: center;
   flex-direction: column;
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+  /* box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 .3vw .03vw rgb(75, 73, 69); */
   justify-content: center;
-  border-radius: 2vw;
-   width:80%;
+  border-radius: 1vw;
+   width:83%;
   overflow: hidden;
   height:14vw;
-  background-color: rgba(216, 159, 121, 0.301);
+  margin-bottom: 1vw;
+  /* background: rgb(247, 190, 106); */
+  /* background: rgb(20, 37, 130); */
+
+
 }
 
 .browseHeader{
-/* background-color: rgba(174, 29, 232,0.2); */
-  margin:3vw;
+display:flex;
+justify-content: center;
+align-items: center;
+background-color: rgba(247, 186, 56, 0.986);
+height:2vw;
+border-radius: .4vw;
+color:hsl(250, 91%, 22%);
+font-size: 1.1rem;
+width:6.9vw;
+/* margin-top: 1.5vw; */
+/* border-radius: .6vw; */
+/* box-shadow: 0 0 1vw .1vw rgb(32, 30, 22),inset 0 0 .1vw .0000001vw rgb(27, 26, 24); */
+/* background: linear-gradient(90deg,rgba(227, 19, 19, 0.79), rgb(143, 2, 2),rgba(206, 5, 5, 0.749)); */
+
+/* background: linear-gradient(90deg,rgba(86, 1, 1, 0.79), rgb(143, 2, 2),rgba(86, 0, 0, 0.749)); */
+  margin-left:8vw;
 }
 .cardContainer.carouselCard{
+  background-color: rgb(24, 42, 134);
+  border: .2vw solid rgba(253, 185, 66, 0.9);
+  border-radius: .9vw;
+  box-shadow: 0 0 1.5vw .3vw rgb(17, 17, 17),inset 0 0 .1vw .0000001vw rgb(27, 26, 24);
+
+
   margin:0px;
 }
 .cardContainer{
@@ -254,7 +306,9 @@ width:97vw;
 
   margin:1.45vw;
   padding:.5vw;
-  background: linear-gradient(90deg,rgba(36, 49, 218,0.6),rgba(104, 24, 231, 0.6),rgba(36, 49, 218,0.6));
+  background-color: rgba(152, 160, 242, 0.842);
+
+  /* background: linear-gradient(90deg,rgba(36, 49, 218,0.6),rgba(104, 24, 231, 0.6),rgba(36, 49, 218,0.6)); */
 /* background-color: white; */
 }
 .imgWrapper{
@@ -264,11 +318,11 @@ width:97vw;
 
 }
 .cardImg{
-  border-radius: .5vw;
+  border-radius: .235vw;
 
   width:9vw;
 height:auto ;
-box-shadow: 0 0 1.2vw .3vw rgba(28, 27, 27, 0.61),inset 0 0 1.1vw .3vw rgb(27, 26, 24);
+box-shadow: 0 0 1vw .00000001vw rgba(250, 207, 63, 0.808),inset 0 0 1.1vw .3vw rgb(27, 26, 24);
 }
 #navBarFlex{
   display:flex;
@@ -277,13 +331,13 @@ box-shadow: 0 0 1.2vw .3vw rgba(28, 27, 27, 0.61),inset 0 0 1.1vw .3vw rgb(27, 2
   width:100vw;
   height:13vh;
   /* background: linear-gradient(rgb(247, 195, 82), rgb(182, 183, 248),rgb(87, 126, 233)); */
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
-  border-bottom-left-radius: 1.3vw;
-  border-bottom-right-radius: 1.3vw;
+  box-shadow: 0 0 2.5vw .8vw rgba(65, 4, 4, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+  /* border-bottom-left-radius: 1.3vw; */
+  /* border-bottom-right-radius: 1.3vw; */
   background: linear-gradient( hsl(46, 100%, 74%),rgb(250, 153, 7));
 
   /* background-color: rgba(248, 153, 124, 0.361); */
-  margin:0px;
+  margin-bottom:5vw;
   /* border-bottom-right-radius:1vw;
   border-bottom-left-radius:1vw; */
 }
@@ -294,14 +348,15 @@ margin-right:3vw;
 
 .optionImg{
   /* background: radial-gradient(rgb(247, 208, 137),rgba(16, 158, 253, 0.802)); */
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 2vw .05vw rgb(27, 26, 24);
+  box-shadow: 0 0 2.3vw .8vw rgba(28, 27, 27, 0.37),inset 0 0 1.7vw .2vw rgb(27, 26, 24);
+  background: linear-gradient(90deg,rgba(250, 153, 7,0.92), hsla(46, 100%, 74%, 0.93),rgba(250, 153, 7,0.92));
 
-  background: linear-gradient(90deg,rgb(87, 126, 233), rgb(182, 183, 248),rgb(87, 126, 233));
-  border-radius: 2vw;
+  /* background: linear-gradient(90deg,rgb(87, 126, 233), rgb(182, 183, 248),rgb(87, 126, 233)); */
+  border-radius: 1.2vw;
 padding:2vw;
   width:10vw;
   height:auto;
-  transition: all .3s;
+  transition: all .15s;
 
   margin-bottom:2.3vw;
   margin-top: 4vw;
@@ -314,29 +369,32 @@ padding:2vw;
   margin-top:15vw;
 }
 .optionImg:hover{
-  box-shadow: 0 0 3vw .05vw rgba(17, 16, 16, 0.425), inset 0 0 2vw .05vw rgb(27, 26, 24);
+  background: linear-gradient(90deg,rgba(250, 153, 7, 0.819), hsl(46, 100%, 76%),rgba(250, 153, 7, 0.819));
 
-  transform: scale(1.01);
+  box-shadow: 0 0 2.3vw .8vw rgba(28, 27, 27, 0.37),inset 0 0 2.3vw .35vw rgb(27, 26, 24);
+transform:scale(.99)
 
-  background: linear-gradient(90deg,rgb(87, 126, 233), rgb(217, 217, 238),rgb(87, 126, 233));
+  /* background: linear-gradient(90deg,rgb(87, 126, 233), rgb(217, 217, 238),rgb(87, 126, 233)); */
 }
 
 .optionLabel{
   font-size: 20pt;
   color:rgb(54, 53, 53);
+  color:hsl(46, 90%, 62%)
+
 }
 
 #welcomeMsg{
   font-size: 18pt;
   margin-top: 7vw;
+  color:hsl(46, 90%, 62%)
 }
 
 #motto{
   font-size: 34pt;
   margin-top: 5vw;
   font-weight: 150;
-  color:rgb(54, 53, 53)
-}
+  color:rgb(255, 206, 122)}
 
 #mainOptions{
   justify-content: center;
