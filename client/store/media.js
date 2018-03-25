@@ -14,7 +14,7 @@ const initialState = [];
 export default function( state = initialState, action){
     switch (action.type){
         case ADD_MEDIA_TO_STORY:
-            return [...state, action.media, ]
+            return [...state, action.mediaObj, ]
         default:
             return state
     }
