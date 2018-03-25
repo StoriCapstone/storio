@@ -14,6 +14,8 @@ export default class Modaly extends React.Component {
 
   onCloseModal = () => {
     this.setState({ open: false, });
+    this.props.history.push ('/');
+
   };
 
   render() {
@@ -22,7 +24,7 @@ export default class Modaly extends React.Component {
       <div>
         <Modal open={open} onClose={this.onCloseModal} little styles={{ modal: { borderRadius: '1vw', }, }}>
           <div id="modalContainer">
-            <h2>You must be logged in to begin recording!</h2>
+            <h2>You must be logged in to do that!</h2>
             <div id="loginOrSignup">
               <Link className="loginOrSignup" to="/login">Login</Link>
               <div>or</div>
