@@ -25,6 +25,17 @@ const addBlobToS3 = (blob, extension) => {
   });
 };
 
+const getMediaUrl = async (keyOrUrl = '') => {
+  if (keyOrUrl.startsWith('http:') || keyOrUrl.startsWith('https:')){
+    return keyOrUrl
+  }
+  else {
+
+    return Storage.get(keyOrUrl)
+  }
+};
+
 module.exports = {
   addBlobToS3,
+  getMediaUrl,
 };
