@@ -21,7 +21,7 @@ const moment = require('moment');
 const usersToCreate = 50; // minimum of 2 hard coded users will be generated
 const groupsToCreate = 15;
 const maxGroupNameWords = 5;
-
+const maxBriefDescWords = 20;
 const minGroupMembers = 1;
 const maxGroupMembers = 15; // if larger than usersToCreate, it will default to usersToCreate
 
@@ -49,7 +49,7 @@ const createUsers = numToCreate => {
     }),
   ];
 
-  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg', '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', ] //higher chance of default image
+  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg', '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png',] //higher chance of default image
   //we may ultimately remove the above array if we replace with loremPixel...TBD
 
   const numToGen = numToCreate - userPromises.length;
@@ -80,11 +80,23 @@ const genName = max => {
   return wordArr.join(' ');
 };
 
+const genDescription = max => {
+  const min = 12;
+  const words = chance.integer({ min, max, });
+  const wordArr = [];
+  for (let i = 0; i < words; i++) {
+    wordArr.push(chance.word());
+  }
+  return wordArr.join(' ');
+};
+
 const createGroups = numToCreate => {
   const groupPromises = [];
   for (let i = 0; i < numToCreate; i++) {
     const groupPromise = Group.create({
       name: genName(maxGroupNameWords),
+      // briefDescription: genDescription(maxBriefDescWords),
+      // isPublic: chance.bool() //50% change of t/f by default
     });
     groupPromises.push(groupPromise);
   }
@@ -103,7 +115,7 @@ const addMembersToGroups = (groups, users, min, max) => {
         usersToAssociate.add(users[randomUser]);
       }
     }
-    const groupPromise = group.addUsers([...usersToAssociate, ], {
+    const groupPromise = group.addUsers([...usersToAssociate,], {
       through: 'UserGroup',
     });
     groupPromises.push(groupPromise);
@@ -162,6 +174,8 @@ const createStories = numToCreate => {
     const { url, mediaLength, } = stories[
       chance.integer({ min: 0, max: stories.length - 1, })
     ];
+    // const isPublic = chance.bool() //50% change of t/f by default
+    // const briefDescription = genDescription(maxBriefDescWords);
     const upvotes = chance.integer({ min: 0, max: MAX_RANDOM_UPVOTES, });
     const downvotes = chance.integer({ min: 0, max: MAX_RANDOM_DOWNVOTES, });
     const storyPromise = Story.create({
@@ -171,6 +185,8 @@ const createStories = numToCreate => {
       releaseDate,
       url,
       mediaLength,
+      // isPublic,
+      // briefDescription,
       upvotes,
       downvotes,
     });

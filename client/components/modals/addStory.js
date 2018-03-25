@@ -13,6 +13,7 @@ export default class Modaly extends React.Component {
   };
 
   onCloseModal = () => {
+    this.props.parent.setState({isAdding:false})
     this.setState({ open: false, });
   };
 
@@ -22,11 +23,10 @@ export default class Modaly extends React.Component {
       <div>
         <Modal open={open} onClose={this.onCloseModal} little styles={{ modal: { borderRadius: '1vw', }, }}>
           <div id="modalContainer">
-            <h2>Add Story</h2>
             <div id="loginOrSignup">
-              <Link className="loginOrSignup" to="/login">Login</Link>
+            <Link className="loginOrSignup" to = '/recorder'>Go to recorder</Link>
               <div>or</div>
-              <Link className="loginOrSignup" to="/signup">Sign up</Link>
+              <Link className="loginOrSignup" to="/addMediaForm">Go straight to editor</Link>
             </div>
           </div>
         </Modal >

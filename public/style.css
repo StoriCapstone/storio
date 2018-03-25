@@ -294,7 +294,7 @@ width:100vw;
 display:flex;
 justify-content: center;
 align-items: center;
-background-color: rgba(247, 186, 56, 0.986);
+/* background-color: rgba(247, 186, 56, 0.986); */
 height:2vw;
 border-radius: .4vw;
 color:hsl(250, 91%, 22%);

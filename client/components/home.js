@@ -28,8 +28,8 @@ class Home extends React.Component {
         {
           this.state.isAdding ?
             (this.state.addingStoryVsGroup === 'story' ?
-              <AddStoryModal />
-              : <AddGroupModal />
+              <AddStoryModal parent = {this}/>
+              : <AddGroupModal parent = {this} handleSubmit = {this.props.createNewGroup}/>
             )
             : null
         }
@@ -60,7 +60,11 @@ class Home extends React.Component {
 /**
  * CONTAINER
  */
-const madDispatch = null
+const madDispatch = (dispatch) => {
+  return {
+  createNewGroup:(newGroup)=> dispatch(createGroupThunk(newGroup))
+  }
+}
 const mapState = (state) => {
   return {
     user: state.user,
