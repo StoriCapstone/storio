@@ -284,7 +284,7 @@ class Recorder extends React.Component {
           )}
         </div>
         {this.state.isRecording ? (
-          <RecorderPlaybackSubmit storySrc={this.recording} />
+          <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
         ) : null}
       </div>
     );

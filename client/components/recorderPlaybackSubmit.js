@@ -2,6 +2,10 @@ import React from 'react';
 import { connect, } from 'react-redux';
 import WaveSurfer from 'wavesurfer.js';
 import AudioControls from './MediaPlayback/audioControls';
+import { addBlobToS3, } from '../utils';
+import { postStory, } from '../store';
+import { selectMP3toEdit, } from '../store/';
+
 //sort the media by start time
 
 const genres = [
@@ -28,6 +32,9 @@ class RecorderPlaybackSubmit extends React.Component {
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitAndEditCB = this.submitAndEditCB.bind(this);
+    this.getSubmitObj = this.getSubmitObj.bind(this);
+    this.handleSubmitAndEdit = this.handleSubmitAndEdit.bind(this);
   }
 
   handleWaveformHover(position) {
@@ -68,13 +75,29 @@ class RecorderPlaybackSubmit extends React.Component {
       [name + 'IsValid']: isValid,
     });
   }
-  handleSubmit(evt){
-    evt.preventDefault()
-    const target = evt.target
+  submitAndEditCB(story) {
+    this.props.selectMP3toEdit(this.props.storySrc, story);
+    this.props.history.push('/addMediaForm');
+  }
+  async getSubmitObj() {
+    const url = await addBlobToS3(this.props.storySrc, 'mp3');
     const submitObj = {
-      genre: target.genre.value,
-      name: target.name.value,
-    }
+      url,
+      genre: this.state.genre,
+      name: this.state.name.trim(),
+      mediaLength: Math.ceil(this.wavesurfer.getDuration()),
+    };
+    return submitObj;
+  }
+  handleSubmitAndEdit(evt) {
+    evt.preventDefault();
+    this.getSubmitObj().then(storyObj =>
+      this.props.postStory(storyObj, this.submitAndEditCB)
+    );
+  }
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.getSubmitObj().then(storyObj => this.props.postStory(storyObj));
   }
   render() {
     const nameId = 'name';
@@ -137,14 +160,20 @@ class RecorderPlaybackSubmit extends React.Component {
                     id={genreId}
                     name={genreId}
                     onChange={this.handleChange}
+                    value={this.state.genre}
                     required
                   >
-                  <option value="" selected />
-                  {genres.map(genre => <option key={genre} >{genre}</option>)}
+                    <option value="" />
+                    {genres.map(genre => <option key={genre}>{genre}</option>)}
                   </select>
                 </label>
               </div>
-              <input type="submit" />
+              <input type="submit" value="Submit" />
+              <input
+                type="submit"
+                value="Submit and Edit"
+                onClick={this.handleSubmitAndEdit}
+              />
             </fieldset>
           </form>
         </div>
@@ -158,6 +187,6 @@ class RecorderPlaybackSubmit extends React.Component {
  */
 const mapState = null;
 
-const mapDispatch = null;
+const mapDispatch = { postStory, selectMP3toEdit, };
 
 export default connect(mapState, mapDispatch)(RecorderPlaybackSubmit);
