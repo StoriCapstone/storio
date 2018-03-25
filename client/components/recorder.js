@@ -187,34 +187,20 @@ class Recorder extends React.Component {
     }
   }
 
-<<<<<<< HEAD
   handlePauseRecording() { //TODO
     this.setState({ isPaused: true, })
-    console.log(this.recorder)
     window.audio.suspend()
   }
 
   handleResumeRecording() {
     this.setState({ isPaused: false, }) //TODO
-    console.log('fired')
-
     window.audio.resume()
-=======
-  handlePauseRecording() {
-    //TODO
-    this.setState({ isPaused: true, });
-    this.state.recorder.stop();
-  }
-
-  handleResumeRecording() {
-    this.setState({ isPaused: true, }); //TODO
-    this.state.recorder.record();
->>>>>>> master
   }
 
   handleResetRecording() {
     //TODO
   }
+
   handleStopRecording() {
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID);
@@ -263,7 +249,6 @@ class Recorder extends React.Component {
             <div>
               <div>
                 <button
-<<<<<<< HEAD
                   className="recorderBtn" onClick={() => {
                     this.props.isLoggedIn ?
                       this.handleStartRecording()
@@ -277,38 +262,6 @@ class Recorder extends React.Component {
                     <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
                 }
                 <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
-=======
-                  className="recorderBtn"
-                  onClick={() => {
-                    this.props.isLoggedIn
-                      ? this.handleStartRecording()
-                      : this.props.history.push('/loginModal');
-                  }}
-                >
-                  Start
-                </button>
-                {this.state.isPaused ? (
-                  <button
-                    className="recorderBtn"
-                    onClick={this.handleResumeRecording}
-                  >
-                    Resume
-                  </button>
-                ) : (
-                  <button
-                    className="recorderBtn"
-                    onClick={this.handlePauseRecording}
-                  >
-                    Pause
-                  </button>
-                )}
-                <button
-                  className="recorderBtn"
-                  onClick={this.handleStopRecording}
-                >
-                  Stop
-                </button>
->>>>>>> master
               </div>
               {this.props.isLoggedIn ? '' : <Modal />}
             </div>
