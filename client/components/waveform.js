@@ -72,7 +72,7 @@ export default class Waveform extends React.Component {
   }
   render() {
     return (
-      <div className="waveform" onMouseMove={(event) => (console.log(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration()).toFixed(2)))}>
+      <div className="waveform" >
         <div className="wave" onClick={this.handleWaveformClick} />
         <button onClick={this.handleAddMediaClick}>add media</button>
         <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
