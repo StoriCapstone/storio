@@ -3,9 +3,9 @@ import { connect, } from 'react-redux'
 
 const Comments = () => {
 
-    return (
-      <div id="pageContainer" />
-    )
+  return (
+    <div id="pageContainer" />
+  )
 }
 
 const mapDispatch = null

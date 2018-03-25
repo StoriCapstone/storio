@@ -3,7 +3,7 @@ const router = require('express').Router()
 const { Story, } = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {   //get all Storys
+router.get('/', (req, res, next) => {   //get all Stories
   Story.scope('populated').findAll()
     .then((result) => res.json(result))
     .catch(next)
@@ -16,8 +16,9 @@ router.get('/:id', (req, res, next) => {   //get a single Story
 })
 
 router.post('/', (req, res, next) => {   //create a Story
-  Story.scope('populated').create(req.body)
-    .then((Story) => res.json(Story))
+  Story.create(req.body)
+    .then(newStoryInstance => newStoryInstance.setUser(req.user))
+    .then(associatedStory => res.json(associatedStory))
     .catch(next)
 })
 

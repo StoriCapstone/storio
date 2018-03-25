@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect, } from 'react-redux'
 import { Link, } from 'react-router-dom'
-import AmazonUpload from './amazonUpload';
 /**
  * COMPONENT
  */
@@ -11,7 +10,7 @@ export const UserHome = (props) => {
 
 
   return (
-    <div>
+    <div id="pageContainer">
       {
         props.email ?
           <h3 id="welcomeMsg" >Welcome, {email}</h3>
@@ -26,13 +25,13 @@ export const UserHome = (props) => {
           </Link>
         </div>
         <div className="singleOption">
-          <Link to="/Browse">
+          <Link to="/browse">
             <img className="optionImg" src="/search.png" />
             <div className="optionLabel">Explore</div>
           </Link>
         </div>
         <div className="singleOption">
-          <Link to="/home">
+          <Link to="/customHome">
             <img className="optionImg" src="/home.png" />
             <div className="optionLabel">Home</div>
           </Link>
@@ -42,7 +41,6 @@ export const UserHome = (props) => {
         <button onClick={() => props.history.push('/mediaPlayer')}>GO TO PLAYER</button>
         <button onClick={() => props.history.push('/addMediaForm')}>GO TO EDIT STORY PAGE</button>
         <button onClick={() => props.history.push('/recorder')}>GO TO RECORDER</button>
-        <AmazonUpload />
       </div>
     </div >
   )
