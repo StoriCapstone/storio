@@ -9,13 +9,19 @@ import Carousel from './carousel'
 export const Browse = (props) => {
   return (
     <div id="pageContainer">
-      <h1 className="browseHeader" >Featured Stories</h1>
+    <div className = "headerFlex">
+      <h1 className="browseHeader" >Featured</h1>
+      </div>
       <Carousel id="featuredCarousel" items={props.featuredStories} />
-      <h1 className="browseHeader">User Favorites</h1>
+
+      <div className = "headerFlex">
+
+      <div className="browseHeader">Trending</div>
+</div>
       {
         props.trending.map((story) => <RateStory story={story} />)
       }
-      <h1 className="browseHeader">Featured Groups</h1>
+      <div className="browseHeader">Featured Groups</div>
       <AllItem items={props.featuredGroups} type="group" />
     </div>
   )
