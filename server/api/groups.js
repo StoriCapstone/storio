@@ -20,7 +20,7 @@ router.get('/:id', (req, res, next) => {   //get a single group
 router.post('/', (req, res, next) => {   //create a group
   Group.scope('populated').create(req.body.newGroup)
     .then((group) => group.addUser(req.body.user))
-    .then((group)=>res.json(group))
+    .then((group) => res.json(group))
     .catch(next)
 })
 

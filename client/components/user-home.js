@@ -31,7 +31,7 @@ export const UserHome = (props) => {
           </Link>
         </div>
         <div className="singleOption">
-          <Link to={props.email? "/customHome" : "/loginModal"}>
+          <Link to={props.email ? '/customHome' : '/loginModal'}>
             <img className="optionImg" src="/homeBlue.png" />
             <div className="optionLabel">Home</div>
           </Link>

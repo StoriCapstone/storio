@@ -96,7 +96,7 @@ const createGroups = numToCreate => {
     const groupPromise = Group.create({
       name: genName(maxGroupNameWords),
       briefDescription: genDescription(maxBriefDescWords),
-      isPublic: chance.bool() //50% change of t/f by default
+      isPublic: chance.bool(), //50% change of t/f by default
     });
     groupPromises.push(groupPromise);
   }
@@ -111,7 +111,7 @@ const addMembersToGroups = (groups, users, min, max) => {
     const usersToAssociate = addEveryone ? new Set(users) : new Set();
     if (!addEveryone) {
       while (usersToAssociate.size < members) {
-        const randomUser = chance.integer({ min: 0, max: users.length-1, });
+        const randomUser = chance.integer({ min: 0, max: users.length - 1, });
         usersToAssociate.add(users[randomUser]);
       }
     }

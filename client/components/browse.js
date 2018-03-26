@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, } from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, } from 'react-router-dom'
 import AllItem from './allItem'
 import RateStory from './rateStory'
 import Carousel from './carousel'

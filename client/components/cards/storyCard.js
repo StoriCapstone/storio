@@ -4,7 +4,7 @@ import { connect, } from 'react-redux'
 const StoryCard = (props) => {
 
   return (
-    <div onClick = {()=>props.history.push(`/listen/${props.story.id}`)} className={`storyCard cardContainer ${props.specialClassName || ''}`}>
+    <div onClick = {() => props.history.push(`/listen/${props.story.id}`)} className={`storyCard cardContainer ${props.specialClassName || ''}`}>
       <div className="storyName">{props.story.name}</div>
       <div className="imgWrapper">
         <img className="storyCardImg cardImg" src={props.story.thumbnailUrl} />

@@ -18,7 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({ type: GET_USER, user, })
 const removeUser = () => ({ type: REMOVE_USER, })
-export const addUserGroup = (newGroup) => ({ type: ADD_GROUP, newGroup })
+export const addUserGroup = (newGroup) => ({ type: ADD_GROUP, newGroup, })
 
 /**
  * THUNK CREATORS
@@ -61,7 +61,7 @@ export default function (state = defaultUser, action) {
     case REMOVE_USER:
       return defaultUser
       case ADD_GROUP:
-       return {...state, groups:[...state.groups,action.newGroup]}
+       return {...state, groups: [...state.groups, action.newGroup, ], }
     default:
       return state
   }

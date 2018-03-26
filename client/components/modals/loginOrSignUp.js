@@ -14,7 +14,7 @@ export default class Modaly extends React.Component {
 
   onCloseModal = () => {
     this.setState({ open: false, });
-    this.props.history.push ('/');
+    this.props.history.push('/');
 
   };
 

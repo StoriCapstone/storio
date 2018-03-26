@@ -27,10 +27,10 @@ const deleteStory = id => ({
 })
 
 const setMedia = (id, blob) => ({
-  type: SET_MEDIA, id, blob
+  type: SET_MEDIA, id, blob,
 })
 
-const setCurrent = (story) => ({type:SET_CURRENT, story})
+const setCurrent = (story) => ({type: SET_CURRENT, story, })
 /* ------------       THUNK CREATORS     ------------------ */
 export const fetchSingleStory = (id) => dispatch => {
   console.log('firibng')
@@ -89,7 +89,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_STORIES:
       return action.stories;
     case POST_NEW_STORY:
-      return [...state, action.story,]
+      return [...state, action.story, ]
     case EDIT_STORY:
       return state.map(story => {
         if (story.id === action.story.id) {
@@ -99,7 +99,7 @@ export default function reducer(state = [], action) {
         }
       })
     case SET_CURRENT:
-    let mod = [...state]
+    let mod = [...state, ]
     mod.current = action.story
     return mod
     case DELETE_STORY:

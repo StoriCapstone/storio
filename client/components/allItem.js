@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, } from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, } from 'react-router-dom'
 import StoryCard from './cards/storyCard'
 import MemberCard from './cards/memberCard'
 import GroupCard from './cards/groupCard'

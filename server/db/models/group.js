@@ -19,7 +19,7 @@ const Group = db.define('group', {
     },
     isPublic: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
     },
 },
     {

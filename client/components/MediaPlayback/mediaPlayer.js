@@ -61,9 +61,8 @@ class MediaPlayer extends React.Component {
     this.setState({ hoverProgress: position.toFixed(2), });
   }
 
-  componentWillReceiveProps({media}){
-    if (media !== this.props.media)
-      this.load(media)
+  componentWillReceiveProps({media, }){
+    if (media !== this.props.media) this.load(media)
   }
 
   load(media) {

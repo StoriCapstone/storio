@@ -59,8 +59,8 @@ const Story = db.define('story', {
   },
   isPublic: {
     type: Sequelize.BOOLEAN,
-    defaultValue:false,
-    allowNull: false
+    defaultValue: false,
+    allowNull: false,
   },
 },
   {
