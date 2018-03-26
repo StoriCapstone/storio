@@ -11,4 +11,7 @@ export { default as RecordingEditor, } from './RecordingEditor'
 export { default as Recorder, } from './recorder'
 export { default as Browse, } from './browse'
 export { default as Home, } from './home'
-export { default as Modal, } from './modal'
+export { default as LoginOrSignupModal, } from './modals/loginOrSignup'
+export { default as addStoryModal, } from './modals/addStory'
+export { default as addGroupModal, } from './modals/addGroup'
+

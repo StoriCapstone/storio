@@ -14,9 +14,12 @@ router.get('/:id', (req, res, next) => {   //get a single group
     .then(result => res.json(result))
     .catch(next)
 })
-
+// group.addUsers([...usersToAssociate, ], {
+//   through: 'UserGroup',
+// })
 router.post('/', (req, res, next) => {   //create a group
-  Group.scope('populated').create(req.body)
+  Group.scope('populated').create(req.body.newGroup)
+    .then((group) => group.addUser(req.body.user))
     .then((group) => res.json(group))
     .catch(next)
 })

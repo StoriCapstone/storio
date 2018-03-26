@@ -3,7 +3,7 @@ import React, { Component, } from 'react'
 import { connect, } from 'react-redux'
 import { withRouter, Route, Switch, } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Modal, Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor, Browse, Home, } from './components'
+import { LoginOrSignupModal, Recorder, Login, Signup, UserHome, MediaPlayer, RecordingEditor, Browse, Home, } from './components'
 import { me, story, group, } from './store'
 import { fetchAllStories, } from './store/stories'
 import { fetchAllGroups, } from './store/groups'
@@ -29,7 +29,8 @@ class Routes extends Component {
         <Route exact path="/" component={UserHome} />
         <Route path="/customHome" component={Home} />
         <Route path="/browse" component={Browse} />
-        <Route path="/loginModal" component={Modal} />
+        <Route path = "/listen/:id" component = {MediaPlayer} />
+        <Route path="/loginModal" component={LoginOrSignupModal} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/mediaPlayer" component={MediaPlayer} />
