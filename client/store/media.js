@@ -16,11 +16,11 @@ export const clearMediaOnState = () => ({
 
 //thunks
 export const saveMediaToStory = (mediaArr, storyId, history) => dispatch => {
-  Axios.post(`/api/media/${storyId}`)
+  Axios.post(`/api/media/${storyId}`, mediaArr)
     .then(res => res.data)
     .then(() => {
         dispatch(clearMediaOnState())
-        history.push(`/story/${storyId}`)});
+        history.push(`/singleStory/${storyId}`)});
 };
 
 //initial state

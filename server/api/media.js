@@ -3,6 +3,7 @@ const { Media, } = require('../db/models')
 module.exports = router
 
 router.post('/:storyId', (req, res, next) => {
+    // console.log(req.body)
   const arrOfMedia = req.body.map( mediaObj => ({...mediaObj, storyId: req.params.storyId, }) )
   Media.bulkCreate(arrOfMedia)
   .then( () => {
