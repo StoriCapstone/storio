@@ -14,13 +14,13 @@ const Group = db.define('group', {
         type: Sequelize.STRING,
         defaultValue: '/groups.png',
     },
-    // briefDescription: {
-    //     type: Sequelize.TEXT,
-    // },
-    // isPublic: {
-    //     type: Sequelize.BOOLEAN,
-    //     allowNull: false
-    // },
+    briefDescription: {
+        type: Sequelize.TEXT,
+    },
+    isPublic: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+    },
 },
     {
         scopes: {

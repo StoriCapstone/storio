@@ -95,8 +95,8 @@ const createGroups = numToCreate => {
   for (let i = 0; i < numToCreate; i++) {
     const groupPromise = Group.create({
       name: genName(maxGroupNameWords),
-      // briefDescription: genDescription(maxBriefDescWords),
-      // isPublic: chance.bool() //50% change of t/f by default
+      briefDescription: genDescription(maxBriefDescWords),
+      isPublic: chance.bool() //50% change of t/f by default
     });
     groupPromises.push(groupPromise);
   }
@@ -111,7 +111,7 @@ const addMembersToGroups = (groups, users, min, max) => {
     const usersToAssociate = addEveryone ? new Set(users) : new Set();
     if (!addEveryone) {
       while (usersToAssociate.size < members) {
-        const randomUser = chance.integer({ min: 0, max: users.length, });
+        const randomUser = chance.integer({ min: 0, max: users.length-1, });
         usersToAssociate.add(users[randomUser]);
       }
     }
@@ -174,8 +174,8 @@ const createStories = numToCreate => {
     const { url, mediaLength, } = stories[
       chance.integer({ min: 0, max: stories.length - 1, })
     ];
-    // const isPublic = chance.bool() //50% change of t/f by default
-    // const briefDescription = genDescription(maxBriefDescWords);
+    const isPublic = chance.bool() //50% change of t/f by default
+    const briefDescription = genDescription(maxBriefDescWords);
     const upvotes = chance.integer({ min: 0, max: MAX_RANDOM_UPVOTES, });
     const downvotes = chance.integer({ min: 0, max: MAX_RANDOM_DOWNVOTES, });
     const storyPromise = Story.create({
@@ -185,8 +185,8 @@ const createStories = numToCreate => {
       releaseDate,
       url,
       mediaLength,
-      // isPublic,
-      // briefDescription,
+      isPublic,
+      briefDescription,
       upvotes,
       downvotes,
     });

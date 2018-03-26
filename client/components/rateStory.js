@@ -4,7 +4,7 @@ import { connect, } from 'react-redux'
 const RateStory = (props) => {
 
   return (
-    <div className="rateStory">
+    <div className="rateStory"  onClick= {()=>props.history.push(`/listen/${props.story.id}`)}>
       <div className="votes">{props.story.upvotes - props.story.downvotes}</div>
       <div className="voteBtnFlex">
         <button className="ratingBtn"><i className="fas fa-caret-up fa-lg" />

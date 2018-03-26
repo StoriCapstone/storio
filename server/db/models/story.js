@@ -54,13 +54,13 @@ const Story = db.define('story', {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
-  // briefDescription: {
-  //   type: Sequelize.TEXT,
-  // },
-  // isPublic: {
-  //   type: Sequelize.BOOLEAN,
-  //   allowNull: false
-  // },
+  briefDescription: {
+    type: Sequelize.TEXT,
+  },
+  isPublic: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  },
 },
   {
     scopes: {

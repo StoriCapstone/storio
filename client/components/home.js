@@ -3,6 +3,8 @@ import { connect, } from 'react-redux'
 import AllItem from './allItem'
 import AddStoryModal from './modals/addStory'
 import AddGroupModal from './modals/addGroup'
+import {postGroup} from '../store/groups'
+import {addUserGroup} from '../store/user'
 
 /**
  * COMPONENT
@@ -29,7 +31,7 @@ class Home extends React.Component {
           this.state.isAdding ?
             (this.state.addingStoryVsGroup === 'story' ?
               <AddStoryModal parent = {this} />
-              : <AddGroupModal parent = {this} handleSubmit = {this.props.createNewGroup} />
+              : <AddGroupModal parent = {this} handleSubmit = {this.props.createNewGroup} user = {this.props.user}/>
             )
             : null
         }
@@ -62,7 +64,11 @@ class Home extends React.Component {
  */
 const madDispatch = (dispatch) => {
   return {
-  createNewGroup: (newGroup) => dispatch(createGroupThunk(newGroup)),
+  createNewGroup: (newGroup,userId) => {
+    dispatch(postGroup({newGroup,user:userId}))
+    dispatch(addUserGroup(newGroup))
+  },
+
   }
 }
 const mapState = (state) => {

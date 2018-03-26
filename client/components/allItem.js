@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect, } from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import StoryCard from './cards/storyCard'
 import MemberCard from './cards/memberCard'
 import GroupCard from './cards/groupCard'
@@ -30,7 +31,7 @@ const AllItem = (props) => {
  */
 const madDispatch = null
 const mapState = null
-export default connect(mapState, madDispatch)(AllItem)
+export default withRouter(connect(mapState, madDispatch)(AllItem))
 
 //----IDEAS-----
  //This is a generic component to display any number of 'cards'
