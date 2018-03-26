@@ -12,16 +12,16 @@ const AllItem = (props) => {
   return (
     <div className="allItemsContainer">
       {props.type === 'story' ?
-        props.items.map((story) => <StoryCard story={story} />)
+        props.items.map((story) => <StoryCard key = {story.id} history = {props.history} story={story} />)
         :
         props.type === 'group' ?
-          props.items.map((group) => <GroupCard group={group} />)
+          props.items.map((group) => <GroupCard key = {group.id} group={group} />)
           :
           props.type === 'member' ?
 
-            props.items.map((member) => <MemberCard member={member} />)
+            props.items.map((member) => <MemberCard key = {member.id} member={member} />)
             :
-            props.items.map((rateStory) => <RateStory story={rateStory} />)
+            props.items.map((rateStory) => <RateStory key = {rateStory.id} story={rateStory} />)
       }
     </div>
   )
