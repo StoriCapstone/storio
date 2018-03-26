@@ -1,9 +1,9 @@
 import React from 'react';
 // import ReactDOM from 'react-dom'
 import { connect, } from 'react-redux';
-import { changeMediaEntryMethod, } from '../store/addMediaForm';
+import { changeMediaEntryMethod, updateFormContent, clearAddMediaForm, } from '../store/addMediaForm';
 import { addMediaToStory, } from '../store/media';
-import { addBlobToS3, } from '../utils';
+import { addBlobToS3, getMediaUrl, } from '../utils';
 import Axios from 'axios';
 
 // var testData = {storyId:1, media:[{
@@ -14,78 +14,17 @@ import Axios from 'axios';
 //     options: {caption: 'hi'}}]
 //   }
 
-class AddMediaForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = undefined;
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    event.persist();
-    const time = this.props.time;
-    // console.log('event', event.nativeEvent)
-    // var nativeEvent = event.nativeEvent;
-    if (event.target.fileOrUrl.value === 'file') {
-      let extension = event.target.file[1].files[0].name.split('.');
-      extension = extension[extension.length - 1];
-      console.log('extension', extension);
-      addBlobToS3(event.target.file[1].files[0], extension).then(filename => {
-          this.props.addMediaToStory({
-            key: filename,
-            mediaType: event.target.file[1].files[0].type,
-            start: time,
-            duration: +event.target.duration.value,
-            caption: event.target.caption.value,
-            name: event.target.name.value,
-          }
-        );
-      });
-    } else if (event.target.fileOrUrl === 'url') {
-      if (event.target.type === 'img') {
-        Axios.get(event.target.src.value)
-          .then(res => res.data)
-          .then(file => {
-            let extension = event.target.src.value.split('.');
-            extension = extension[extension.length - 1];
-            return addBlobToS3(file, extension);
-          })
-          .then(filename => {
-              this.props.addMediaToStory({
-                key: filename,
-                mediaType: event.target.type.value,
-                start: time,
-                duration: +event.target.duration.value,
-                caption: event.target.caption.value,
-                name: event.target.name.value,
-              }
-            );
-          });
-      } else {
-          this.props.addMediaToStory({
-            key: event.target.src.value,
-            mediaType: event.target.type.value,
-            start: time,
-            duration: +event.target.duration.value,
-            caption: event.target.caption.value,
-            name: event.target.name.value,
-          })
-        ;
-      }
-    }
-  }
-
-  render() {
+const AddMediaForm = props => {
     return (
       <form
-        onSubmit={this.handleSubmit}
+        onSubmit={(event) => props.handleSubmit(event, props.time)}
         id="addMedia"
-        className={this.props.show ? '' : 'hide'}
+        className={props.show ? '' : 'hide'}
       >
         <input
           type="radio"
           defaultChecked
-          onChange={this.props.handleFileOrUrlChange}
+          onChange={props.handleFileOrUrlChange}
           name={'fileOrUrl'}
           value={'file'}
           id={'file'}
@@ -94,12 +33,12 @@ class AddMediaForm extends React.Component {
         <input
           type="radio"
           name={'fileOrUrl'}
-          onChange={this.props.handleFileOrUrlChange}
+          onChange={props.handleFileOrUrlChange}
           value={'url'}
           id={'url'}
         />
         <label htmlFor="url">url of media</label>
-        {this.props.selectedOption === 'file' ? (
+        {props.selectedOption === 'file' ? (
           <fieldset form="addMedia">
             <label>Upload media</label>
             <input type="file" name={'file'} />
@@ -107,13 +46,13 @@ class AddMediaForm extends React.Component {
         ) : (
           <fieldset form="addMedia">
             <label>Url</label>
-            <input type="text" name={'src'} />
+            <input type="text" value={props.src} onChange={props.handleTextChenge} name={'src'} />
             <label>select type</label>
             <input
               type="radio"
               defaultChecked
               name={'type'}
-              value={'img'}
+              value={'image'}
               id={'type1'}
             />
             <label htmlFor="type1">image</label>
@@ -122,27 +61,96 @@ class AddMediaForm extends React.Component {
           </fieldset>
         )}
 
-        <p>start at: {this.props.time.toFixed(2)}</p>
+        <p>start at: {props.time.toFixed(2)}</p>
         <label> Duration</label>
-        <input type="number" name={'duration'} />
+        <input type="number" value={props.duration} onChange={props.handleTextChenge} name={'duration'} />
         <label> Caption (optional)</label>
-        <input type="text" name={'caption'} />
+        <input type="text" value={props.caption} onChange={props.handleTextChenge} name={'caption'} />
         <label> Name of Media</label>
-        <input type="text" name={'name'} />
+        <input type="text" value={props.name} onChange={props.handleTextChenge} name={'name'} />
         <button type="submit">Submit</button>
       </form>
     );
   }
-}
 
 const mapState = state => ({
   selectedOption: state.addMediaForm.selectedOption,
   time: state.addMediaForm.time,
   show: state.waveform.toggleAddMediaForm,
+  duration: state.addMediaForm.duration,
+  caption: state.addMediaForm.caption,
+  name: state.addMediaForm.name,
+  src: state.addMediaForm.src,
 });
-const mapDispatch = {
-    handleFileOrUrl: changeMediaEntryMethod,
-    addMediaToStory,
-};
+const mapDispatch = (dispatch) => ({
+    handleTextChenge: (event) => {
+        var content = {};
+        // console.log(event)
+        content[event.target.name] = event.target.value
+        dispatch(updateFormContent(content))
+    },
+    handleFileOrUrlChange: event => {
+        dispatch(changeMediaEntryMethod(event.target.value))
+    },
+    handleSubmit: (event, time) => {
+        event.preventDefault();
+        event.persist();
+        // console.log('event', event.nativeEvent)
+        // var nativeEvent = event.nativeEvent;
+        if (event.target.fileOrUrl.value === 'file') {
+          let extension = event.target.file[1].files[0].name.split('.');
+          extension = extension[extension.length - 1];
+          addBlobToS3(event.target.file[1].files[0], extension).then(async (filename) => {
+            var source = await getMediaUrl(filename)
+            dispatch(addMediaToStory({
+                src: source,
+                key: filename,
+                mediaType: event.target.file[1].files[0].type,
+                start: time,
+                duration: +event.target.duration.value,
+                caption: event.target.caption.value,
+                name: event.target.name.value,
+              }
+            ));
+        dispatch(clearAddMediaForm());
+    });
+        } else if (event.target.fileOrUrl === 'url') {
+          if (event.target.type === 'img') {
+            Axios.get(event.target.src.value)
+              .then(res => res.data)
+              .then(file => {
+                let extension = event.target.src.value.split('.');
+                extension = extension[extension.length - 1];
+                return addBlobToS3(file, extension);
+              })
+              .then(async filename => {
+              var source = await getMediaUrl(filename)
+              dispatch(addMediaToStory({
+                    src: source,
+                    key: filename,
+                    mediaType: event.target.type.value,
+                    start: time,
+                    duration: +event.target.duration.value,
+                    caption: event.target.caption.value,
+                    name: event.target.name.value,
+                  }
+                ));
+        dispatch(clearAddMediaForm());
+    });
+          } else {
+              dispatch(addMediaToStory({
+                src: event.target.src.value,
+                key: event.target.src.value,
+                mediaType: event.target.type.value,
+                start: time,
+                duration: +event.target.duration.value,
+                caption: event.target.caption.value,
+                name: event.target.name.value,
+              }))
+            dispatch(clearAddMediaForm())
+          }
+        }
+      },
+});
 
 export default connect(mapState, mapDispatch)(AddMediaForm);
