@@ -5,8 +5,8 @@ import WaveSurfer from 'wavesurfer.js';
 import VideoPlayer from './videoPlayer.js';
 import AudioControls from './audioControls';
 import { fetchSingleStory, } from '../../store/stories';
-import { getMediaUrl, } from '../../utils/s3utils';
-import axios from 'axios'
+import { getMediaUrl, } from '../../utils/s3Utils';
+import axios from 'axios';
 
 //sort the media by start time
 
@@ -61,8 +61,8 @@ class MediaPlayer extends React.Component {
     this.setState({ hoverProgress: position.toFixed(2), });
   }
 
-  componentWillReceiveProps({media, }){
-    if (media !== this.props.media) this.load(media)
+  componentWillReceiveProps({ media, }) {
+    if (media !== this.props.media) this.load(media);
   }
 
   load(media) {
@@ -70,7 +70,7 @@ class MediaPlayer extends React.Component {
   }
 
   waveDidMount = container => {
-    if (!container) return
+    if (!container) return;
     this.wavesurfer = WaveSurfer.create({
       container,
       waveColor: '#5b76f7',
@@ -81,19 +81,19 @@ class MediaPlayer extends React.Component {
       barWidth: 2,
     });
 
-    let interval = null
+    let interval = null;
     this.wavesurfer.on('play', () => {
       interval = interval || this.interval();
     });
 
     this.wavesurfer.on('finish', function() {
       clearInterval(interval);
-      interval = null
+      interval = null;
     });
 
     // If we have media, load it into the wavesurfer.
-    this.load(this.props.media)
-  }
+    this.load(this.props.media);
+  };
 
   pointAdder(event) {
     let point = document.createElement('div');
@@ -107,26 +107,42 @@ class MediaPlayer extends React.Component {
 
   interval() {
     let nextUp = 0;
-    return setInterval(() => {
+    this.setState({
+      currentMedia: this.props.currentStory.media[nextUp],
+    });
+    return setInterval(async () => {
+      let currentMediaURLretreived = false;
       //avoids having to check every item in the media array
       let progress = this.wavesurfer.getCurrentTime();
-      if (this.state.allMedia.media[nextUp]) {
-        if (progress >= this.state.allMedia.media[nextUp].start) {
-          this.setState({
-            currentMedia: this.state.allMedia.media[nextUp++],
-            isShowing: true,
-          });
+      if (this.props.currentStory.media[nextUp]) {
+        if (progress >= this.props.currentStory.media[nextUp].start) {
+          if (!currentMediaURLretreived) {
+            this.currentUrl = await getMediaUrl(
+              this.props.currentStory.media[nextUp].key
+            );
+            currentMediaURLretreived = true;
+            this.setState({
+              currentMedia: this.props.currentStory.media[nextUp++],
+              isShowing: true,
+            });
+          }
           if (this.state.currentMedia.type === 'video') this.wavesurfer.pause();
         }
       }
-      let finishTime = this.state.currentMedia.end || null;
+      let finishTime =
+        this.state.currentMedia.start + this.state.currentMedia.duration ||
+        null;
       if (finishTime && progress >= finishTime) {
         this.setState({ isShowing: false, });
+        currentMediaURLretreived = false;
       }
     }, 1000);
   }
 
-  render() {
+  async render() {
+    if (this.state.currentMedia.key) {
+      var src = await getMediaUrl(this.state.currentMedia.key);
+    }
     return (
       <div id="mainPlayer">
         <h2 align="center" id="storyTitle">
@@ -172,7 +188,7 @@ class MediaPlayer extends React.Component {
               <div>
                 {this.state.currentMedia.type &&
                 this.state.currentMedia.type === 'img' ? (
-                  <img id="mediaImg" src={this.state.currentMedia.src} />
+                  <img id="mediaImg" src={src} />
                 ) : (
                   <VideoPlayer
                     storyAudio={this.wavesurfer}
