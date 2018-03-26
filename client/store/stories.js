@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { getMediaUrl, } from '../utils/s3utils';
+
 /* -----------------    ACTION TYPES    ------------------ */
 const GET_ALL_STORIES = 'GET_ALL_STORIES';
 const POST_NEW_STORY = 'POST_NEW_STORY';
 const EDIT_STORY = 'EDIT_STORY';
 const DELETE_STORY = 'DELETE_STORY';
-const SET_CURRENT_STORY = 'SET_CURRENT_STORY'
+export const SET_MEDIA = 'SET_MEDIA';
 
 /* ------------       ACTION CREATOR     ------------------ */
 const getAllStories = stories => ({
@@ -23,18 +25,25 @@ const deleteStory = id => ({
   type: DELETE_STORY, id,
 })
 
-const setCurrent = story => ({
-  type: SET_CURRENT_STORY, story
+const setMedia = (id, blob) => ({
+  type: SET_MEDIA, id, blob
 })
 
 /* ------------       THUNK CREATORS     ------------------ */
 export const fetchSingleStory = (id) => dispatch => {
   console.log('firibng')
   axios.get(`/api/stories/${id}`)
-    .then(res => {
-      console.log('HERE IT IS', res.data)
-      dispatch(editStory(res.data)) //call editStory in order to update the target story in the store
-      dispatch(setCurrent(res.data)) //return the target story
+    .then(async res => {
+      const story = res.data
+      dispatch(editStory(story)) //call editStory in order to update the target story in the store
+      dispatch(
+        setMedia(id,
+          await axios({
+            url: await getMediaUrl(story.url),
+            method: 'GET',
+            responseType: 'blob', // important
+          }).then(_ => _.data))
+      )
     })
     .catch(err => console.error(err));
 }
@@ -88,10 +97,6 @@ export default function reducer(state = [], action) {
       })
     case DELETE_STORY:
       return state.filter(story => story.id !== action.id)
-    case SET_CURRENT_STORY:
-    let mod = [ ...state]
-    mod.current = action.story //return the existing state array + property of current with selected item
-      return mod
     default:
       return state;
   }
