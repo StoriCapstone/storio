@@ -31,13 +31,15 @@ const addBlobToS3 = (blob, extension) => {
   a promise for a possibly temporary url.
   DRY FTW!
  */
-const getMediaUrl = async (keyOrUrl = '') => {
-  if (keyOrUrl.startsWith('http:') || keyOrUrl.startsWith('https:')){
-    return keyOrUrl
+const getMediaUrl = async keyOrUrl => {
+  if (keyOrUrl === '') {
+    throw new Error('keyOrUrl cannot be empty');
   }
-  else {
-    const s3Url = await Storage.get(keyOrUrl)
-    return s3Url
+  if (keyOrUrl.startsWith('http:') || keyOrUrl.startsWith('https:')) {
+    return keyOrUrl;
+  } else {
+    const s3Url = await Storage.get(keyOrUrl);
+    return s3Url;
   }
 };
 

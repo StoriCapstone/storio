@@ -33,6 +33,9 @@ const Media = db.define('media', {  //media belongs to a story, will have story 
   caption: {
     type: Sequelize.TEXT,
   },
+  key: {
+    type: Sequelize.STRING,
+  },
 })
 
 module.exports = Media

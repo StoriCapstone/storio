@@ -60,9 +60,9 @@ export const fetchAllStories = () => dispatch => {
 export const postStory = (newStory, cb) => dispatch => {
   axios.post('/api/stories', newStory)
     .then(res => {
-      dispatch(postNewStory(res))
-      if (cb) {
-        dispatch(() => cb(res.data))
+      dispatch(postNewStory(res.data))
+      if (cb){
+        dispatch(() => cb(res.data)) //or should this be res?
       }
       return res.data
     })
