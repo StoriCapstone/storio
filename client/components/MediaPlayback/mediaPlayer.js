@@ -5,7 +5,7 @@ import WaveSurfer from 'wavesurfer.js';
 import VideoPlayer from './videoPlayer.js';
 import AudioControls from './audioControls';
 import { fetchSingleStory, } from '../../store/stories';
-import { getMediaUrl, } from '../../utils/s3utils';
+import { getMediaUrl, } from '../../utils/s3Utils';
 import axios from 'axios'
 
 //sort the media by start time

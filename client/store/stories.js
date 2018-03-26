@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getMediaUrl, } from '../utils/s3utils';
+import { getMediaUrl, } from '../utils/s3Utils';
 
 /* -----------------    ACTION TYPES    ------------------ */
 const GET_ALL_STORIES = 'GET_ALL_STORIES';
