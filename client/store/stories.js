@@ -33,7 +33,7 @@ export const fetchAllStories = () => dispatch => {
 export const postStory = (newStory, cb) => dispatch => {
   axios.post('/api/stories', newStory)
     .then(res => {
-      dispatch(postNewStory(res))
+      dispatch(postNewStory(res.data))
       if (cb){
         dispatch(() => cb(res.data))
       }
@@ -65,7 +65,7 @@ export default function reducer(state = [], action) {
       return [...state, action.story, ]
     case EDIT_STORY:
       return state.map(story => {
-        if (STORY.id === action.story.id) {
+        if (story.id === action.story.id) {
           return action.story
         } else {
           return story

@@ -3,13 +3,13 @@ import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools, } from 'redux-devtools-extension'
 import user from './user'
-import { default as addMediaForm, } from './addMediaForm';
-import { default as waveform, } from './waveform';
+import {default as addMediaForm, } from './addMediaForm';
+import {default as waveform, } from './waveform';
+import {default as commentForm, } from './comments';
+import {default as story, } from './story'
+import {default as media, } from './media'
 import { default as groups, } from './groups';
 import { default as stories, } from './stories';
-
-import { default as commentForm, } from './comments';
-import { default as story, } from './story'
 
 const reducer = combineReducers({
   user,
@@ -19,6 +19,7 @@ const reducer = combineReducers({
   stories,
   commentForm,
   story,
+  media,
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -34,3 +35,4 @@ export * from './groups'
 export * from './stories'
 export * from './comments'
 export * from './story'
+export * from './media'
