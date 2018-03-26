@@ -7,7 +7,7 @@ import {default as addMediaForm, } from './addMediaForm';
 import {default as waveform, } from './waveform';
 import {default as commentForm, } from './comments';
 import {default as story, } from './story'
-import {default as media, } from './media'
+import {default as storyMedia, } from './media'
 import { default as groups, } from './groups';
 import { default as stories, } from './stories';
 import {SET_MEDIA, } from './stories'
@@ -20,6 +20,7 @@ const reducer = combineReducers({
   stories,
   commentForm,
   story,
+  storyMedia,
   media: (state = {}, {type, id, blob, }) =>
     (type === SET_MEDIA
       ? {...state, [id]: blob, }
