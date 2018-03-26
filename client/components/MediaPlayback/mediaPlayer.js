@@ -5,7 +5,8 @@ import WaveSurfer from 'wavesurfer.js'
 import VideoPlayer from './videoPlayer.js'
 import AudioControls from './audioControls'
 import {fetchSingleStory} from '../../store/stories'
-import {getMediaUrl} from '../../utils/s3utils'
+import {getMediaUrl} from '../../utils/s3Utils'
+import axios from 'axios'
 
 //sort the media by start time
 
@@ -56,9 +57,56 @@ class MediaPlayer extends React.Component {
     this.setState({ hoverProgress: position.toFixed(2), })
   }
 
-  componentDidMount() {
+ componentDidUpdate(){
+    // axios.get(`/api/stories/${this.props.match.params.id}`)
+    //   .then(res => {
+    //     // dispatch(editStory(res.data)) //call editStory in order to update the target story in the store
+    //     // dispatch(setCurrent(res.data)) //return the target story
+    //     getMediaUrl(this.props.currentStory.url)
+    //     .then((url)=>    {
+    //       console.log('THE URL RETURNED = =',url)
+    //       this.wavesurfer.load(url)
+    //     }
+    //   )
+    //   })
+    //   .catch(err => console.error(err));
+
+
+ }
+ componentWillUnmount(){
+   this.wavesurfer.destroy()
+ }
+
+  async componentDidMount() {
+    let url = this.props.allStories.filter((story)=>story.id === this.props.match.params.id).url
+
+    let currentStory = this.p
+   let blob = await axios({
+      method:'get',
+      url:`/api/stories/${this.props.match.params.id}`,
+      responseType:'blob'
+    })
+
+
+      getMediaUrl(this.props.currentStory.url)
+      .then((url)=>    {
+        console.log('THE URL RETURNED = =',url)
+        this.wavesurfer.load(url)
+      }
+    )
+    })
+    .catch(err => console.error(err));
+
     // console.log('OF NTIERST:,', this.props.match.params.id)
-  this.props.getContent(this.props.match.params.id)
+//   this.props.getContent(this.props.match.params.id)
+//   .then((nada)=>{
+// // console.log('THE URL ++++',nada)
+
+// console.log('the url ====',this.props.currentStory)
+//   this.wavesurfer.load('uuuuu')
+
+//   })
+
     //console.log('hhhhhhh',a)
     let intervalSet = false
     this.$el = ReactDOM.findDOMNode(this)
@@ -72,12 +120,7 @@ class MediaPlayer extends React.Component {
       barHeight: 3,
       barWidth: 2,
     })
-    getMediaUrl(this.props.currentStory.url)
-    .then((url)=>    {
-      console.log('THE URL RETURNED = =',url)
-      this.wavesurfer.load(url)
-    }
-  )
+
 
     var self = this
     this.wavesurfer.on('play', function () {
@@ -120,10 +163,10 @@ class MediaPlayer extends React.Component {
   }
 
   render() {
-    console.log('parammmms = ',this.props.currentStory)
+    // console.log('parammmms = ',this.props.currentStory)
     return (
       <div id="mainPlayer">
-        <h2 align="center" id="storyTitle">{this.props.currentStory.name||'hi'}</h2>
+        <h2 align="center" id="storyTitle">{this.props.currentStory.name||''}</h2>
 
         <div id="viewContainer" >
           <div id="waveContainer">
@@ -168,14 +211,17 @@ MediaPlayer.defaultProps = {
  * CONTAINER
  */
 const mapState = (state)=>({
-  currentStory : state.stories.current||''
+  allStories : state.stories,
+
 })
 
 const mapDispatch = (dispatch) =>({
 
     getContent:(id)=>{
       console.log('this worked')
-      dispatch(fetchSingleStory(id))}
+      dispatch(fetchSingleStory(id))
+    return Promise.resolve()
+    }
   }
 )
 

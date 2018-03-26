@@ -28,16 +28,17 @@ const setCurrent = story => ({
 })
 
 /* ------------       THUNK CREATORS     ------------------ */
-export const fetchSingleStory = (id) => dispatch => {
-  console.log('firibng')
-  axios.get(`/api/stories/${id}`)
-    .then(res => {
-      console.log('HERE IT IS', res.data)
-      dispatch(editStory(res.data)) //call editStory in order to update the target story in the store
-      dispatch(setCurrent(res.data)) //return the target story
-    })
-    .catch(err => console.error(err));
-}
+// export const fetchSingleStory = (id) => dispatch => {
+//   console.log('firibng')
+//   axios.get(`/api/stories/${id}`)
+//     .then(res => {
+//       console.log('HERE IT IS', res.data)
+//       dispatch(editStory(res.data)) //call editStory in order to update the target story in the store
+//       dispatch(setCurrent(res.data)) //return the target story
+//     })
+//     .catch(err => console.error(err));
+
+// }
 
 export const fetchAllStories = () => dispatch => {
   axios.get('/api/stories')
