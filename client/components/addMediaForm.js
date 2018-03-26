@@ -95,7 +95,7 @@ const mapDispatch = (dispatch) => ({
     handleSubmit: (event, time) => {
         event.preventDefault();
         event.persist();
-        // console.log('event', event.nativeEvent)
+        console.log('event', event.target.fileOrUrl)
         // var nativeEvent = event.nativeEvent;
         if (event.target.fileOrUrl.value === 'file') {
           let extension = event.target.file[1].files[0].name.split('.');
@@ -114,11 +114,12 @@ const mapDispatch = (dispatch) => ({
             ));
         dispatch(clearAddMediaForm());
     });
-        } else if (event.target.fileOrUrl === 'url') {
-          if (event.target.type === 'img') {
-            Axios.get(event.target.src.value)
+        } else if (event.target.fileOrUrl.value === 'url') {
+          if (event.target.type.value === 'image') {
+            Axios.get(event.target.src.value, {responseType: 'blob', })
               .then(res => res.data)
               .then(file => {
+                console.log(file)
                 let extension = event.target.src.value.split('.');
                 extension = extension[extension.length - 1];
                 return addBlobToS3(file, extension);
