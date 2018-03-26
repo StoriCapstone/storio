@@ -5,6 +5,7 @@ import WaveSurfer from 'wavesurfer.js'
 import VideoPlayer from './videoPlayer.js'
 import AudioControls from './audioControls'
 import {fetchSingleStory} from '../../store/stories'
+import {getMediaUrl} from '../../utils/s3utils'
 
 //sort the media by start time
 
@@ -71,7 +72,13 @@ class MediaPlayer extends React.Component {
       barHeight: 3,
       barWidth: 2,
     })
-    this.wavesurfer.load(this.props.storySrc)
+    getMediaUrl(this.props.currentStory.url)
+    .then((url)=>    {
+      console.log('THE URL RETURNED = =',url)
+      this.wavesurfer.load(url)
+    }
+  )
+
     var self = this
     this.wavesurfer.on('play', function () {
       if (!intervalSet) {
