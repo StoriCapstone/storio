@@ -1,9 +1,13 @@
 import axios from 'axios';
+import { getMediaUrl, } from '../utils/s3utils';
+
 /* -----------------    ACTION TYPES    ------------------ */
 const GET_ALL_STORIES = 'GET_ALL_STORIES';
 const POST_NEW_STORY = 'POST_NEW_STORY';
 const EDIT_STORY = 'EDIT_STORY';
 const DELETE_STORY = 'DELETE_STORY';
+const SET_CURRENT = 'SET_CURRENT'
+export const SET_MEDIA = 'SET_MEDIA';
 
 /* ------------       ACTION CREATOR     ------------------ */
 const getAllStories = stories => ({
@@ -22,7 +26,30 @@ const deleteStory = id => ({
   type: DELETE_STORY, id,
 })
 
+const setMedia = (id, blob) => ({
+  type: SET_MEDIA, id, blob,
+})
+
+const setCurrent = (story) => ({type: SET_CURRENT, story, })
 /* ------------       THUNK CREATORS     ------------------ */
+export const fetchSingleStory = (id) => dispatch => {
+  console.log('firibng')
+  axios.get(`/api/stories/${id}`)
+    .then(async res => {
+      const story = res.data
+      dispatch(editStory(story)) //call editStory in order to update the target story in the store
+      dispatch(setCurrent(story))
+      dispatch(
+        setMedia(id,
+          await axios({
+            url: await getMediaUrl(story.url),
+            method: 'GET',
+            responseType: 'blob', // important
+          }).then(_ => _.data))
+      )
+    })
+    .catch(err => console.error(err));
+}
 
 export const fetchAllStories = () => dispatch => {
   axios.get('/api/stories')
@@ -35,7 +62,7 @@ export const postStory = (newStory, cb) => dispatch => {
     .then(res => {
       dispatch(postNewStory(res.data))
       if (cb){
-        dispatch(() => cb(res.data))
+        dispatch(() => cb(res.data)) //or should this be res?
       }
       return res.data
     })
@@ -71,6 +98,10 @@ export default function reducer(state = [], action) {
           return story
         }
       })
+    case SET_CURRENT:
+    let mod = [...state, ]
+    mod.current = action.story
+    return mod
     case DELETE_STORY:
       return state.filter(story => story.id !== action.id)
     default:

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect, } from 'react-redux'
+import {withRouter, } from 'react-router-dom'
 import AllItem from './allItem'
 import RateStory from './rateStory'
 import Carousel from './carousel'
@@ -19,7 +20,7 @@ export const Browse = (props) => {
       <div className="browseHeader">Trending</div>
 </div>
       {
-        props.trending.map((story) => <RateStory story={story} />)
+        props.trending.map((story) => <RateStory history = {props.history} story={story} />)
       }
       <div className="browseHeader">Featured Groups</div>
       <AllItem items={props.featuredGroups} type="group" />
@@ -38,7 +39,7 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState, madDispatch)(Browse)
+export default withRouter(connect(mapState, madDispatch)(Browse))
 
 //-----IDEAS------
  //featured stories can simply be the 5 most recently created *public* stories
