@@ -27,7 +27,7 @@ const Editor = (props) => {
 
 const mapState = (state) => ({
   currentWaveform: state.waveform.currentWaveform,
-  media: state.media,
+  media: state.storyMedia,
   story: state.addMediaForm.story,
 })
 const mapDispatch = (dispatch, ownProps) => ({
