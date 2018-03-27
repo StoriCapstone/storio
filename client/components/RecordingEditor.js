@@ -2,6 +2,7 @@ import React from 'react';
 import { connect, } from 'react-redux';
 import Waveform from './waveform';
 import AddMediaForm from './addMediaForm';
+import {withRouter} from 'react-router-dom'
 import AudioControls from './MediaPlayback/audioControls';
 import ReactPlayer from 'react-player';
 import { saveMediaToStory, deleteMediaFromStoryThunk, } from '../store';
@@ -39,4 +40,4 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
 })
 
-export default connect(mapState, mapDispatch)(Editor);
+export default withRouter(connect(mapState, mapDispatch)(Editor));

@@ -4,6 +4,7 @@ import MediaPlayer from './MediaPlayback/mediaPlayer'
 import CommentForm from './commentForm'
 import { fetchStoryThunk, } from '../store';
 
+import {withRouter} from 'react-router-dom'
 
 const SingleComment = (props) => {
     return (
@@ -26,7 +27,7 @@ class SingleStory extends React.Component {
         return (
             <div>
                 <p>by {Object.keys(this.props.story).length ? this.props.story.user.displayName : 'Loading'}</p>
-                <MediaPlayer />
+                <MediaPlayer match = {{params:{id: this.props.id}}}/>
                 <h2>Comments:</h2>
                 {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p>Sign in to leave comments</p>}
                 {Object.keys(this.props.story).length ? this.props.allComments.map((commentObj, index, array) => <SingleComment key={commentObj.id ? commentObj.id : array[array.length - 2].id + 1} commentObj={commentObj} />) : 'Loading Comments'}
@@ -45,4 +46,4 @@ const mapDispatch = (dispatch) => ({
         dispatch(fetchStoryThunk(id))
     },
 });
-export default connect(mapState, mapDispatch)(SingleStory)
+export default withRouter(connect(mapState, mapDispatch)(SingleStory))

@@ -19,6 +19,7 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
 
+        // <Route path="/singleStory/:id" component={SingleStory} />
 
   render() {
     const { isLoggedIn, } = this.props
@@ -37,7 +38,10 @@ class Routes extends Component {
         <Route path="/addMediaForm" component={RecordingEditor} />
         {/* temp for testing */}
         <Route path="/recorder" component={Recorder} />
-        <Route path="/singleStory/:id" component={SingleStory} />
+        <Route  path="/singleStory/:id" location={this.props.location} key={this.props.location.key} render={({ location, match }) => (
+          <SingleStory key={this.props.location.key}  params={match.params}/>
+      )} />
+
 
         {
           isLoggedIn &&

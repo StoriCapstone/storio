@@ -10,7 +10,7 @@ import {default as story, } from './story'
 import {default as storyMedia, } from './media'
 import { default as groups, } from './groups';
 import { default as stories, } from './stories';
-import {SET_MEDIA, } from './stories'
+import {SET_MEDIA} from './stories'
 
 const reducer = combineReducers({
   user,
@@ -21,10 +21,10 @@ const reducer = combineReducers({
   commentForm,
   story,
   storyMedia,
-  media: (state = {}, {type, id, blob, }) =>
-    (type === SET_MEDIA
-      ? {...state, [id]: blob, }
-      : state),
+  media: (state={}, {type, id, blob}) =>
+    type === SET_MEDIA
+      ? {...state, [id]: blob}
+      : state
 })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
