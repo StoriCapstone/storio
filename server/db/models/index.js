@@ -3,6 +3,7 @@ const Group = require('./group')
 const Media = require('./media')
 const Story = require('./story')
 const Comment = require('./comment')
+const UserGroup = require('./userGroup')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -18,8 +19,8 @@ Comment.belongsTo(Story);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-User.belongsToMany(Group, {through: 'UserGroup', });
-Group.belongsToMany(User, {through: 'UserGroup', });
+User.belongsToMany(Group, {through: 'UserGroups', });
+Group.belongsToMany(User, {through: 'UserGroups', });
 
 Story.hasMany(Media);
 Media.belongsTo(Story);
@@ -34,10 +35,10 @@ Group.belongsToMany(Story, {through: 'StoryGroup', } );
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
+  UserGroup,
   Group,
   User,
   Media,
   Comment,
   Story,
-
 }

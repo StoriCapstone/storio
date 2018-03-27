@@ -5,7 +5,7 @@ import { increaseRating, decreaseRating, } from '../store/voting';
 const RateStory = (props) => {
 
   return (
-    <div className="rateStory"  onClick= {() => props.history.push(`/listen/${props.story.id}`)}>
+    <div className="rateStory"  onClick= {() => props.history.push(`/singleStory/${props.story.id}`)}>
       <div className="votes">{props.story.upvotes - props.story.downvotes}</div>
       <div className="voteBtnFlex">
         <button className="ratingBtn upVote" onClick={(event) => props.handleVote(event, props.story)}><i onClick={(event) => props.handleVote(event, props.story)} className="fas fa-caret-up upVote fa-lg" />

@@ -5,7 +5,7 @@ import AddStoryModal from './modals/addStory'
 import AddGroupModal from './modals/addGroup'
 import {postGroup, } from '../store/groups'
 import {addUserGroup, } from '../store/user'
-
+import {withRouter, } from 'react-router-dom'
 /**
  * COMPONENT
  */
@@ -24,6 +24,7 @@ class Home extends React.Component {
 
   }
   render() {
+    if (!this.props.user || !this.props.user.stories) return null
     return (
 
       <div id="pageContainer">
@@ -54,7 +55,7 @@ class Home extends React.Component {
           <button onClick={() => this.handleNewSubmission('group')} className="addGroupBtn addBtn">
             <img src="/plusSign.png" className="addBtnImg" /> Group</button>
         </div>
-        <AllItem items={this.props.user.groups} type="group" />
+        <AllItem items={this.props.user.groups} history = {this.props.history} type="group" />
       </div>
     )
   }
@@ -77,7 +78,7 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState, madDispatch)(Home)
+export default withRouter(connect(mapState, madDispatch)(Home))
 
 
 //-------IDEAS--------

@@ -75,13 +75,13 @@ Story.prototype.getUsersWhoCanView = async function () {
   const storyId = this.id
   const sql = `
   SELECT
-  "public".users.id
+  "public".users."id"
   FROM
-  "public"."UserGroup"
-  JOIN "public".users
-  ON "public"."UserGroup"."userId" = "public".users."id"
+  "public".users
+  JOIN "public"."UserGroups"
+  ON "public".users."id" = "public"."UserGroups"."userId"
   JOIN "public"."StoryGroup"
-  ON "public"."StoryGroup"."groupId" = "public"."UserGroup"."groupId"
+  ON "public"."StoryGroup"."groupId" = "public"."UserGroups"."groupId"
   WHERE
   "public"."StoryGroup"."storyId" = ${storyId}
   UNION

@@ -4,7 +4,6 @@ import { connect, } from 'react-redux';
 // import { Storage, } from 'aws-amplify';
 import LoginOrSignupModal from './modals/loginOrSignup';
 import { selectMP3toEdit, } from '../store/';
-import { Link, } from 'react-router-dom';
 import RecorderPlaybackSubmit from './recorderPlaybackSubmit';
 // Storage.configure(awsExports)
 
@@ -123,12 +122,7 @@ class Recorder extends React.Component {
           recorder.onComplete = (rec, blob) => {
             this.recording = blob;
             this.setState({ isRecording: true, });
-            // handleGoToEditor(blob);
-            // addBlobToS3(blob, 'mp3').then(fileName => {
-            //   // Storage.get(fileName).then(resultPath => {
-            //   //   console.log('resultPath: ', resultPath);
-            //   // });
-            // });
+
           };
         });
     } else {
@@ -161,7 +155,7 @@ class Recorder extends React.Component {
       Recorder.recordingError('Unable to start recording');
     }
   }
-  countDown(secs) {
+  countDown = (secs) => {
     if (secs === -1) {
       this.audioSrc.connect(this.analyser); //new
       this.setUpVisualizer(this.analyser);
@@ -224,8 +218,10 @@ class Recorder extends React.Component {
     return (
       <div>
         <div>
-          <div>
-            <h2>{this.state.recordingTime}</h2>
+          <div
+id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
+          >
+            <h2 >{this.state.recordingTime}</h2>
             <div>
               <canvas
                 className="visualizer"
@@ -237,17 +233,9 @@ class Recorder extends React.Component {
               />
             </div>
           </div>
-          {this.state.doneRecording ? (
-            <div id="doneOptions">
-              <button className="recorderBtn">Reset</button>
-              <button className="recorderBtn">Listen</button>
-              <Link id="editorLink" to="addMediaForm">
-                Go to Editor{' '}
-              </Link>
-            </div>
-          ) : (
+
               <div>
-                <div>
+                <div id = "fady" style = {this.state.isRecording ? {opacity: '0', } : {opacity: '1', }}>
                   <button
                     className="recorderBtn" onClick={() => {
                       this.props.isLoggedIn ?
@@ -265,11 +253,29 @@ class Recorder extends React.Component {
                 </div>
                 {this.props.isLoggedIn ? '' : <LoginOrSignupModal />}
               </div>
-            )}
+
         </div>
-        {this.state.isRecording ? (
-          <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
-        ) : null}
+        <div id="playbackWaveform" style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}>
+
+          {this.state.isRecording ? (
+            <div id="playbackWaveformPlusBtns">
+              <div className="arrowBtnFlex record">
+
+                <button className="addBtn record" onClick={() => { }}>          <img className="recorderArrow" src="/arrowLefty.png" />
+                  Return</button>
+              </div>
+              <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
+              <div className="arrowBtnFlex record">
+
+                <button className="addBtn record" onClick={() => { }}>Editor
+
+          <img className="recorderArrow" src="/arrowRighty.png" /></button>
+              </div>
+
+
+            </div>
+          ) : null}
+        </div>
       </div>
     );
   }

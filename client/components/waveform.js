@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer.js'
 import store, { setCurrentWaveform, currentTime, toggleAddMediaForm, } from '../store'
+import AudioControls from './MediaPlayback/audioControls';
 
+import AddMediaModal from './modals/addMediaModal'
 
 var testData = {
   storyId: 1, media: [{
@@ -16,11 +18,13 @@ var testData = {
 export default class Waveform extends React.Component {
   constructor(props) {
     super(props)
-    this.state = store.getState()
+    this.state = { ...store.getState(), isAdding: false, }
     this.handleAddMediaClick = this.handleAddMediaClick.bind(this)
     this.handleWaveformClick = this.handleWaveformClick.bind(this)
   }
   componentDidMount() {
+   // store.dispatch(toggleAddMediaForm()) //we may be able to get rid of this entirely
+
     this.unsubscribe = store.subscribe(() => {
       this.setState(store.getState())
     })
@@ -37,8 +41,8 @@ export default class Waveform extends React.Component {
     })
     //  var wavesurfer = this.wavesurfer
     //  var wavesurfer = {... wavesurfer, wavesurfer.prototype }
-    if (this.state.addMediaForm.currentMP3){ //added this so we can arrive at this component with recording from out recorder
-    this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3) // in case they have URL instead
+    if (this.state.addMediaForm.currentMP3) { //added this so we can arrive at this component with recording from out recorder
+      this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3) // in case they have URL instead
     }
     store.dispatch(setCurrentWaveform(this.wavesurfer))
     var me = this.wavesurfer
@@ -53,8 +57,8 @@ export default class Waveform extends React.Component {
     setTimeout(() =>
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
       , 0)
-    store.dispatch(toggleAddMediaForm())
-
+    //sthis.props.toggleModal()
+    this.setState({ isAdding: true, })
   }
   //   this.wavesurfer.on('audioprocess', () =>
   //   store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
@@ -76,8 +80,14 @@ export default class Waveform extends React.Component {
     return (
       <div className="waveform" >
         <div className="wave" onClick={this.handleWaveformClick} />
-        <button onClick={this.handleAddMediaClick}>add media</button>
+        <AudioControls audio={this.props.currentWaveform} />
+
+        <button className = "addBtn media" onClick={this.handleAddMediaClick}> <img src="/plusSign.png" className="addBtnImg" />media</button>
         <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
+        {
+          this.state.isAdding ?
+            <AddMediaModal parent={this} /> : null
+        }
       </div>
     )
   }

@@ -116,7 +116,7 @@ const addMembersToGroups = (groups, users, min, max) => {
       }
     }
     const groupPromise = group.addUsers([...usersToAssociate, ], {
-      through: 'UserGroup',
+      through: 'UserGroups',
     });
     groupPromises.push(groupPromise);
   }
@@ -278,6 +278,8 @@ seed()
   .catch(err => {
     console.error(err.message);
     console.error(err.stack);
+    console.error(err.sql);
+
     process.exitCode = 1;
   })
   .then(() => {

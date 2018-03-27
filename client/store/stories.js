@@ -45,12 +45,11 @@ const setMedia = (id, blob) => ({
 const setCurrent = (story) => ({type: SET_CURRENT, story, })
 /* ------------       THUNK CREATORS     ------------------ */
 export const fetchSingleStory = (id) => dispatch => {
-  console.log('firibng')
   axios.get(`/api/stories/${id}`)
     .then(async res => {
       const story = res.data
       dispatch(editStory(story)) //call editStory in order to update the target story in the store
-      dispatch(setCurrent(story))
+      // dispatch(setCurrent(story))
       dispatch(
         setMedia(id,
           await axios({
