@@ -7,6 +7,7 @@ import AudioControls from './audioControls';
 import { fetchSingleStory, } from '../../store/stories';
 import { getMediaUrl, } from '../../utils/s3Utils';
 import axios from 'axios'
+import { fetchStoryThunk, } from '../../store';
 
 //sort the media by start time
 
@@ -17,36 +18,6 @@ class MediaPlayer extends React.Component {
       hovering: false,
       hoverProgress: 0,
       isShowing: false,
-      allMedia: {
-        storyId: 1,
-        media: [
-          {
-            name: 'A photo thang',
-            src:
-              'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg',
-            type: 'img',
-            start: 3,
-            end: 5,
-            options: { caption: 'hi', },
-          },
-
-          {
-            name: 'another photo thang',
-            src: 'sampleImg.jpg',
-            type: 'img',
-            start: 7,
-            end: 9,
-            options: { caption: 'hi', },
-          },
-          {
-            src: 'https://www.youtube.com/watch?v=-5Ilq3kFxek',
-            type: 'video',
-            start: 12,
-            end: 14,
-            options: { caption: 'hi', },
-          },
-        ],
-      },
       currentMedia: {},
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
@@ -54,6 +25,7 @@ class MediaPlayer extends React.Component {
   }
 
   componentDidMount() {
+
     this.props.getContent(this.props.match.params.id);
   }
 
@@ -61,7 +33,7 @@ class MediaPlayer extends React.Component {
     this.setState({ hoverProgress: position.toFixed(2), });
   }
 
-  componentWillReceiveProps({media, }){
+  componentWillReceiveProps({ media, }) {
     if (media !== this.props.media) this.load(media)
   }
 
@@ -86,7 +58,7 @@ class MediaPlayer extends React.Component {
       interval = interval || this.interval();
     });
 
-    this.wavesurfer.on('finish', function() {
+    this.wavesurfer.on('finish', function () {
       clearInterval(interval);
       interval = null
     });
@@ -105,21 +77,27 @@ class MediaPlayer extends React.Component {
     wave.appendChild(point);
   }
 
-  interval() {
+  async interval() {
     let nextUp = 0;
-    return setInterval(() => {
+    // this.setState({isShowing:true})
+
+    //  this.setState({currentMedia:{type:'image'}})
+
+    return setInterval(async () => {//sort by start time
       //avoids having to check every item in the media array
       let progress = this.wavesurfer.getCurrentTime();
-      if (this.state.allMedia.media[nextUp]) {
-        if (progress >= this.state.allMedia.media[nextUp].start) {
+      if (this.props.currentStory.media[nextUp]) {
+        if (progress >= this.props.currentStory.media[nextUp].start) {
+          this.currentUrl = await getMediaUrl(this.props.currentStory.media[nextUp].key)
+
           this.setState({
-            currentMedia: this.state.allMedia.media[nextUp++],
+            currentMedia: this.props.currentStory.media[nextUp++],
             isShowing: true,
           });
-          if (this.state.currentMedia.type === 'video') this.wavesurfer.pause();
+          if (this.state.currentMedia.mediaType === 'video') this.wavesurfer.pause();
         }
       }
-      let finishTime = this.state.currentMedia.end || null;
+      let finishTime = this.state.currentMedia.start + this.state.currentMedia.duration || null;
       if (finishTime && progress >= finishTime) {
         this.setState({ isShowing: false, });
       }
@@ -143,9 +121,9 @@ class MediaPlayer extends React.Component {
             className="wave"
             align="center"
 
-            //onMouseEnter={() => this.setState({ hovering: true, })}
-            //onMouseLeave={() => this.setState({ hovering: false, })}
-            //onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
+          //onMouseEnter={() => this.setState({ hovering: true, })}
+          //onMouseLeave={() => this.setState({ hovering: false, })}
+          //onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
           />
           <div
             className="hoverProgress"
@@ -170,15 +148,17 @@ class MediaPlayer extends React.Component {
               style={this.state.isShowing ? { opacity: '1', } : { opacity: '0', }}
             >
               <div>
-                {this.state.currentMedia.type &&
-                this.state.currentMedia.type === 'img' ? (
-                  <img id="mediaImg" src={this.state.currentMedia.src} />
-                ) : (
-                  <VideoPlayer
-                    storyAudio={this.wavesurfer}
-                    videoUrl={this.state.currentMedia.src}
-                  />
-                )}
+
+                {this.state.currentMedia.mediaType &&
+
+                  this.state.currentMedia.mediaType.startsWith('image') ? (
+                    <img id="mediaImg" src={this.currentUrl} />
+                  ) : (
+                    <VideoPlayer
+                      storyAudio={this.wavesurfer}
+                      videoUrl={this.currentUrl}
+                    />
+                  )}
               </div>
             </div>
           </div>
@@ -196,13 +176,14 @@ MediaPlayer.defaultProps = {
  * CONTAINER
  */
 const mapState = (state, ownProps) => ({
-  currentStory: state.stories.current || '',
+  currentStory: state.story,
   media: state.media[ownProps.match.params.id],
 });
 
 const mapDispatch = dispatch => ({
   getContent: id => {
-    dispatch(fetchSingleStory(id));
+    dispatch(fetchSingleStory(id))
+    dispatch(fetchStoryThunk(id));
   },
 });
 

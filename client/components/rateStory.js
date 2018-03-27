@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect, } from 'react-redux'
+import { fetchStoryThunk, } from '../store';
 
 const RateStory = (props) => {
 
   return (
-    <div className="rateStory"  onClick= {() => props.history.push(`/listen/${props.story.id}`)}>
+    <div className="rateStory"  onClick= {() => props.history.push(`/singleStory/${props.story.id}`)}>
       <div className="votes">{props.story.upvotes - props.story.downvotes}</div>
       <div className="voteBtnFlex">
         <button className="ratingBtn"><i className="fas fa-caret-up fa-lg" />
