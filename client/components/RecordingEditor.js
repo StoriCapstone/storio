@@ -2,28 +2,49 @@ import React from 'react';
 import { connect, } from 'react-redux';
 import Waveform from './waveform';
 import AddMediaForm from './addMediaForm';
-import {withRouter} from 'react-router-dom'
-import AudioControls from './MediaPlayback/audioControls';
+import { withRouter } from 'react-router-dom'
 import ReactPlayer from 'react-player';
 import { saveMediaToStory, deleteMediaFromStoryThunk, } from '../store';
+import { AddMediaModal } from './modals/addMediaModal'
 
 
-const Editor = (props) => {
-  return (<div>
-    <Waveform />
-    <AudioControls audio={props.currentWaveform} />
-    <AddMediaForm />
-    {!!props.media.length && <h2>media list:</h2>}
-    {props.media.map((media) => {
-      return (
-      <div key={media.key}>
-      <p>{media.name}</p>
-      {media.mediaType.startsWith('image') ? <img src={media.src} /> : <ReactPlayer url={media.src} />}
-      <button onClick={props.handleDelete} id={media.key}>delete</button>
-      </div>
-    )})}
-    <button onClick={(event) => props.handleClick(event, props.media, props.story.id)}>Done adding media</button>
-  </div>);
+class Editor extends React.Component {
+
+  constructor(props){
+    super(props)
+    // this.state = ({
+    //   isAdding:false
+    // })
+  }
+  render() {
+    return (
+      <div>
+      <Waveform />
+      {
+        // this.state.isAdding ?
+        // <AddMediaModal />
+        // :
+        // ''
+
+      }
+      {<h2 id = 'mediaListHeader' >Media Queue</h2>}
+      {
+        !this.props.media.length ?
+      <div id = 'emptyMsg'>You have not added any media</div>
+      :null
+      }
+      {this.props.media.map((media) => {
+        return (
+          <div className = 'addedMediaRow' key={media.key}>
+            <p>{media.name}</p>
+            {media.mediaType.startsWith('image') ? <img className = 'ratingImg' src={media.src} /> : <ReactPlayer url={media.src} />}
+            <button onClick={this.props.handleDelete} id={media.key}>delete</button>
+          </div>
+        )
+      })}
+      <button className = "addBtn media" onClick={(event) => this.props.handleClick(event, this.props.media, this.props.story.id)}>Publish</button>
+    </div>);
+  }
 };
 
 const mapState = (state) => ({

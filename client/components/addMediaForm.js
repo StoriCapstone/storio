@@ -20,7 +20,9 @@ const AddMediaForm = props => {
         onSubmit={(event) => props.handleSubmit(event, props.time)}
         id="addMedia"
         className={props.show ? '' : 'hide'}
-      >
+      ><div className = 'radioFlex'>
+      <div className = 'inputAndLabel'>
+
         <input
           type="radio"
           defaultChecked
@@ -30,6 +32,9 @@ const AddMediaForm = props => {
           id={'file'}
         />
         <label htmlFor="file">import file</label>
+        </div>
+        <div className = 'inputAndLabel'>
+
         <input
           type="radio"
           name={'fileOrUrl'}
@@ -38,6 +43,9 @@ const AddMediaForm = props => {
           id={'url'}
         />
         <label htmlFor="url">url of media</label>
+
+        </div>
+        </div>
         {props.selectedOption === 'file' ? (
           <fieldset form="addMedia">
             <label>Upload media</label>
@@ -61,7 +69,7 @@ const AddMediaForm = props => {
           </fieldset>
         )}
 
-        <p>start at: {props.time.toFixed(2)}</p>
+        <p id = "mediaTime" >start at: {props.time.toFixed(2)}</p>
         <label> Duration</label>
         <input type="number" value={props.duration} onChange={props.handleTextChenge} name={'duration'} />
         <label> Caption (optional)</label>

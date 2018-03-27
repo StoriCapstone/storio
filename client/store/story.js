@@ -27,7 +27,7 @@ export const fetchStoryThunk = (storyId) => (dispatch) => {
     Axios.get(`/api/story/${storyId}`)
         .then(res => res.data)
         .then(storyObj => {
-            dispatch(fetchStory(storyObj[0]))
+            dispatch(fetchStory(storyObj))
         })
 }
 

@@ -38,7 +38,7 @@ export const fetchSingleStory = (id) => dispatch => {
     .then(async res => {
       const story = res.data
       dispatch(editStory(story)) //call editStory in order to update the target story in the store
-      dispatch(setCurrent(story))
+      // dispatch(setCurrent(story))
       dispatch(
         setMedia(id,
           await axios({

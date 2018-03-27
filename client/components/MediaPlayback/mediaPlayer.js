@@ -7,6 +7,7 @@ import AudioControls from './audioControls';
 import { fetchSingleStory, } from '../../store/stories';
 import { getMediaUrl, } from '../../utils/s3Utils';
 import axios from 'axios'
+import { fetchStoryThunk, } from '../../store';
 
 //sort the media by start time
 
@@ -17,7 +18,6 @@ class MediaPlayer extends React.Component {
       hovering: false,
       hoverProgress: 0,
       isShowing: false,
-
       currentMedia: {},
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
@@ -25,6 +25,7 @@ class MediaPlayer extends React.Component {
   }
 
   componentDidMount() {
+
     this.props.getContent(this.props.match.params.id);
   }
 
@@ -93,7 +94,7 @@ class MediaPlayer extends React.Component {
             currentMedia: this.props.currentStory.media[nextUp++],
             isShowing: true,
           });
-          if (this.state.currentMedia.type === 'video') this.wavesurfer.pause();
+          if (this.state.currentMedia.mediaType === 'video') this.wavesurfer.pause();
         }
       }
       let finishTime = this.state.currentMedia.start + this.state.currentMedia.duration || null;
@@ -156,7 +157,7 @@ class MediaPlayer extends React.Component {
                   ) : (
                     <VideoPlayer
                       storyAudio={this.wavesurfer}
-                      videoUrl={this.state.currentMedia.src}
+                      videoUrl={this.currentUrl}
                     />
                   )}
               </div>
@@ -182,7 +183,8 @@ const mapState = (state, ownProps) => ({
 
 const mapDispatch = dispatch => ({
   getContent: id => {
-    dispatch(fetchSingleStory(id));
+    dispatch(fetchSingleStory(id))
+    dispatch(fetchStoryThunk(id));
   },
 });
 
