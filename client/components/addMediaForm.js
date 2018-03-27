@@ -20,7 +20,9 @@ const AddMediaForm = props => {
         onSubmit={(event) => props.handleSubmit(event, props.time)}
         id="addMedia"
         className={props.show ? '' : 'hide'}
-      >
+      ><div className = "radioFlex">
+      <div className = "inputAndLabel">
+
         <input
           type="radio"
           defaultChecked
@@ -30,6 +32,9 @@ const AddMediaForm = props => {
           id={'file'}
         />
         <label htmlFor="file">import file</label>
+        </div>
+        <div className = "inputAndLabel">
+
         <input
           type="radio"
           name={'fileOrUrl'}
@@ -38,6 +43,9 @@ const AddMediaForm = props => {
           id={'url'}
         />
         <label htmlFor="url">url of media</label>
+
+        </div>
+        </div>
         {props.selectedOption === 'file' ? (
           <fieldset form="addMedia">
             <label>Upload media</label>
@@ -61,7 +69,7 @@ const AddMediaForm = props => {
           </fieldset>
         )}
 
-        <p>start at: {props.time.toFixed(2)}</p>
+        <p id = "mediaTime" >start at: {props.time.toFixed(2)}</p>
         <label> Duration</label>
         <input type="number" value={props.duration} onChange={props.handleTextChenge} name={'duration'} />
         <label> Caption (optional)</label>
@@ -85,7 +93,6 @@ const mapState = state => ({
 const mapDispatch = (dispatch) => ({
     handleTextChenge: (event) => {
         var content = {};
-        // console.log(event)
         content[event.target.name] = event.target.value
         dispatch(updateFormContent(content))
     },
@@ -95,7 +102,6 @@ const mapDispatch = (dispatch) => ({
     handleSubmit: (event, time) => {
         event.preventDefault();
         event.persist();
-        console.log('event', event.target.fileOrUrl)
         // var nativeEvent = event.nativeEvent;
         if (event.target.fileOrUrl.value === 'file') {
           let extension = event.target.file[1].files[0].name.split('.');
@@ -119,7 +125,6 @@ const mapDispatch = (dispatch) => ({
             Axios.get(event.target.src.value, {responseType: 'blob', })
               .then(res => res.data)
               .then(file => {
-                console.log(file)
                 let extension = event.target.src.value.split('.');
                 extension = extension[extension.length - 1];
                 return addBlobToS3(file, extension);

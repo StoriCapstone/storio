@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect, } from 'react-redux'
-import {withRouter, } from 'react-router-dom'
+import { withRouter, } from 'react-router-dom'
 import StoryCard from './cards/storyCard'
 import MemberCard from './cards/memberCard'
 import GroupCard from './cards/groupCard'
@@ -12,22 +12,22 @@ const AllItem = (props) => {
   return (
     <div className="allItemsContainer">
       {props.type === 'story' ?
-        props.items.map((story) => <StoryCard key = {story.id} history = {props.history} story={story} />)
+        props.items.map((story) => <StoryCard key={story.id} history={props.history} story={story} />)
         :
         props.type === 'group' ?
-          props.items.map((group) => <GroupCard key = {group.id} group={group} />)
+          props.items.map((group) => <GroupCard key={group.id} group={group} history={props.history} />)
           :
           props.type === 'member' ?
 
-            props.items.map((member) => <MemberCard key = {member.id} member={member} />)
+            props.items.map((member) => <MemberCard key={member.id} member={member} history={props.history} />)
             :
-            props.items.map((rateStory) => <RateStory key = {rateStory.id} story={rateStory} />)
+            props.items.map((rateStory) => <RateStory key={rateStory.id} story={rateStory} history={props.history} />)
       }
     </div>
   )
 }
 /**
- * CONTAINER
+ * CONTAINERgit
  */
 const madDispatch = null
 const mapState = null

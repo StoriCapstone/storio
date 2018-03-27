@@ -19,7 +19,7 @@ export const toggleAddMediaForm = () => ({
 
 var initialState = {
     currentWaveform: {},
-    toggleAddMediaForm: false,
+    toggleAddMediaForm: true,
 }
 
 //reducer

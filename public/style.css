@@ -27,6 +27,20 @@ a {
 
 label {
   display: block;
+  color:gold;
+
+}
+#mediaTime{
+  color:gold;
+}
+.inputAndLabel{
+  display:flex;
+  width:25vw;
+}
+.radioFlex{
+  justify-content: space-between;
+  display:flex;
+  width:30vw;
 }
 .headerFlex{
   display:flex;
@@ -62,12 +76,54 @@ form div {
   border-radius:.4vw;
   border:none;
   outline:none;
-  box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
-  background: linear-gradient(90deg,rgba(228, 68, 68, 0.692), rgb(206, 111, 97),rgba(216, 60, 60, 0.692));
+  white-space: nowrap;
+  box-shadow: 0 0 1.5vw .3vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
 
+  background: linear-gradient(90deg,rgba(250, 153, 7,0.92), hsla(46, 100%, 74%, 0.93),rgba(250, 153, 7,0.92));
+  color:rgb(7, 7, 146);
+
+transition:all .15s;
 
 }
+.recorderArrow{
+  width:1vw;
+  height:auto;
+  margin-left:1vw;
+  margin-right:1vw;
+
+}
+#playbackWaveformPlusBtns{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.arrowBtnFlex{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#fadeVisualizer{
+  transition:all 1s
+}
+#fady{
+  transition: all 1s;
+}
+#playbackWaveform{
+  transition:all 1s;
+  position:absolute;
+left:7vw;
+  top:12vw;
+}
+.addBtn.record{
+  cursor: pointer;
+  box-shadow: 0 0 2vw .6vw rgba(12, 12, 12, 0.678),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
+
+  margin-top:10vw;
+width:9vw;
+font-weight: 400;
+}
 .visualizer{
+  transition:all 2s;
   border-radius:.6vw;
   margin-bottom: 2vw;
   background-color:yellow;
@@ -190,7 +246,11 @@ transform:scale(.99)
   width:2.83vw;
   height:auto;
 }
-
+.addMediaRow{
+  display:flex;
+  width:70vw;
+  border:1px solid gold;
+}
 .voteBtnFlex{
   justify-content: space-between;
   margin-right: 2vw;
@@ -214,6 +274,18 @@ transform:scale(.99)
   border:none;
   background-color: rgb(212, 13, 13);
   transition: all .2s
+}
+#mediaListHeader{
+  color:gold;
+margin-top:3vw;
+}
+.addBtn.media{
+  width:8.3vw;
+  height: 4vw;
+}
+#emptyMsg{
+  color:gold;
+  margin-bottom:2vw;
 }
 .ratingBtn:hover{
   background-color: rgba(250, 148, 250, 0.4)
@@ -457,7 +529,7 @@ transform:scale(.99)
 }
 
 #mainPlayer{
-  background-color: rgb(40, 21, 213);
+  background: linear-gradient(hsl(233, 69%, 40%),rgb(4, 9, 47));
   padding:0px;
   margin-top: 0px;
   position: relative;
@@ -521,6 +593,7 @@ transform:scale(.99)
 #controlsContainer{
   display:flex;
   margin-bottom: 1.5vw;
+  margin-top:1vw;
   justify-content: center;
   box-shadow: 0 0 .45vw .00000000000005vw rgb(94, 94, 93);
   width:28vw;
