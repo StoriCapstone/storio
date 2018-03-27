@@ -38,8 +38,9 @@ class Routes extends Component {
         <Route path="/addMediaForm" component={RecordingEditor} />
         {/* temp for testing */}
         <Route path="/recorder" component={Recorder} />
-        <Route  path="/singleStory/:id" location={this.props.location} key={this.props.location.key} render={({ location, match }) => (
-          <SingleStory key={this.props.location.key}  params={match.params}/>
+        <Route
+path="/singleStory/:id" location={this.props.location} key={this.props.location.key} render={({ location, match, }) => (
+          <SingleStory key={this.props.location.key}  params={match.params} />
       )} />
 
 

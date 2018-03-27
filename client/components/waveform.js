@@ -13,12 +13,12 @@ var testData = {
     start: 0,
     end: 15,
     options: { caption: 'hi', },
-  },],
+  }, ],
 }
 export default class Waveform extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { ...store.getState(), isAdding: false }
+    this.state = { ...store.getState(), isAdding: false, }
     this.handleAddMediaClick = this.handleAddMediaClick.bind(this)
     this.handleWaveformClick = this.handleWaveformClick.bind(this)
   }
@@ -58,7 +58,7 @@ export default class Waveform extends React.Component {
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
       , 0)
     //sthis.props.toggleModal()
-    this.setState({ isAdding: true })
+    this.setState({ isAdding: true, })
   }
   //   this.wavesurfer.on('audioprocess', () =>
   //   store.dispatch(currentTime(this.wavesurfer.getCurrentTime()))
@@ -82,7 +82,7 @@ export default class Waveform extends React.Component {
         <div className="wave" onClick={this.handleWaveformClick} />
         <AudioControls audio={this.props.currentWaveform} />
 
-        <button className = 'addBtn media' onClick={this.handleAddMediaClick}> <img src="/plusSign.png" className="addBtnImg" />media</button>
+        <button className = "addBtn media" onClick={this.handleAddMediaClick}> <img src="/plusSign.png" className="addBtnImg" />media</button>
         <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
         {
           this.state.isAdding ?

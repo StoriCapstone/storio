@@ -2,10 +2,10 @@ import React from 'react';
 import { connect, } from 'react-redux';
 import Waveform from './waveform';
 import AddMediaForm from './addMediaForm';
-import { withRouter } from 'react-router-dom'
+import { withRouter, } from 'react-router-dom'
 import ReactPlayer from 'react-player';
 import { saveMediaToStory, deleteMediaFromStoryThunk, } from '../store';
-import { AddMediaModal } from './modals/addMediaModal'
+import { AddMediaModal, } from './modals/addMediaModal'
 
 
 class Editor extends React.Component {
@@ -27,17 +27,17 @@ class Editor extends React.Component {
         // ''
 
       }
-      {<h2 id = 'mediaListHeader' >Media Queue</h2>}
+      {<h2 id = "mediaListHeader" >Media Queue</h2>}
       {
         !this.props.media.length ?
-      <div id = 'emptyMsg'>You have not added any media</div>
-      :null
+      <div id = "emptyMsg">You have not added any media</div>
+      : null
       }
       {this.props.media.map((media) => {
         return (
-          <div className = 'addedMediaRow' key={media.key}>
+          <div className = "addedMediaRow" key={media.key}>
             <p>{media.name}</p>
-            {media.mediaType.startsWith('image') ? <img className = 'ratingImg' src={media.src} /> : <ReactPlayer url={media.src} />}
+            {media.mediaType.startsWith('image') ? <img className = "ratingImg" src={media.src} /> : <ReactPlayer url={media.src} />}
             <button onClick={this.props.handleDelete} id={media.key}>delete</button>
           </div>
         )
@@ -45,7 +45,7 @@ class Editor extends React.Component {
       <button className = "addBtn media" onClick={(event) => this.props.handleClick(event, this.props.media, this.props.story.id)}>Publish</button>
     </div>);
   }
-};
+}
 
 const mapState = (state) => ({
   currentWaveform: state.waveform.currentWaveform,

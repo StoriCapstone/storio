@@ -17,7 +17,7 @@ export default class Modaly extends React.Component {
 
   onCloseModal = () => {
     this.setState({ open: false, });
-     this.props.parent.setState({isAdding:false})
+     this.props.parent.setState({isAdding: false, })
   };
 
   render() {

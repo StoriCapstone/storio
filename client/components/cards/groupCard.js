@@ -4,7 +4,7 @@ import { connect, } from 'react-redux'
 const GroupCard = (props) => {
 console.log('group card prpos', props)
   return (
-    <div onClick= {()=> props.history.push(`/singleGroup/${props.group.id}`)} className="groupCard cardContainer">
+    <div onClick= {() => props.history.push(`/singleGroup/${props.group.id}`)} className="groupCard cardContainer">
       <div className="groupName">{props.group.name}</div>
       <div className="imgWrapper">
         <img className="groupCardImg cardImg" src="/groups.png" />

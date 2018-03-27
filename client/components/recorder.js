@@ -224,7 +224,8 @@ class Recorder extends React.Component {
     return (
       <div>
         <div>
-          <div id='fadeVisualizer' style={this.state.isRecording ? { opacity: '0' } : { opacity: '1' }}
+          <div
+id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
           >
             <h2 >{this.state.recordingTime}</h2>
             <div>
@@ -240,7 +241,7 @@ class Recorder extends React.Component {
           </div>
 
               <div>
-                <div id = 'fady' style = {this.state.isRecording ? {opacity:'0'}:{opacity:'1'}}>
+                <div id = "fady" style = {this.state.isRecording ? {opacity: '0', } : {opacity: '1', }}>
                   <button
                     className="recorderBtn" onClick={() => {
                       this.props.isLoggedIn ?
@@ -260,21 +261,21 @@ class Recorder extends React.Component {
               </div>
 
         </div>
-        <div id='playbackWaveform' style={this.state.isRecording ? { opacity: '1' } : { opacity: '0' }}>
+        <div id="playbackWaveform" style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}>
 
           {this.state.isRecording ? (
-            <div id='playbackWaveformPlusBtns'>
-              <div className='arrowBtnFlex record'>
+            <div id="playbackWaveformPlusBtns">
+              <div className="arrowBtnFlex record">
 
-                <button className='addBtn record' onClick={() => { }}>          <img className='recorderArrow' src='/arrowLefty.png' />
+                <button className="addBtn record" onClick={() => { }}>          <img className="recorderArrow" src="/arrowLefty.png" />
                   Return</button>
               </div>
               <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
-              <div className='arrowBtnFlex record'>
+              <div className="arrowBtnFlex record">
 
-                <button className='addBtn record' onClick={() => { }}>Editor
+                <button className="addBtn record" onClick={() => { }}>Editor
 
-          <img className='recorderArrow' src='/arrowRighty.png' /></button>
+          <img className="recorderArrow" src="/arrowRighty.png" /></button>
               </div>
 
 

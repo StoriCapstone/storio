@@ -20,8 +20,8 @@ const AddMediaForm = props => {
         onSubmit={(event) => props.handleSubmit(event, props.time)}
         id="addMedia"
         className={props.show ? '' : 'hide'}
-      ><div className = 'radioFlex'>
-      <div className = 'inputAndLabel'>
+      ><div className = "radioFlex">
+      <div className = "inputAndLabel">
 
         <input
           type="radio"
@@ -33,7 +33,7 @@ const AddMediaForm = props => {
         />
         <label htmlFor="file">import file</label>
         </div>
-        <div className = 'inputAndLabel'>
+        <div className = "inputAndLabel">
 
         <input
           type="radio"

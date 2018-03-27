@@ -5,7 +5,7 @@ import AddStoryModal from './modals/addStory'
 import AddGroupModal from './modals/addGroup'
 import {postGroup, } from '../store/groups'
 import {addUserGroup, } from '../store/user'
-import {withRouter} from 'react-router-dom'
+import {withRouter, } from 'react-router-dom'
 /**
  * COMPONENT
  */
