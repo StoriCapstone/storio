@@ -35,16 +35,16 @@ const createUsers = numToCreate => {
   const userPromises = [
     User.create({
       email: 'cody@email.com',
-      displayName: 'cody',
+      displayName: 'codster',
       firstName: 'Cody',
-      lastName: 'Codeman',
+      lastName: 'Smith',
       password: '123',
     }),
     User.create({
       email: 'murphy@email.com',
-      displayName: 'murphy',
+      displayName: 'murphster',
       firstName: 'Murphy',
-      lastName: 'Murphman',
+      lastName: 'Jenkins',
       password: '123',
     }),
   ];
