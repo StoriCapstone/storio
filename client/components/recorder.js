@@ -4,7 +4,6 @@ import { connect, } from 'react-redux';
 // import { Storage, } from 'aws-amplify';
 import LoginOrSignupModal from './modals/loginOrSignup';
 import { selectMP3toEdit, } from '../store/';
-import { Link, } from 'react-router-dom';
 import RecorderPlaybackSubmit from './recorderPlaybackSubmit';
 // Storage.configure(awsExports)
 
@@ -156,7 +155,7 @@ class Recorder extends React.Component {
       Recorder.recordingError('Unable to start recording');
     }
   }
-  countDown(secs) {
+  countDown = (secs) => {
     if (secs === -1) {
       this.audioSrc.connect(this.analyser); //new
       this.setUpVisualizer(this.analyser);
