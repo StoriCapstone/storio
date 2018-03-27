@@ -24,7 +24,6 @@ class Home extends React.Component {
 
   }
   render() {
-    console.log('historrry', this.props.history)
     return (
 
       <div id="pageContainer">

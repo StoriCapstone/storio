@@ -93,7 +93,6 @@ const mapState = state => ({
 const mapDispatch = (dispatch) => ({
     handleTextChenge: (event) => {
         var content = {};
-        // console.log(event)
         content[event.target.name] = event.target.value
         dispatch(updateFormContent(content))
     },
@@ -103,7 +102,6 @@ const mapDispatch = (dispatch) => ({
     handleSubmit: (event, time) => {
         event.preventDefault();
         event.persist();
-        console.log('event', event.target.fileOrUrl)
         // var nativeEvent = event.nativeEvent;
         if (event.target.fileOrUrl.value === 'file') {
           let extension = event.target.file[1].files[0].name.split('.');
@@ -127,7 +125,6 @@ const mapDispatch = (dispatch) => ({
             Axios.get(event.target.src.value, {responseType: 'blob', })
               .then(res => res.data)
               .then(file => {
-                console.log(file)
                 let extension = event.target.src.value.split('.');
                 extension = extension[extension.length - 1];
                 return addBlobToS3(file, extension);

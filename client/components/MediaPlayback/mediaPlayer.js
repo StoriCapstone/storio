@@ -105,7 +105,6 @@ class MediaPlayer extends React.Component {
   }
 
   render() {
-    console.log('this.state.currentMedia: ', this.state.currentMedia);
     return (
       <div id="mainPlayer">
         <h2 align="center" id="storyTitle">

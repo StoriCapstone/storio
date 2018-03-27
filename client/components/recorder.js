@@ -123,12 +123,7 @@ class Recorder extends React.Component {
           recorder.onComplete = (rec, blob) => {
             this.recording = blob;
             this.setState({ isRecording: true, });
-            // handleGoToEditor(blob);
-            // addBlobToS3(blob, 'mp3').then(fileName => {
-            //   // Storage.get(fileName).then(resultPath => {
-            //   //   console.log('resultPath: ', resultPath);
-            //   // });
-            // });
+
           };
         });
     } else {
