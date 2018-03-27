@@ -7,9 +7,21 @@ const POST_NEW_STORY = 'POST_NEW_STORY';
 const EDIT_STORY = 'EDIT_STORY';
 const DELETE_STORY = 'DELETE_STORY';
 const SET_CURRENT = 'SET_CURRENT'
+const INCREASE_RATING = 'INCREASE_RATING';
+const DECREASE_RATING = 'DECREASE_RATING';
 export const SET_MEDIA = 'SET_MEDIA';
 
 /* ------------       ACTION CREATOR     ------------------ */
+export const increaseRating = (id) => ({
+  type: INCREASE_RATING,
+  id,
+})
+
+export const decreaseRating = (id) => ({
+  type: DECREASE_RATING,
+  id,
+})
+
 const getAllStories = stories => ({
   type: GET_ALL_STORIES, stories,
 });
@@ -104,6 +116,16 @@ export default function reducer(state = [], action) {
     return mod
     case DELETE_STORY:
       return state.filter(story => story.id !== action.id)
+    case INCREASE_RATING:
+      var index = state.findIndex(story => story.id === action.id)
+      var stateCopy = [...state, ];
+      stateCopy[index] = {...stateCopy[index], rating: ++(stateCopy[index].upvotes), }
+      return stateCopy
+    case DECREASE_RATING:
+      index = state.findIndex(story => story.id === action.id)
+      stateCopy = [...state, ];
+      stateCopy[index] = {...stateCopy[index], rating: ++stateCopy[index].downvotes, }
+      return stateCopy
     default:
       return state;
   }

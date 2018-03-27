@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect, } from 'react-redux'
+import { increaseRating, decreaseRating, } from '../store/voting';
 
 const RateStory = (props) => {
 
@@ -7,10 +8,10 @@ const RateStory = (props) => {
     <div className="rateStory"  onClick= {() => props.history.push(`/listen/${props.story.id}`)}>
       <div className="votes">{props.story.upvotes - props.story.downvotes}</div>
       <div className="voteBtnFlex">
-        <button className="ratingBtn"><i className="fas fa-caret-up fa-lg" />
+        <button className="ratingBtn upVote" onClick={(event) => props.handleVote(event, props.story)}><i onClick={(event) => props.handleVote(event, props.story)} className="fas fa-caret-up upVote fa-lg" />
 
         </button>
-        <button className="ratingBtn"><i className="fas fa-caret-down fa-lg" />
+        <button className="ratingBtn downVote" onClick={(event) => props.handleVote(event, props.story)}><i onClick={(event) => props.handleVote(event, props.story)} className="fas downVote fa-caret-down fa-lg" />
 
         </button>
       </div>
@@ -23,7 +24,17 @@ const RateStory = (props) => {
   )
 }
 
-const mapDispatch = null
+const mapDispatch = (dispatch) => ({
+  handleVote: (event, story) => {
+    console.log('event.target.classList: ', event.target.classList);
+    event.stopPropagation()
+    if ([...event.target.classList, ].includes('upVote')){
+      dispatch(increaseRating(story.id))
+    } else if ([...event.target.classList, ].includes('downVote')){
+      dispatch(decreaseRating(story.id))
+    }
+  },
+})
 const mapState = null
-export default connect(mapDispatch, mapState)(RateStory)
+export default connect(mapState, mapDispatch)(RateStory)
 //everytime there is a new rating check neighbor values, if diff resort
