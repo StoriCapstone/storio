@@ -170,7 +170,7 @@ class AddMembersToGroups extends React.Component {
         <div style={{ color: 'white', }}>
           <h2>Selected Users</h2>
           <div style={{ color: 'white', height: '15vw', overflow: 'auto', }}>
-            <RenderSelected />
+      {RenderSelected()}
           </div>
         </div>
       </div>

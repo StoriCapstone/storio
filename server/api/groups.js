@@ -13,9 +13,8 @@ router.get('/', (req, res, next) => {
 router.post('/addusers', async (req, res, next) => {
   //create a group
   const userIds = req.body.usersIds;
-  console.log('req.body: ', req.body);
-  console.log('userIds: ', userIds);
   const group = await Group.findById(req.body.group)
+  .catch(next)
   const userPromises = userIds.map(id => User.findById(id));
   Promise.all(userPromises)
     .then(users => group.addUsers(users))

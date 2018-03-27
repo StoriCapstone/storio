@@ -47,16 +47,12 @@ class Routes extends Component {
         <Route path="/addMediaForm" component={RecordingEditor} />
         {/* temp for testing */}
         <Route path="/recorder" component={Recorder} />
-<<<<<<< HEAD
-        <Route path="/singleStory/:id" component={SingleStory} />
         <Route path="/singleGroup/:id" component={AddMembersToGroups} />
-=======
         <Route
 path="/singleStory/:id" location={this.props.location} key={this.props.location.key} render={({ location, match, }) => (
           <SingleStory key={this.props.location.key}  params={match.params} />
       )} />
 
->>>>>>> master
 
         {isLoggedIn && (
           <Switch>

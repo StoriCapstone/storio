@@ -80,10 +80,10 @@ Story.prototype.getUsersWhoCanView = async function () {
   "public".users
   JOIN "public"."UserGroups"
   ON "public".users."id" = "public"."UserGroups"."userId"
-  JOIN "public"."StoryGroups"
-  ON "public"."StoryGroups"."groupId" = "public"."UserGroups"."groupId"
+  JOIN "public"."StoryGroup"
+  ON "public"."StoryGroup"."groupId" = "public"."UserGroups"."groupId"
   WHERE
-  "public"."StoryGroups"."storyId" = ${storyId}
+  "public"."StoryGroup"."storyId" = ${storyId}
   UNION
   SELECT
   "public".users.id

@@ -24,6 +24,7 @@ class Home extends React.Component {
 
   }
   render() {
+    if (!this.props.user || !this.props.user.stories) return null
     return (
 
       <div id="pageContainer">

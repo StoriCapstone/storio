@@ -15,25 +15,22 @@ export const clearMediaOnState = () => ({
   type: CLEAR_MEDIA_ON_STATE,
 });
 
-export const deleteMediaFromStory = (key) => ({
+export const deleteMediaFromStory = key => ({
   key,
   type: DELETE_MEDIA_FROM_STORY,
-})
+});
 
 //thunks
-export const saveMediaToStory = (mediaArr, storyId, history) => dispatch => {
+export const saveMediaToStory = (mediaArr, storyId, history) => dispatch =>
   Axios.post(`/api/media/${storyId}`, mediaArr)
     .then(res => res.data)
     .then(() => {
-        dispatch(clearMediaOnState())
-        history.push(`/singleStory/${storyId}`)});
-};
+      dispatch(clearMediaOnState());
+      history.push(`/singleStory/${storyId}`);
+    });
 
-export const deleteMediaFromStoryThunk = key => dispatch => {
-  Storage.remove(key).then(
-    () => dispatch(deleteMediaFromStory(key))
-  )
-}
+export const deleteMediaFromStoryThunk = key => dispatch =>
+  Storage.remove(key).then(() => dispatch(deleteMediaFromStory(key)));
 
 //initial state
 const initialState = [];
