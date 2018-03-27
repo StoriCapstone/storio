@@ -23,7 +23,7 @@ const AddMediaForm = props => {
       ><div className = "radioFlex">
       <div className = "inputAndLabel">
 
-        <input
+        <input className = 'mediaInput'
           type="radio"
           defaultChecked
           onChange={props.handleFileOrUrlChange}
@@ -31,51 +31,51 @@ const AddMediaForm = props => {
           value={'file'}
           id={'file'}
         />
-        <label htmlFor="file">import file</label>
+        <label className = 'mediaInputLabel' htmlFor="file">import file</label>
         </div>
         <div className = "inputAndLabel">
 
-        <input
+        <input className = 'mediaInput'
           type="radio"
           name={'fileOrUrl'}
           onChange={props.handleFileOrUrlChange}
           value={'url'}
           id={'url'}
         />
-        <label htmlFor="url">url of media</label>
+        <label className = 'mediaInputLabel' htmlFor="url">url of media</label>
 
         </div>
         </div>
         {props.selectedOption === 'file' ? (
           <fieldset form="addMedia">
-            <label>Upload media</label>
-            <input type="file" name={'file'} />
+            <label className = 'mediaInputLabel'>Upload media</label>
+            <input className = 'mediaInput' type="file" name={'file'} />
           </fieldset>
         ) : (
           <fieldset form="addMedia">
-            <label>Url</label>
-            <input type="text" value={props.src} onChange={props.handleTextChenge} name={'src'} />
-            <label>select type</label>
-            <input
+            <label className = 'mediaInputLabel'>Url</label>
+            <input className = 'mediaInput' type="text" value={props.src} onChange={props.handleTextChenge} name={'src'} />
+            <label className = 'mediaInputLabel'>select type</label>
+            <input className = 'mediaInput'
               type="radio"
               defaultChecked
               name={'type'}
               value={'image'}
               id={'type1'}
             />
-            <label htmlFor="type1">image</label>
-            <input type="radio" name={'type'} value={'video'} id={'type2'} />
-            <label htmlFor="type2">video</label>
+            <label className = 'mediaInputLabel' htmlFor="type1">image</label>
+            <input className = 'mediaInput' type="radio" name={'type'} value={'video'} id={'type2'} />
+            <label className = 'mediaInputLabel' htmlFor="type2">video</label>
           </fieldset>
         )}
 
         <p id = "mediaTime" >start at: {props.time.toFixed(2)}</p>
-        <label> Duration</label>
-        <input type="number" value={props.duration} onChange={props.handleTextChenge} name={'duration'} />
-        <label> Caption (optional)</label>
-        <input type="text" value={props.caption} onChange={props.handleTextChenge} name={'caption'} />
-        <label> Name of Media</label>
-        <input type="text" value={props.name} onChange={props.handleTextChenge} name={'name'} />
+        <label className = 'mediaInputLabel'> Duration</label>
+        <input className = 'mediaInput' type="number" value={props.duration} onChange={props.handleTextChenge} name={'duration'} />
+        <label className = 'mediaInputLabel'> Caption (optional)</label>
+        <input className = 'mediaInput' type="text" value={props.caption} onChange={props.handleTextChenge} name={'caption'} />
+        <label className = 'mediaInputLabel'> Name of Media</label>
+        <input className = 'mediaInput' type="text" value={props.name} onChange={props.handleTextChenge} name={'name'} />
         <button type="submit">Submit</button>
       </form>
     );

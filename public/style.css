@@ -287,8 +287,14 @@ margin-top:3vw;
   color:gold;
   margin-bottom:2vw;
 }
+.mediaInput{
+  color:rgb(43, 41, 41)
+}
 .ratingBtn:hover{
   background-color: rgba(250, 148, 250, 0.4)
+}
+.mediaInputLabel{
+  color:rgb(43, 42, 42);
 }
 .votes{
   margin-right: .5vw;
@@ -587,7 +593,7 @@ transform:scale(.99)
 }
 
 #mediaList {
-  transition: opacity 1.3s;
+  transition: opacity 1.7s;
 }
 
 #controlsContainer{
