@@ -29,10 +29,10 @@ router.get('/not-in/:groupid', (req, res, next) => {
   "public".users."id"
   FROM
   "public".users
-  JOIN "public"."UserGroup"
-  ON "public".users."id" = "public"."UserGroup"."userId"
+  JOIN "public"."UserGroups"
+  ON "public".users."id" = "public"."UserGroups"."userId"
   WHERE
-  "public"."UserGroup"."groupId" = ${req.params.groupid})
+  "public"."UserGroups"."groupId" = ${req.params.groupid})
   order by "public".users."id"
   `;
   db
