@@ -18,6 +18,7 @@ class AddMembersToGroups extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.RenderHeader = this.RenderHeader.bind(this);
     this.RenderBody = this.RenderBody.bind(this);
+    this.handleSortClick = this.handleSortClick.bind(this);
   }
   componentDidMount() {
     axios
@@ -36,6 +37,14 @@ class AddMembersToGroups extends React.Component {
       });
   }
   // helpers
+  handleSortClick(evt) {
+    const sortBy = evt.target.getAttribute('data');
+    const stateObj =
+      sortBy === this.state.sortBy
+        ? { sortAsc: !this.state.sortAsc, }
+        : { sortAsc: true, sortBy, };
+    this.setState(stateObj, this.filterAndSortUsers);
+  }
   handleChange(evt) {
     this.setState(
       { searchStr: evt.target.value.toLowerCase(), },
@@ -92,7 +101,8 @@ class AddMembersToGroups extends React.Component {
     const RenderHeader = this.RenderHeader;
     const RenderBody = this.RenderBody;
     return (
-      <div>
+      <div style={{ color: 'white', }}>
+        {/* todo remove inline style */}
         <input type="search" onChange={this.handleChange} />
         {this.state.isLoaded ? (
           <table border="1">
@@ -100,7 +110,7 @@ class AddMembersToGroups extends React.Component {
             <RenderBody />
           </table>
         ) : (
-          <h2>Please begin typing while the data is fetched</h2>
+          <h2>Please begin typing while the data is loaded</h2>
         )}
       </div>
     );
@@ -113,13 +123,13 @@ class AddMembersToGroups extends React.Component {
     return (
       <thead>
         <tr>
-          <th>
+          <th onClick={this.handleSortClick} data="first">
             {this.state.sortBy === 'first' ? `${FIRST} ${sortUnicode}` : FIRST}
           </th>
-          <th>
+          <th onClick={this.handleSortClick} data="last">
             {this.state.sortBy === 'last' ? `${LAST} ${sortUnicode}` : LAST}
           </th>
-          <th>
+          <th onClick={this.handleSortClick} data="username">
             {this.state.sortBy === 'username'
               ? `${USERNAME} ${sortUnicode}`
               : USERNAME}
