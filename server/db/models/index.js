@@ -31,7 +31,7 @@ Group.belongsToMany(Story, { through: 'StoryGroup', });
 
 User.belongsToMany(Story, { through: 'StoryUserVotes', as: 'voterUser', foreignKey: 'voter_user_id', });
 Story.belongsToMany(User, { through: 'StoryUserVotes', as: 'voterStory', foreignKey: 'voter_story_id', });
-Story.hasMany(StoryUserVotes, {as: 'storyVote', } )
+// Story.hasMany(StoryUserVotes, {as: 'storyVote', } )
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

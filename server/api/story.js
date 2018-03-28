@@ -14,9 +14,10 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-const processVote = (req, newVote) =>
-  StoryUserVotes.findOrCreate({
-    where: { userId: req.user.id, storyId: req.params.id, },
+const processVote = (req, newVote) =>{
+console.log('req: ', req.user.id);
+  return StoryUserVotes.findOrCreate({
+    where: { voter_user_id: req.user.id, voter_story_id: req.params.id, },
     defaults: { vote: 1, },
   }).then(
     ([dbVote, ]) =>
@@ -26,10 +27,11 @@ const processVote = (req, newVote) =>
           })
         : dbVote)
   );
-
+}
 router.post('/:id/vote-up', (req, res, next) => {
   //update a Story
   if (!req.user) {
+
     res.sendStatus(403); //forbidden
     return undefined;
   } else {

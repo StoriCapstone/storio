@@ -25,7 +25,7 @@ router.get('/trending', async (req, res, next) => {
   JOIN "public".users
   ON "public".stories."userId" = "public".users."id"
   left JOIN "public"."StoryUserVotes"
-  ON "public".stories."id" = "public"."StoryUserVotes"."storyId"
+  ON "public".stories."id" = "public"."StoryUserVotes"."voter_story_id"
   GROUP BY
   "public".stories."id","public".users."id"
   order by rating DESC
@@ -36,8 +36,8 @@ router.get('/trending', async (req, res, next) => {
     const loggedInVotes = req.user
       ? await StoryUserVotes.findAll({
           where: {
-            userId: req.user.id,
-            storyId: {
+            voter_user_id: req.user.id,  //eslint-disable-line camelcase
+            voter_story_id: {
               [Op.in]: results.map(story => story.id),
             },
           },
@@ -46,7 +46,7 @@ router.get('/trending', async (req, res, next) => {
     const votes = {};
     if (loggedInVotes) {
       for (let storyVote of loggedInVotes) {
-        votes[storyVote.storyId] = storyVote.vote;
+        votes[storyVote.voter_story_id] = storyVote.vote;
       }
     }
     for (let result of results) {
