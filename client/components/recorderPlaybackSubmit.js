@@ -168,7 +168,6 @@ class RecorderPlaybackSubmit extends React.Component {
                   </select>
                 </label>
               </div>
-              <input type="submit" value="Submit" />
               <input
                 type="submit"
                 value="Submit and Edit"

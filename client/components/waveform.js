@@ -46,9 +46,7 @@ export default class Waveform extends React.Component {
     }
     store.dispatch(setCurrentWaveform(this.wavesurfer))
     var me = this.wavesurfer
-    this.wavesurfer.on('ready', function () {
-      me.play();
-    });
+
     this.wavesurfer.on('audioprocess', () =>
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime())))
   }
