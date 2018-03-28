@@ -29,9 +29,9 @@ Media.belongsTo(Story);
 Story.belongsToMany(Group, { through: 'StoryGroup', });
 Group.belongsToMany(Story, { through: 'StoryGroup', });
 
-User.belongsToMany(Story, { through: 'StoryUserVotes', });
-Story.belongsToMany(User, { through: 'StoryUserVotes', });
-Story.hasMany(StoryUserVotes)
+// User.belongsToMany(Story, { through: 'StoryUserVotes', });
+// Story.belongsToMany(User, { through: 'StoryUserVotes', });
+// Story.hasMany(StoryUserVotes)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

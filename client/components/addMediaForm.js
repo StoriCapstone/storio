@@ -21,7 +21,12 @@ import Axios from 'axios';
 const AddMediaForm = props => {
   return (
     <form
-      onSubmit={event => props.handleSubmit(event, props.time)}
+      onSubmit={event => {
+        props.handleSubmit(event, props.time)
+        props.modal.setState({open:false})
+
+
+      }}
       id="addMedia"
       className={props.show ? '' : 'hide'}
     >

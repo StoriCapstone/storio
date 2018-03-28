@@ -118,7 +118,7 @@ transition:all .4s;
 #playbackWaveform{
   transition:all 1s;
   position:absolute;
-left:7vw;
+left:13.23vw;
   top:12vw;
 }
 .addBtn.record{

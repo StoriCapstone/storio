@@ -213,15 +213,15 @@ class Recorder extends React.Component {
       this.audioSrc.disconnect();
     }
   }
-//remove the form, have just the return and editor buttons (or save), on press, form in modal
+  //remove the form, have just the return and editor buttons (or save), on press, form in modal
   render() {
     return (
       <div>
         <div>
           <div
-id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
+            id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
           >
-            <h2 className = "header" >{this.state.recordingTime}</h2>
+            <h2 className="header" >{this.state.recordingTime}</h2>
             <div>
               <canvas
                 className="visualizer"
@@ -234,46 +234,37 @@ id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacit
             </div>
           </div>
 
-              <div>
-                <div id = "fady" style = {this.state.isRecording ? {opacity: '0', } : {opacity: '1', }}>
-                  <button
-                    className="recorderBtn" onClick={() => {
-                      this.props.isLoggedIn ?
-                        this.handleStartRecording()
-                        :
-                        this.props.history.push('/loginModal')
-                    }}>Start</button>
-                  {
-                    this.state.isPaused ?
-                      <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
-                      :
-                      <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
-                  }
-                  <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
-                </div>
-                {this.props.isLoggedIn ? '' : <LoginOrSignupModal />}
-              </div>
+          <div>
+            <div id="fady" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}>
+              <button
+                className="recorderBtn" onClick={() => {
+                  console.log('fired')
+                  this.props.isLoggedIn ?
+                    this.handleStartRecording()
+                    :
+                    this.props.history.push('/loginModal')
+                }} disabled = {this.state.isRecording}>Start</button>
+              {
+                this.state.isPaused ?
+                  <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
+                  :
+                  <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
+              }
+              <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
+            </div>
+            {this.props.isLoggedIn ? '' : <LoginOrSignupModal />}
+          </div>
 
         </div>
         <div id="playbackWaveform" style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}>
 
           {this.state.isRecording ? (
-            <div id="playbackWaveformPlusBtns">
-              <div className="arrowBtnFlex record">
 
-                <button className="addBtn record" onClick={() => { }}>          <img className="recorderArrow" src="/arrowLefty.png" />
-                  Return</button>
-              </div>
               <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
-              <div className="arrowBtnFlex record">
-
-                <button className="addBtn record" onClick={() => { }}>Editor
-
-          <img className="recorderArrow" src="/arrowRighty.png" /></button>
-              </div>
 
 
-            </div>
+
+
           ) : null}
         </div>
       </div>

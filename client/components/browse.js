@@ -53,7 +53,9 @@ class Browse extends React.Component {
             voteFunc={this.vote}
           />
         ))}
+        <div className = 'headerFlex'>
         <div className="browseHeader">Featured Groups</div>
+        </div>
         <AllItem items={this.props.featuredGroups} type="group" />
       </div>
     );
