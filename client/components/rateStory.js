@@ -9,10 +9,22 @@ const RateStory = props => {
     >
       <div className="votes">{props.story.rating}</div>
       <div className="voteBtnFlex">
-        <button className="ratingBtn">
+        <button
+          className="ratingBtn"
+          onClick={evt => {
+            evt.stopPropagation();
+            props.voteFunc(props.story.id, 1);
+          }}
+        >
           <i className="fas fa-caret-up fa-lg" />
         </button>
-        <button className="ratingBtn">
+        <button
+          className="ratingBtn"
+          onClick={evt => {
+            evt.stopPropagation();
+            props.voteFunc(props.story.id, -1);
+          }}
+        >
           <i className="fas fa-caret-down fa-lg" />
         </button>
       </div>

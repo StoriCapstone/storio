@@ -13,15 +13,26 @@ class Browse extends React.Component {
     super(props);
     this.state = {
       trendingStories: [],
+      trendingVotes: {},
       loaded: false,
     };
+    this.refreshTrending = this.refreshTrending.bind(this);
+    this.vote = this.vote.bind(this);
   }
-  componentDidMount() {
+  refreshTrending() {
     const loaded = true;
     axios
       .get('/api/stories/trending/')
       .then(res => res.data)
-      .then(([trendingStories, ]) => this.setState({ trendingStories, loaded, }));
+      .then(trendingStories => this.setState({ trendingStories, loaded, }));
+  }
+  componentDidMount() {
+    this.refreshTrending();
+  }
+  vote(id, vote) {
+    const uri =
+      vote === 1 ? `/api/story/${id}/vote-up` : `/api/story/${id}/vote-down`;
+    axios.post(uri, {}).then(() => this.refreshTrending());
   }
   render() {
     return (
@@ -39,6 +50,7 @@ class Browse extends React.Component {
             key={story.id}
             history={this.props.history}
             story={story}
+            voteFunc={this.vote}
           />
         ))}
         <div className="browseHeader">Featured Groups</div>
