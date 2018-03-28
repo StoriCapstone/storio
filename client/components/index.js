@@ -15,4 +15,5 @@ export { default as LoginOrSignupModal, } from './modals/loginOrSignup'
 export { default as addStoryModal, } from './modals/addStory'
 export { default as addGroupModal, } from './modals/addGroup'
 export { default as AddMembersToGroups, } from './addMembersToGroups'
+export { default as Profile, } from './userProfile'
 

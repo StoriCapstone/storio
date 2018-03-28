@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, } = require('../db/models');
+const { User, Story, Group, } = require('../db/models');
 const db = require('../db/');
 module.exports = router;
 
@@ -13,6 +13,13 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next);
 });
+
+router.get('/:id', (req, res, next) => {
+  User.findById(req.params.id, {include:[{model: Story}, {model: Group, }, ], })
+    .then(users => res.json(users))
+    .catch(next);
+});
+
 
 router.get('/not-in/:groupid', (req, res, next) => {
   const sql = `
