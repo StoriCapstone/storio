@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Story, StoryUserVotes, User, } = require('../db/models');
+const { Story, } = require('../db/models');
 const db = require('../db');
 module.exports = router;
 
