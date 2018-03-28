@@ -23,7 +23,8 @@ const AddMediaForm = props => {
     <form
       onSubmit={event => {
         props.handleSubmit(event, props.time)
-        props.modal.setState({open:false})
+        props.modal.onCloseModal()
+
 
 
       }}
