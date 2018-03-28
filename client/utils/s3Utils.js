@@ -5,7 +5,6 @@ import awsExports from '../../aws-exports';
   Amplify.configure(awsExports);
 
 
-}
 /*
   This function will given a blob, and an extension
   will add to s3 and return a promise for the resulting
