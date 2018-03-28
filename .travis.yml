@@ -17,12 +17,12 @@ install:
 before_script:
   - psql -c 'create database "storio-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#    - rm -rf node_modules # omit from the tarball, since we skip cleanup
-#  deploy:
-#    skip_cleanup: true # prevents travis from deleting the build
-#    provider: heroku
-#    app: storio-capstone # see README
-#    api_key:
-#    secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: storio-capstone # see README
+  api_key:
+    secure: "UljMpqlnnGUqIYna2aKTXzj83N7wrSlchE9HBnJCDBCMHmqXgy35FrPgJwpqd/gTtDHW/AnAIJfmFpwHavFWMhQvIkR07uafOoguPkDGkDfNeXC3K64PgHpboxAGWTsFjZMVz0JfGYgROVukjTkCbwjfnMxwtlui5Q/PS/pdbvNk/RzDgia/frnuoMuF9XKAtwxYeBpr3anyevyms4v/4nxE1BL1ZXX7ygu2bBq7BT4dJqxqHUcbi3lwWHU60wpBNcVGf/aNDvMAFOwyQfyH8kR6Giur3otG5FHK2vg/shAQ+habUeItV3Nm+A3hRncUTeXJsNvIy5rMZt5bGbau6vsb2hCVZzG+YfFvzq6hnzwsCEDa65/RRrtBT+g58NGoTDhAutR8KQTM9eJSLwbEzE8XnRHR4AG0hgU9SHfSZP/APzDFlsBaBQfBn801erJIqm88W+WbNoe2l1yd/WznhB881++/taRP9w3EuGoCQMhTQhJHkHNipdzAwD658LApXiElaqjJOmfCxkvtMCp3z4BWGIXXKCG+/ECTE3Yl+qQukCNJCoPhhcZ6I9m+PIr1zK5yYY7vhRuxdhNq6tKPPCLKIDgJrIe+gMbCjgk6NOPC79x4wlOKMYdir05aMwDisFNEk6RnVlWznpLdg2AvA/jc7QuBV8JclRsJe1sNirU=" # see README

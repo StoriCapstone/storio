@@ -1,50 +1,53 @@
-const router = require('express').Router()
-const User = require('../db/models/user')
-module.exports = router
+const router = require('express').Router();
+const { User, Story, Group, Comment, } = require('../db/models/');
+module.exports = router;
 
 router.post('/login', (req, res, next) => {
-  User.scope('populated').findOne({ where: { email: req.body.email, }, }) //added scope to eager load
+  User.findOne({ where: { email: req.body.email, }, }) //added scope to eager load
     .then(user => {
       if (!user) {
-        res.status(401).send('User not found')
+        res.status(401).send('User not found');
       } else if (!user.correctPassword(req.body.password)) {
-        res.status(401).send('Incorrect password')
+        res.status(401).send('Incorrect password');
       } else {
-        req.login(user, err => (err ? next(err) : res.json(user)))
+        req.login(user, err => (err ? next(err) : res.json(user)));
       }
     })
-    .catch(next)
-})
+    .catch(next);
+});
 
 router.post('/signup', (req, res, next) => {
   User.create(req.body)
     .then(user => {
-      req.login(user, err => (err ? next(err) : res.json(user)))
+      req.login(user, err => (err ? next(err) : res.json(user)));
     })
     .catch(err => {
       if (err.name === 'SequelizeUniqueConstraintError') {
-        res.status(401).send('User already exists')
+        res.status(401).send('User already exists');
       } else {
-        next(err)
+        next(err);
       }
-    })
-})
+    });
+});
 
 router.post('/logout', (req, res) => {
-  req.logout()
-  req.session.destroy()
-  res.redirect('/')
-})
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+});
 
-
-router.get('/me', (req, res) => { //This route is redefined so that it always eager loads the user
-  User.scope('populated').findOne({ where: { email: req.user.email, }, }) //added scope to eager load
+router.get('/me', (req, res, next) => {
+  //This route is redefined so that it always eager loads the user
+  User.findOne({
+    where: { email: req.user.email, },
+    include: [{ all: true, }, ],
+  }) //added scope to eager load
     .then(user => res.json(user))
-})
+    .catch(next);
+});
 
 // router.get('/me', (req, res) => {
 //   res.json(req.user)
 // })
 
-router.use('/google', require('./google'))
-
+router.use('/google', require('./google'));

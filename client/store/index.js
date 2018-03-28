@@ -10,6 +10,7 @@ import {default as story, } from './story'
 import {default as storyMedia, } from './media'
 import { default as groups, } from './groups';
 import { default as stories, } from './stories';
+import { default as profile, } from './profile';
 import {SET_MEDIA, } from './stories'
 
 const reducer = combineReducers({
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   commentForm,
   story,
   storyMedia,
+  profile,
   media: (state = {}, {type, id, blob, }) =>
     (type === SET_MEDIA
       ? {...state, [id]: blob, }
@@ -41,3 +43,4 @@ export * from './stories'
 export * from './comments'
 export * from './story'
 export * from './media'
+export * from './profile'

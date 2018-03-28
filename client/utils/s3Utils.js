@@ -2,7 +2,8 @@ import Amplify, { Storage, } from 'aws-amplify';
 import SparkMD5 from 'spark-md5';
 import awsExports from '../../aws-exports';
 
-Amplify.configure(awsExports);
+  Amplify.configure(awsExports);
+
 
 /*
   This function will given a blob, and an extension
