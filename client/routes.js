@@ -13,6 +13,7 @@ import {
   Browse,
   Home,
   AddMembersToGroups,
+  Profile,
 } from './components';
 import { me, } from './store';
 import { fetchAllStories, } from './store/stories';
@@ -52,6 +53,7 @@ class Routes extends Component {
 path="/singleStory/:id" location={this.props.location} key={this.props.location.key} render={({ location, match, }) => (
           <SingleStory key={this.props.location.key}  params={match.params} />
       )} />
+        <Route path="/userProfile/:id" component={Profile} />
 
 
         {isLoggedIn && (

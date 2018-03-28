@@ -45,10 +45,6 @@ export default class Waveform extends React.Component {
       this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3) // in case they have URL instead
     }
     store.dispatch(setCurrentWaveform(this.wavesurfer))
-    var me = this.wavesurfer
-    this.wavesurfer.on('ready', function () {
-      me.play();
-    });
     this.wavesurfer.on('audioprocess', () =>
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime())))
   }
@@ -80,7 +76,7 @@ export default class Waveform extends React.Component {
     return (
       <div className="waveform" >
         <div className="wave" onClick={this.handleWaveformClick} />
-        <AudioControls audio={this.props.currentWaveform} />
+        <AudioControls audio={this.state.waveform.currentWaveform} />
 
         <button className = "addBtn media" onClick={this.handleAddMediaClick}> <img src="/plusSign.png" className="addBtnImg" />media</button>
         <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
