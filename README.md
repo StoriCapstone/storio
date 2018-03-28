@@ -26,7 +26,7 @@ git fetch boilermaker
 git merge boilermaker/master
 ```
 
-## Customize
+## Customiz
 
 Now that you've got the code, follow these steps to get acclimated:
 
