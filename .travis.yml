@@ -19,10 +19,10 @@ before_script:
 
 before_deploy:
   - npm run build-client # make the bundle
-   - rm -rf node_modules # omit from the tarball, since we skip cleanup
- deploy:
-   skip_cleanup: true # prevents travis from deleting the build
-   provider: heroku
-   app: storio-capstone # see README
-   api_key:
-   secure: "W+z0fWns1WPr+fNYFOu91JBDBCh1HUmfzPczFEn9OAVMsfTh7nO1365leRKs2CAKH94fCNLbi3VuIfUYF2ySRTGWXiRWs/8T4AOD8NEJI6SigQwJc2oin4bBbwPj7oVXIy/Rj5iTYkji1tpPsAGj4vKYkquIoQZ0QTzRlwUVX0rsK+GovVapgqQaBK6tWFkSFpjvGCtVNt+j/jLjAyCuivcIP0mwn7IGmGrLEYUXLKi8N1km1lZb5hi27TagGKHf/iQkxx+lZUMVdEEUch9WGwrWryThOq1QnRtqkYeLw3Rq99hAWhUuSVZY+MMKEL2iQG/ep/IjLjIzmf8pO3g0VOEeqdhMaQZOwBamicYee0TdEgiTR6bSOWRjYz1i2CKJUR66KgTSpjOPsOrUdbVy1gIALABnvTUYMNnc061v92Lru9TsJXwSmvggt8ASR9B9hY8kMrJb8D/tlxusjU3R3fSV39n3YRkXmm9ze2QuqxVbcl9nziltuGPSxZfxUBh003r/oHDO5FJAjAs5DoRuy9GXPC3rw10T9KRHDtpVc7UsskWgsGwSrnKGrv5GZ9Xg6d4nHNTOJTd0DE/zdoGhnUPTKL6exT4pcphn2s0YowyrALj/omplbJU9o0HZI3pNK4BnikGyGgelvQWaSwnr/Ud9GRVuuEb8gUsKriRAcAs=" # see README
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: storio-capstone # see README
+  api_key:
+    secure: "W+z0fWns1WPr+fNYFOu91JBDBCh1HUmfzPczFEn9OAVMsfTh7nO1365leRKs2CAKH94fCNLbi3VuIfUYF2ySRTGWXiRWs/8T4AOD8NEJI6SigQwJc2oin4bBbwPj7oVXIy/Rj5iTYkji1tpPsAGj4vKYkquIoQZ0QTzRlwUVX0rsK+GovVapgqQaBK6tWFkSFpjvGCtVNt+j/jLjAyCuivcIP0mwn7IGmGrLEYUXLKi8N1km1lZb5hi27TagGKHf/iQkxx+lZUMVdEEUch9WGwrWryThOq1QnRtqkYeLw3Rq99hAWhUuSVZY+MMKEL2iQG/ep/IjLjIzmf8pO3g0VOEeqdhMaQZOwBamicYee0TdEgiTR6bSOWRjYz1i2CKJUR66KgTSpjOPsOrUdbVy1gIALABnvTUYMNnc061v92Lru9TsJXwSmvggt8ASR9B9hY8kMrJb8D/tlxusjU3R3fSV39n3YRkXmm9ze2QuqxVbcl9nziltuGPSxZfxUBh003r/oHDO5FJAjAs5DoRuy9GXPC3rw10T9KRHDtpVc7UsskWgsGwSrnKGrv5GZ9Xg6d4nHNTOJTd0DE/zdoGhnUPTKL6exT4pcphn2s0YowyrALj/omplbJU9o0HZI3pNK4BnikGyGgelvQWaSwnr/Ud9GRVuuEb8gUsKriRAcAs=" # see README
