@@ -2,10 +2,8 @@ import Amplify, { Storage, } from 'aws-amplify';
 import SparkMD5 from 'spark-md5';
 import awsExports from '../../aws-exports';
 
-if (!process.env.AWS_AMPLIFY) {
   Amplify.configure(awsExports);
 
-  console.log('AWS / secret not found. Skipping AWS.')
 
 }
 /*
