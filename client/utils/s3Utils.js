@@ -2,8 +2,12 @@ import Amplify, { Storage, } from 'aws-amplify';
 import SparkMD5 from 'spark-md5';
 import awsExports from '../../aws-exports';
 
-Amplify.configure(awsExports);
+if (!process.env.AWS_AMPLIFY) {
+  Amplify.configure(awsExports);
 
+  console.log('AWS / secret not found. Skipping AWS.')
+
+}
 /*
   This function will given a blob, and an extension
   will add to s3 and return a promise for the resulting
