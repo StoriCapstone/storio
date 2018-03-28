@@ -114,7 +114,7 @@ class RecorderPlaybackSubmit extends React.Component {
           </div>
           <div
             onClick={event => RecorderPlaybackSubmit.pointAdder(event)}
-            className="wave"
+            className="wave light"
             align="center"
             onMouseEnter={() => this.setState({ hovering: true, })}
             onMouseLeave={() => this.setState({ hovering: false, })}

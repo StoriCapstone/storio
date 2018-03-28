@@ -22,9 +22,14 @@ export const Browse = (props) => {
       {
         props.trending.map((story) => <RateStory history = {props.history} story={story} />)
       }
+      <div className = "headerFlex">
+
       <div className="browseHeader">Featured Groups</div>
+      </div>
+
       <AllItem items={props.featuredGroups} type="group" />
-    </div>
+      </div>
+
   )
 }
 /**

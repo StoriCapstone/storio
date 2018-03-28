@@ -6,14 +6,14 @@ import { Link, } from 'react-router-dom'
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const { email, } = props
+  const { firstName, } = props
 
 
   return (
     <div id="pageContainer">
       {
-        props.email ?
-          <h3 id="welcomeMsg" >Welcome, {email}</h3>
+        props.firstName ?
+          <h3 id="welcomeMsg" >Welcome, {firstName}</h3>
           :
           <h1 id="motto">Tell stories, better</h1>
       }
@@ -31,7 +31,7 @@ export const UserHome = (props) => {
           </Link>
         </div>
         <div className="singleOption">
-          <Link to={props.email ? '/customHome' : '/loginModal'}>
+          <Link to={props.firstName ? '/customHome' : '/loginModal'}>
             <img className="optionImg" src="/homeBlue.png" />
             <div className="optionLabel">Home</div>
           </Link>
@@ -51,7 +51,7 @@ export const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email,
+    firstName: state.user.firstName,
   }
 }
 

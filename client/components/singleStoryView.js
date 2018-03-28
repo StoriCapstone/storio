@@ -8,13 +8,13 @@ import {withRouter, } from 'react-router-dom'
 
 const SingleComment = (props) => {
     return (
-        <div>
-            <h4>{props.commentObj.user.displayName}:</h4>
-            <p>{props.commentObj.content}</p>
+        <div className = "singleComment">
+            <h4 className = 'commentDisplayName'>{props.commentObj.user.displayName}:</h4>
+            <p className = 'commentContent'>{props.commentObj.content}</p>
         </div>
     )
 }
-
+//ask jeff about key on map below
 class SingleStory extends React.Component {
     constructor(props) {
         super(props)
@@ -26,10 +26,9 @@ class SingleStory extends React.Component {
     render() {
         return (
             <div>
-                <p>by {Object.keys(this.props.story).length ? this.props.story.user.displayName : 'Loading'}</p>
                 <MediaPlayer match = {{params: {id: this.props.id, }, }} />
                 <h2>Comments:</h2>
-                {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p>Sign in to leave comments</p>}
+                {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p className = "header">Sign in to leave comments</p>}
                 {Object.keys(this.props.story).length ? this.props.allComments.map((commentObj, index, array) => <SingleComment key={commentObj.id ? commentObj.id : array[array.length - 2].id + 1} commentObj={commentObj} />) : 'Loading Comments'}
             </div>
         )

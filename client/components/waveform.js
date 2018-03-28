@@ -79,7 +79,7 @@ export default class Waveform extends React.Component {
   render() {
     return (
       <div className="waveform" >
-        <div className="wave" onClick={this.handleWaveformClick} />
+        <div className="wave light" onClick={this.handleWaveformClick} />
         <AudioControls audio={this.props.currentWaveform} />
 
         <button className = "addBtn media" onClick={this.handleAddMediaClick}> <img src="/plusSign.png" className="addBtnImg" />media</button>
