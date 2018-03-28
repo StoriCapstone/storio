@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { Story, } = require('../db/models');
+const { Story, StoryUserVotes, } = require('../db/models');
 const db = require('../db');
+const Op = require('sequelize').Op;
 module.exports = router;
 
 router.get('/', (req, res, next) => {
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/trending', (req, res, next) => {
+router.get('/trending', async (req, res, next) => {
   //get the top 10!
   const sql = `
   SELECT
@@ -29,14 +30,32 @@ router.get('/trending', (req, res, next) => {
   "public".stories."id","public".users."id"
   order by rating DESC
   limit 10
-  `
-  db.query(sql, db.QueryTypes.SELECT)
-    .then(result => res.json(result))
-    .catch(err => {
-      console.log('err.sql: ', err.sql);
-      next(err);
-      // res.send(err.sql)
-    });
+  `;
+  try {
+    const [results, ] = await db.query(sql, db.QueryTypes.SELECT);
+    const loggedInVotes = req.user
+      ? await StoryUserVotes.findAll({
+          where: {
+            userId: req.user.id,
+            storyId: {
+              [Op.in]: results.map(story => story.id),
+            },
+          },
+        })
+      : null;
+    const votes = {};
+    if (loggedInVotes) {
+      for (let storyVote of loggedInVotes) {
+        votes[storyVote.storyId] = storyVote.vote;
+      }
+    }
+    for (let result of results) {
+      result.userVote = votes[result.id] ? votes[result.id] : 0;
+    }
+    res.json(results);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/:id', (req, res, next) => {
