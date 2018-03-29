@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect, } from 'react-redux';
 // import { Storage, } from 'aws-amplify';
-import LoginOrSignupModal from './modals/loginOrSignup';
+import LoginOrSignupModal from './modals/loginOrSignUp';
 import { selectMP3toEdit, } from '../store/';
 import RecorderPlaybackSubmit from './recorderPlaybackSubmit';
 // Storage.configure(awsExports)
