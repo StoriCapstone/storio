@@ -13,7 +13,7 @@ export { default as Browse, } from './browse'
 export { default as Home, } from './home'
 export { default as addStoryModal, } from './modals/addStory'
 export { default as addGroupModal, } from './modals/addGroup'
-export { default as LoginOrSignupModal, } from './modals/loginOrSignup.js'
+export { default as LoginOrSignupModal, } from './modals/loginOrSignUp.js'
 export { default as AddMembersToGroups, } from './addMembersToGroups'
 export { default as Profile, } from './userProfile'
 
