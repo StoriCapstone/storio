@@ -67,7 +67,7 @@ class Recorder extends React.Component {
       analyser.getByteFrequencyData(dataArrayAlt);
 
       // use refs "string" then this.refs.string to reference the node within the class
-      canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+      canvasCtx.fillStyle = 'rgb(61, 61, 61)';
       canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
       var barWidth = WIDTH / bufferLengthAlt * 2.5;
@@ -218,15 +218,15 @@ class Recorder extends React.Component {
       this.audioSrc.disconnect();
     }
   }
-
+  //remove the form, have just the return and editor buttons (or save), on press, form in modal
   render() {
     return (
       <div>
         <div>
           <div
-id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
+            id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
           >
-            <h2 >{this.state.recordingTime}</h2>
+            <h2 className="header" >{this.state.recordingTime}</h2>
             <div>
               <canvas
                 className="visualizer"
@@ -264,22 +264,12 @@ id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacit
         <div id="playbackWaveform" style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}>
 
           {this.state.isRecording ? (
-            <div id="playbackWaveformPlusBtns">
-              <div className="arrowBtnFlex record">
 
-                <button className="addBtn record" onClick={() => { }}>          <img className="recorderArrow" src="/arrowLefty.png" />
-                  Return</button>
-              </div>
               <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
-              <div className="arrowBtnFlex record">
-
-                <button className="addBtn record" onClick={() => { }}>Editor
-
-          <img className="recorderArrow" src="/arrowRighty.png" /></button>
-              </div>
 
 
-            </div>
+
+
           ) : null}
         </div>
       </div>

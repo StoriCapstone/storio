@@ -105,13 +105,24 @@ class MediaPlayer extends React.Component {
   }
 
   render() {
+    let user = this.props.currentStory.user || null
     return (
       <div id="mainPlayer">
-        <h2 align="center" id="storyTitle">
-          {this.props.currentStory.name || ''}
-        </h2>
+        <div id="storyTitle">
+          <div id ="storyTitle2"> {this.props.currentStory.name}
+          </div>
+          <div align="center" id='storyAuthor'>
+
+             by {user ?
+                user.firstName + ' ' + user.lastName
+                : null
+              }
+          </div>
+        </div>
+
 
         <div id="viewContainer">
+
           <div id="waveContainer">
             <div className="waveform" align="center" />
           </div>

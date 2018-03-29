@@ -5,18 +5,18 @@ import AudioControls from './MediaPlayback/audioControls';
 import { addBlobToS3, } from '../utils';
 import { postStory, } from '../store';
 import { selectMP3toEdit, } from '../store/';
-
+import AddStoryModal from './modals/addStory'
 //sort the media by start time
 
-const genres = [
-  'Crime',
-  'Memorial',
-  'History',
-  'Family',
-  'Scary',
-  'Funny',
-  'Educational',
-];
+// const genres = [
+//   'Crime',
+//   'Memorial',
+//   'History',
+//   'Family',
+//   'Scary',
+//   'Funny',
+//   'Educational',
+// ];
 
 class RecorderPlaybackSubmit extends React.Component {
   constructor(props) {
@@ -28,13 +28,15 @@ class RecorderPlaybackSubmit extends React.Component {
       currentMedia: {},
       name: '',
       genre: '',
+      waveCreated:false,
+      showModal:false
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.submitAndEditCB = this.submitAndEditCB.bind(this);
-    this.getSubmitObj = this.getSubmitObj.bind(this);
-    this.handleSubmitAndEdit = this.handleSubmitAndEdit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    // this.submitAndEditCB = this.submitAndEditCB.bind(this);
+    // this.getSubmitObj = this.getSubmitObj.bind(this);
+    // this.handleSubmitAndEdit = this.handleSubmitAndEdit.bind(this);
   }
 
   handleWaveformHover(position) {
@@ -53,55 +55,57 @@ class RecorderPlaybackSubmit extends React.Component {
       barWidth: 2,
     });
     this.wavesurfer.loadBlob(this.props.storySrc);
+    this.setState({waveCreated:true})
   }
 
-  static pointAdder(event) {
-    let point = document.createElement('div');
-    point.className = 'point';
-    point.style.left = event.clientX + 'px';
-    point.style.top = event.clientY + 'px';
-    point.style.backgroundColor = 'Blue';
-    let wave = document.getElementsByClassName('wave')[0];
-    wave.appendChild(point);
-  }
-  handleChange(evt) {
-    const name = evt.target.name;
-    const value = evt.target.value;
-    let isValid = false;
+  // static pointAdder(event) {
+  //   let point = document.createElement('div');
+  //   point.className = 'point';
+  //   point.style.left = event.clientX + 'px';
+  //   point.style.top = event.clientY + 'px';
+  //   point.style.backgroundColor = 'Blue';
+  //   let wave = document.getElementsByClassName('wave')[0];
+  //   wave.appendChild(point);
+  // }
+  // handleChange(evt) {
+  //   const name = evt.target.name;
+  //   const value = evt.target.value;
+  //   let isValid = false;
 
-    this.setState({
-      [name]: value,
-      [name + 'Changed']: true,
-      [name + 'IsValid']: isValid,
-    });
-  }
-  submitAndEditCB(story) {
-    this.props.selectMP3toEdit(this.props.storySrc, story);
-    this.props.history.push('/addMediaForm');
-  }
-  async getSubmitObj() {
-    const url = await addBlobToS3(this.props.storySrc, 'mp3');
-    const submitObj = {
-      url,
-      genre: this.state.genre,
-      name: this.state.name.trim(),
-      mediaLength: Math.ceil(this.wavesurfer.getDuration()),
-    };
-    return submitObj;
-  }
-  handleSubmitAndEdit(evt) {
-    evt.preventDefault();
-    this.getSubmitObj().then(storyObj =>
-      this.props.postStory(storyObj, this.submitAndEditCB)
-    );
-  }
-  handleSubmit(evt) {
-    evt.preventDefault();
-    this.getSubmitObj().then(storyObj => this.props.postStory(storyObj));
-  }
+  //   this.setState({
+  //     [name]: value,
+  //     [name + 'Changed']: true,
+  //     [name + 'IsValid']: isValid,
+  //   });
+  // }
+  // submitAndEditCB(story) {
+  //   this.props.selectMP3toEdit(this.props.storySrc, story);
+  //   this.props.history.push('/addMediaForm');
+  // }
+  // async getSubmitObj() {
+  //   const url = await addBlobToS3(this.props.storySrc, 'mp3');
+  //   const submitObj = {
+  //     url,
+  //     genre: this.state.genre,
+  //     name: this.state.name.trim(),
+  //     mediaLength: Math.ceil(this.wavesurfer.getDuration()),
+  //   };
+  //   return submitObj;
+  // }
+  // handleSubmitAndEdit(evt) {
+  //   evt.preventDefault();
+  //   this.getSubmitObj().then(storyObj =>
+  //     this.props.postStory(storyObj, this.submitAndEditCB)
+  //   );
+  // }
+  // handleSubmit(evt) {
+  //   evt.preventDefault();
+  //   this.getSubmitObj().then(storyObj => this.props.postStory(storyObj));
+  // }
   render() {
-    const nameId = 'name';
-    const genreId = 'genre';
+    // const nameId = 'name';
+    // const genreId = 'genre';
+    console.log('wavesurfer in the parent', this.wavesurfer)
     return (
       <div>
         <div
@@ -137,7 +141,33 @@ class RecorderPlaybackSubmit extends React.Component {
           </div>
         </div>
         <div>
-          <form onSubmit={this.handleSubmit}>
+          <div id="playbackWaveformPlusBtns">
+              <div className="arrowBtnFlex record">
+
+                <button className="addBtn record" onClick={() => { }}>          <img className="recorderArrow" src="/arrowLefty.png" />
+                  Return</button>
+              </div>
+              <div className="arrowBtnFlex record">
+
+                <button className="addBtn record" onClick={() => { this.setState({showModal:true})}}>Editor
+
+          <img className="recorderArrow" src="/arrowRighty.png" /></button>
+              </div>
+
+
+            </div>
+        </div>
+        <div>
+
+        {
+this.state.waveCreated && this.state.showModal?
+        <AddStoryModal history  = {this.props.history} parent = {this} storySrc = {this.props.storySrc} wavesurfer = {this.wavesurfer}/>
+        :
+        null
+        }
+         {/* <form onSubmit={this.handleSubmit}>
+
+
             <fieldset>
               <legend>Story Data</legend>
               <div>
@@ -175,7 +205,7 @@ class RecorderPlaybackSubmit extends React.Component {
                 onClick={this.handleSubmitAndEdit}
               />
             </fieldset>
-          </form>
+          </form>*/}
         </div>
       </div>
     );
