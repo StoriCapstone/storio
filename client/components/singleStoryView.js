@@ -28,8 +28,8 @@ class SingleStory extends React.Component {
             <div>
                 <MediaPlayer match = {{params: {id: this.props.id, }, }} />
                 <h2>Comments:</h2>
-                {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p className = "header">Sign in to leave comments</p>}
-                {Object.keys(this.props.story).length ? this.props.allComments.map((commentObj, index, array) => <SingleComment key={commentObj.id ? commentObj.id : array[array.length - 2].id + 1} commentObj={commentObj} />) : 'Loading Comments'}
+                {Object.keys(this.props.story).length ? this.props.allComments.map((commentObj, index, array) => <SingleComment key={`${commentObj.content}_${new Date().getTime()}`} commentObj={commentObj} />) : 'Loading Comments'}
+                {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p>Sign in to leave comments</p>}
             </div>
         )
     }

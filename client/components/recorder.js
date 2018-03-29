@@ -146,6 +146,8 @@ class Recorder extends React.Component {
     this.setState({ recordingTime, });
   }
   handleStartRecording() {
+    this.startBtn.setAttribute('disabled', 'disabled')
+    this.startBtn.classList.add('disabled')
     try {
       this.getAudio() //once audio is grabbed!
         .then(() => {
@@ -196,6 +198,9 @@ class Recorder extends React.Component {
   }
 
   handleStopRecording() {
+    this.startBtn.removeAttribute('disabled')
+    this.startBtn.classList.remove('disabled')
+    
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID);
       this.setState({ intervalID: null, doneRecording: true, });
@@ -234,26 +239,26 @@ class Recorder extends React.Component {
             </div>
           </div>
 
-          <div>
-            <div id="fady" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}>
-              <button
-                className="recorderBtn" onClick={() => {
-                  console.log('fired')
-                  this.props.isLoggedIn ?
-                    this.handleStartRecording()
-                    :
-                    this.props.history.push('/loginModal')
-                }} disabled = {this.state.isRecording}>Start</button>
-              {
-                this.state.isPaused ?
-                  <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
-                  :
-                  <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
-              }
-              <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
-            </div>
-            {this.props.isLoggedIn ? '' : <LoginOrSignupModal />}
-          </div>
+              <div>
+                <div id = "fady" style = {this.state.isRecording ? {opacity: '0', } : {opacity: '1', }}>
+                  <button
+                    ref={(startBtn) => this.startBtn = startBtn}
+                    className="recorderBtn" onClick={() => {
+                      this.props.isLoggedIn ?
+                        this.handleStartRecording()
+                        :
+                        this.props.history.push('/loginModal')
+                    }}>Start</button>
+                  {
+                    this.state.isPaused ?
+                      <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
+                      :
+                      <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
+                  }
+                  <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
+                </div>
+                {this.props.isLoggedIn ? '' : <LoginOrSignupModal />}
+              </div>
 
         </div>
         <div id="playbackWaveform" style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}>
