@@ -106,8 +106,8 @@ transition:all .4s;
 }
 .arrowBtnFlex{
   display:flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 #fadeVisualizer{
   transition:all 1s
@@ -118,14 +118,15 @@ transition:all .4s;
 #playbackWaveform{
   transition:all 1s;
   position:absolute;
-left:13.23vw;
-  top:12vw;
+left:5.2vw;
+  top:10vw;
 }
 .addBtn.record{
   cursor: pointer;
   box-shadow: 0 0 2vw .6vw rgba(12, 12, 12, 0.678),inset 0 0 1.1vw .03vw rgb(27, 26, 24);
-
-  margin-top:10vw;
+margin-left:18vw;
+margin-right:18vw;
+margin-top:2.3vw;
 width:9vw;
 font-weight: 400;
 }
@@ -182,6 +183,9 @@ margin-top: 3.5vw;
   color:rgb(7, 7, 146);
 
 transition:all .15s;
+}
+.hoverProgress.light{
+  color:gold;
 }
 .addBtn:hover{
   background: linear-gradient(90deg,rgba(250, 153, 7, 0.819), hsl(46, 100%, 76%),rgba(250, 153, 7, 0.819));
@@ -608,7 +612,7 @@ transform:scale(.99)
 }
 
 #mediaWindow {
-  transition: opacity .5s;
+  transition: opacity 1s;
   overflow: hidden;
 }
 
@@ -669,10 +673,11 @@ background-color: rgba(231, 143, 85, 0.301)
 
 }
 .wave.light{
-  background-color: rgba(255, 183, 0, 0.432);
+  background-color: rgba(224, 141, 247, 0.15);
 }
 .header{
-  color:gold
+  color:gold;
+ font-size:1.3vw;
 }
 /* #waveContainer{
 

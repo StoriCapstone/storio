@@ -92,6 +92,7 @@ class MediaPlayer extends React.Component {
 
           this.setState({
             currentMedia: this.props.currentStory.media[nextUp++],
+
             isShowing: true,
           });
           if (this.state.currentMedia.mediaType === 'video') this.wavesurfer.pause();
@@ -100,6 +101,8 @@ class MediaPlayer extends React.Component {
       let finishTime = this.state.currentMedia.start + this.state.currentMedia.duration || null;
       if (finishTime && progress >= finishTime) {
         this.setState({ isShowing: false, });
+        setTimeout(()=>this.setState({currentMedia:{}}),800)
+
       }
     }, 1000);
   }
@@ -132,9 +135,9 @@ class MediaPlayer extends React.Component {
             className="wave"
             align="center"
 
-          //onMouseEnter={() => this.setState({ hovering: true, })}
-          //onMouseLeave={() => this.setState({ hovering: false, })}
-          //onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
+          onMouseEnter={() => this.setState({ hovering: true, })}
+          onMouseLeave={() => this.setState({ hovering: false, })}
+          onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
           />
           <div
             className="hoverProgress"

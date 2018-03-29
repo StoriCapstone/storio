@@ -108,6 +108,7 @@ class RecorderPlaybackSubmit extends React.Component {
     console.log('wavesurfer in the parent', this.wavesurfer)
     return (
       <div>
+      <div className = 'header' style = {{marginTop:'3.7vw', fontSize:'20pt'}}>Preview Before Saving</div>
         <div
           ref={mySelf => {
             this.waveFormEl = mySelf;
@@ -131,7 +132,7 @@ class RecorderPlaybackSubmit extends React.Component {
             }
           />
           <div
-            className="hoverProgress"
+            className="hoverProgress light"
             style={this.state.hovering ? { opacity: '1', } : { opacity: '0', }}
           >
             {this.state.hoverProgress}
