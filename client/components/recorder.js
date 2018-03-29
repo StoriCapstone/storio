@@ -23,6 +23,7 @@ class Recorder extends React.Component {
       intervalID: null,
       isPaused: false,
       isRecording: false,
+      isLoaded: false,
     };
     this.animationId = null;
     this.getAudio = this.getAudio.bind(this);
@@ -43,8 +44,13 @@ class Recorder extends React.Component {
     canvasCtx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   }
+  componentWillMount() {
+    setTimeout(() => {
+      this.setState({ isLoaded: true, });
+    }, 200);
+  }
   componentDidMount() {
-    if (this.props.isLoggedIn) this.clearCanvas();
+    this.clearCanvas();
   }
   setUpVisualizer(analyser) {
     const canvas = this.recorderVisualizer;
@@ -100,7 +106,7 @@ class Recorder extends React.Component {
           // Create a MediaStreamAudioSourceNode
           // Feed the HTMLMediaElement into it
           var audioCtx = new AudioContext();
-          window.audio = audioCtx //global access to the audio context for play/pause
+          window.audio = audioCtx; //global access to the audio context for play/pause
           var source = audioCtx.createMediaStreamSource(stream);
           this.analyser = audioCtx.createAnalyser();
           const configs = {
@@ -122,7 +128,6 @@ class Recorder extends React.Component {
           recorder.onComplete = (rec, blob) => {
             this.recording = blob;
             this.setState({ isRecording: true, });
-
           };
         });
     } else {
@@ -140,9 +145,9 @@ class Recorder extends React.Component {
     const milisecs = (time - Math.floor(time)).toFixed(5) * 1000;
     const recordingTime = `${minutes}:${
       seconds < 10 ? '0' + seconds : seconds
-      }.${milisecs < 100 ? '0' : ''}${
+    }.${milisecs < 100 ? '0' : ''}${
       milisecs < 10 ? '0' : ''
-      }${milisecs} ${msg}`.trim();
+    }${milisecs} ${msg}`.trim();
     this.setState({ recordingTime, });
   }
   handleStartRecording() {
@@ -155,7 +160,7 @@ class Recorder extends React.Component {
       Recorder.recordingError('Unable to start recording');
     }
   }
-  countDown = (secs) => {
+  countDown = secs => {
     if (secs === -1) {
       this.audioSrc.connect(this.analyser); //new
       this.setUpVisualizer(this.analyser);
@@ -179,16 +184,17 @@ class Recorder extends React.Component {
         this.countDown(secs - 1);
       }, 1000);
     }
-  }
+  };
 
-  handlePauseRecording() { //TODO
-    this.setState({ isPaused: true, })
-    window.audio.suspend()
+  handlePauseRecording() {
+    //TODO
+    this.setState({ isPaused: true, });
+    window.audio.suspend();
   }
 
   handleResumeRecording() {
-    this.setState({ isPaused: false, }) //TODO
-    window.audio.resume()
+    this.setState({ isPaused: false, }); //TODO
+    window.audio.resume();
   }
 
   handleResetRecording() {
@@ -219,9 +225,10 @@ class Recorder extends React.Component {
       <div>
         <div>
           <div
-id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
+            id="fadeVisualizer"
+            style={this.state.isRecording ? { opacity: '0', } : { opacity: '1', }}
           >
-            <h2 >{this.state.recordingTime}</h2>
+            <h2>{this.state.recordingTime}</h2>
             <div>
               <canvas
                 className="visualizer"
@@ -234,45 +241,75 @@ id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacit
             </div>
           </div>
 
-              <div>
-                <div id = "fady" style = {this.state.isRecording ? {opacity: '0', } : {opacity: '1', }}>
-                  <button
-                    className="recorderBtn" onClick={() => {
-                      this.props.isLoggedIn ?
-                        this.handleStartRecording()
-                        :
-                        this.props.history.push('/loginModal')
-                    }}>Start</button>
-                  {
-                    this.state.isPaused ?
-                      <button className="recorderBtn" onClick={this.handleResumeRecording}>Resume</button>
-                      :
-                      <button className="recorderBtn" onClick={this.handlePauseRecording}>Pause</button>
-                  }
-                  <button className="recorderBtn" onClick={this.handleStopRecording}>Stop</button>
-                </div>
-                {this.props.isLoggedIn ? '' : <LoginOrSignupModal />}
-              </div>
-
+          <div>
+            <div
+              id="fady"
+              style={
+                this.state.isRecording ? { opacity: '0', } : { opacity: '1', }
+              }
+            >
+              <button
+                className="recorderBtn"
+                onClick={() => {
+                  this.props.isLoggedIn
+                    ? this.handleStartRecording()
+                    : this.props.history.push('/loginModal');
+                }}
+              >
+                Start
+              </button>
+              {this.state.isPaused ? (
+                <button
+                  className="recorderBtn"
+                  onClick={this.handleResumeRecording}
+                >
+                  Resume
+                </button>
+              ) : (
+                <button
+                  className="recorderBtn"
+                  onClick={this.handlePauseRecording}
+                >
+                  Pause
+                </button>
+              )}
+              <button
+                className="recorderBtn"
+                onClick={this.handleStopRecording}
+              >
+                Stop
+              </button>
+            </div>
+            {!this.state.isLoaded || this.props.isLoggedIn ? (
+              ''
+            ) : (
+              <LoginOrSignupModal />
+            )}
+          </div>
         </div>
-        <div id="playbackWaveform" style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}>
-
+        <div
+          id="playbackWaveform"
+          style={this.state.isRecording ? { opacity: '1', } : { opacity: '0', }}
+        >
           {this.state.isRecording ? (
             <div id="playbackWaveformPlusBtns">
               <div className="arrowBtnFlex record">
-
-                <button className="addBtn record" onClick={() => { }}>          <img className="recorderArrow" src="/arrowLefty.png" />
-                  Return</button>
+                <button className="addBtn record" onClick={() => {}}>
+                  {' '}
+                  <img className="recorderArrow" src="/arrowLefty.png" />
+                  Return
+                </button>
               </div>
-              <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
+              <RecorderPlaybackSubmit
+                storySrc={this.recording}
+                history={this.props.history}
+              />
               <div className="arrowBtnFlex record">
-
-                <button className="addBtn record" onClick={() => { }}>Editor
-
-          <img className="recorderArrow" src="/arrowRighty.png" /></button>
+                <button className="addBtn record" onClick={() => {}}>
+                  Editor
+                  <img className="recorderArrow" src="/arrowRighty.png" />
+                </button>
               </div>
-
-
             </div>
           ) : null}
         </div>

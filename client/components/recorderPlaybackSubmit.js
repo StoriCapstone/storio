@@ -28,6 +28,7 @@ class RecorderPlaybackSubmit extends React.Component {
       currentMedia: {},
       name: '',
       genre: '',
+      ready: false,
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -53,8 +54,11 @@ class RecorderPlaybackSubmit extends React.Component {
       barWidth: 2,
     });
     this.wavesurfer.loadBlob(this.props.storySrc);
+    this.wavesurfer.on('ready', () => this.setState({ready: true, }))
   }
-
+  componentWillUnmount(){
+    this.wavesurfer.unAll()
+  }
   static pointAdder(event) {
     let point = document.createElement('div');
     point.className = 'point';
@@ -133,7 +137,7 @@ class RecorderPlaybackSubmit extends React.Component {
             {this.state.hoverProgress}
           </div>
           <div id="playerControlPanel">
-            <AudioControls audio={this.wavesurfer} />
+            { this.state.ready ? <AudioControls audio={this.wavesurfer} /> : <h1>loading</h1>}
           </div>
         </div>
         <div>
