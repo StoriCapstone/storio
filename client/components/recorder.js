@@ -146,6 +146,8 @@ class Recorder extends React.Component {
     this.setState({ recordingTime, });
   }
   handleStartRecording() {
+    this.startBtn.setAttribute('disabled', 'disabled')
+    this.startBtn.classList.add('disabled')
     try {
       this.getAudio() //once audio is grabbed!
         .then(() => {
@@ -196,6 +198,9 @@ class Recorder extends React.Component {
   }
 
   handleStopRecording() {
+    this.startBtn.removeAttribute('disabled')
+    this.startBtn.classList.remove('disabled')
+    
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID);
       this.setState({ intervalID: null, doneRecording: true, });
@@ -237,6 +242,7 @@ id="fadeVisualizer" style={this.state.isRecording ? { opacity: '0', } : { opacit
               <div>
                 <div id = "fady" style = {this.state.isRecording ? {opacity: '0', } : {opacity: '1', }}>
                   <button
+                    ref={(startBtn) => this.startBtn = startBtn}
                     className="recorderBtn" onClick={() => {
                       this.props.isLoggedIn ?
                         this.handleStartRecording()
