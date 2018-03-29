@@ -6,15 +6,7 @@ import AudioControls from './MediaPlayback/audioControls';
 
 import AddMediaModal from './modals/addMediaModal'
 
-var testData = {
-  storyId: 1, media: [{
-    src: 'https://d3qi0qp55mx5f5.cloudfront.net/www/i/homepage/spotlight/urban-chicago-spotlight.jpg',
-    type: 'img',
-    start: 0,
-    end: 15,
-    options: { caption: 'hi', },
-  }, ],
-}
+
 export default class Waveform extends React.Component {
   constructor(props) {
     super(props)
@@ -45,6 +37,8 @@ export default class Waveform extends React.Component {
       this.wavesurfer.loadBlob(this.state.addMediaForm.currentMP3) // in case they have URL instead
     }
     store.dispatch(setCurrentWaveform(this.wavesurfer))
+    var me = this.wavesurfer
+
     this.wavesurfer.on('audioprocess', () =>
       store.dispatch(currentTime(this.wavesurfer.getCurrentTime())))
   }
@@ -75,11 +69,10 @@ export default class Waveform extends React.Component {
   render() {
     return (
       <div className="waveform" >
-        <div className="wave" onClick={this.handleWaveformClick} />
+        <div className="wave light" onClick={this.handleWaveformClick} />
         <AudioControls audio={this.state.waveform.currentWaveform} />
 
         <button className = "addBtn media" onClick={this.handleAddMediaClick}> <img src="/plusSign.png" className="addBtnImg" />media</button>
-        <div className={testData.media.length ? 'mediaViewer' : 'mediaViewer hidden'} />
         {
           this.state.isAdding ?
             <AddMediaModal parent={this} /> : null

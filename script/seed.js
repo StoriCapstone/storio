@@ -167,7 +167,7 @@ const createStories = numToCreate => {
   for (let i = 0; i < numToCreate; i++) {
     const name = genName(maxStoryTitle);
     const genre = genres[chance.integer({ min: 0, max: genres.length - 1, })];
-    const thumbnailUrl = `http://lorempixel.com/400/200/?v=${chance.integer({ min: 0, max: 100, })}`
+    // const thumbnailUrl = `http://lorempixel.com/400/200/?v=${chance.integer({ min: 0, max: 100, })}`
     const releaseDate = chance.bool({ likelihood: 20, }) ?
       moment(chance.date({ year: chance.integer({ min: 2019, max: 2100, }), })).format('YYYY-MM-DD hh:mm:ss') :
       null
@@ -181,7 +181,7 @@ const createStories = numToCreate => {
     const storyPromise = Story.create({
       name,
       genre,
-      thumbnailUrl,
+      // thumbnailUrl,
       releaseDate,
       url,
       mediaLength,

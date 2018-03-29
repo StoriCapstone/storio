@@ -44,7 +44,7 @@ const Story = db.define('story', {
   },
   thumbnailUrl: {
     type: Sequelize.STRING,
-    defaultValue: '/microphone.png',
+    defaultValue: '/playBtn.png',
   },
   upvotes: {
     type: Sequelize.INTEGER,

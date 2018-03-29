@@ -38,7 +38,9 @@ class Home extends React.Component {
         }
         <div id="newActivity">Here's where we show a 'feed'</div>
         <div className="titleAndAddBtnFlex">
+        <div className = "headerFlex home">
           <h1 className="homeLabel">Your Stories</h1>
+          </div>
           <button onClick={() => this.handleNewSubmission('story')} className="addStoryBtn addBtn">
             <img src="/plusSign.png" className="addBtnImg" />Story</button>
         </div>
