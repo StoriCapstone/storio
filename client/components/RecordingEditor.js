@@ -19,6 +19,8 @@ class Editor extends React.Component {
   render() {
     return (
       <div>
+      <div className = 'header' style = {{marginTop:'3.7vw'}}>Enhance Your Story</div>
+
       <Waveform />
       {
         // this.state.isAdding ?
