@@ -89,7 +89,7 @@ const genDescription = max => {
   return wordArr.join(' ');
 };
 
-const groupNames = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/groups.json', 'utf8'))
+const groupNames = JSON.parse(fs.readFileSync('./script/groups.json', 'utf8'))
 
 const createGroups = numToCreate => {
   const groupPromises = [];
@@ -160,7 +160,7 @@ const createStories = numToCreate => {
       mediaLength: 2160,
     },
   ];
-  const hundredBestBooks = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/books.json', 'utf8'))
+  const hundredBestBooks = JSON.parse(fs.readFileSync('./script/books.json', 'utf8'))
   //const thumbnails = [`http://lorempixel.com/400/200/?v='] //higher chance of default image
   const MAX_RANDOM_UPVOTES = 300
   const MAX_RANDOM_DOWNVOTES = 40
@@ -220,7 +220,7 @@ const setStoryGroups = async (stories, maxGroups) => {
   }
   return storyGroupPromises
 }
-const comments = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/comments.json', 'utf8'))
+const comments = JSON.parse(fs.readFileSync('./script/comments.json', 'utf8'))
 
 
 const genStoryComments = async (stories, maxComments) => {
