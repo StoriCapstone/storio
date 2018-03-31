@@ -16,6 +16,7 @@ const db = require('../server/db');
 const { User, Group, Story, Comment, } = require('../server/db/models');
 const chance = require('chance')(50015); // seeded with a number for 'repeated' randomizations
 const moment = require('moment');
+const fs = require('fs');
 
 // Constants for seeding dynamically
 const usersToCreate = 50; // minimum of 2 hard coded users will be generated
@@ -88,11 +89,13 @@ const genDescription = max => {
   return wordArr.join(' ');
 };
 
+const groupNames = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/groups.json', 'utf8'))
+
 const createGroups = numToCreate => {
   const groupPromises = [];
   for (let i = 0; i < numToCreate; i++) {
     const groupPromise = Group.create({
-      name: genName(maxGroupNameWords),
+      name: groupNames[i],
       briefDescription: genDescription(maxBriefDescWords),
       isPublic: chance.bool(), //50% change of t/f by default
     });
@@ -157,13 +160,13 @@ const createStories = numToCreate => {
       mediaLength: 2160,
     },
   ];
-
+  const hundredBestBooks = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/books.json', 'utf8'))
   //const thumbnails = [`http://lorempixel.com/400/200/?v='] //higher chance of default image
   const MAX_RANDOM_UPVOTES = 300
   const MAX_RANDOM_DOWNVOTES = 40
 
   for (let i = 0; i < numToCreate; i++) {
-    const name = genName(maxStoryTitle);
+    const name = hundredBestBooks[i].title;
     const genre = genres[chance.integer({ min: 0, max: genres.length - 1, })];
     // const thumbnailUrl = `http://lorempixel.com/400/200/?v=${chance.integer({ min: 0, max: 100, })}`
     const releaseDate = chance.bool({ likelihood: 20, }) ?
@@ -217,6 +220,8 @@ const setStoryGroups = async (stories, maxGroups) => {
   }
   return storyGroupPromises
 }
+const comments = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/comments.json', 'utf8'))
+
 
 const genStoryComments = async (stories, maxComments) => {
   const commentPromises = []
@@ -226,7 +231,7 @@ const genStoryComments = async (stories, maxComments) => {
     let i = 0
     while (i++ < commentsToCreate && users.length) {
       const randomUserIdx = chance.integer({ min: 0, max: users.length - 1, })
-      const content = chance.paragraph({ sentences: 2, })
+      const content = chance.pickone(comments).body
       const newComment = await Comment.create({ content, })
       await newComment.setUser(users[randomUserIdx])
       const storyPromise = await story.addComment(newComment)
