@@ -42,7 +42,7 @@ class SingleGroup extends React.Component {
           <div className="headerFlex other">
             <div className="homeLabel other">Members</div>
           </div>
-          <button onClick={() => this.handleNewSubmission('story')} className="addBtn other">
+          <button onClick={() => this.props.history.push(`/addMembers/${this.props.group.id}`)} className="addBtn other">
             <img src="/plusSign.png" className="addBtnImg" />add new</button>
         </div>
 

@@ -167,6 +167,7 @@ margin-top: 3.5vw;
   width:8vw;
 }
 .addBtn{
+  cursor: pointer;
   font-weight: 350;
   display:flex;
   align-items: center;
