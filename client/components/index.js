@@ -16,4 +16,6 @@ export { default as addGroupModal, } from './modals/addGroup'
 export { default as LoginOrSignupModal, } from './modals/loginOrSignUp.js'
 export { default as AddMembersToGroups, } from './addMembersToGroups'
 export { default as Profile, } from './userProfile'
+export { default as SingleGroup } from './singleViews/singleGroup'
+
 

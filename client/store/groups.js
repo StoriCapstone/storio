@@ -4,7 +4,7 @@ const GET_ALL_GROUPS = 'GET_ALL_GROUPS';
 const POST_NEW_GROUP = 'POST_NEW_GROUP';
 const EDIT_GROUP = 'EDIT_GROUP';
 const DELETE_GROUP = 'DELETE_GROUP';
-
+const GET_SINGLE_GROUP = 'GET_SINGLE_GROUP'
 /* ------------       ACTION CREATOR     ------------------ */
 const getAllGroups = groups => ({
   type: GET_ALL_GROUPS, groups,
@@ -22,11 +22,21 @@ const deleteGroup = id => ({
   type: DELETE_GROUP, id,
 })
 
+const getSingleGroup = group => ({ type: GET_SINGLE_GROUP, group })
+
 /* ------------       THUNK CREATORS     ------------------ */
 
 export const fetchAllGroups = () => dispatch => {
   axios.get('/api/groups')
     .then(res => dispatch(getAllGroups(res.data)))
+    .catch(err => console.error(err));
+}
+export const fetchSingleGroup = (id) => (dispatch) => {
+  axios.get(`/api/groups/${id}`)
+    .then(res => {
+      console.log('firrrred')
+      dispatch(getSingleGroup(res.data))
+    })
     .catch(err => console.error(err));
 }
 
@@ -56,7 +66,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_GROUPS:
       return action.groups;
     case POST_NEW_GROUP:
-      return [...state, action.group, ]
+      return [...state, action.group,]
     case EDIT_GROUP:
       return state.map(group => {
         if (GROUP.id === action.group.id) {
@@ -67,6 +77,10 @@ export default function reducer(state = [], action) {
       })
     case DELETE_GROUP:
       return state.filter(group => group.id !== action.id)
+    case GET_SINGLE_GROUP:
+      let mod = [...state]
+      mod.current = action.group
+      return mod
     default:
       return state;
   }

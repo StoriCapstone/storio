@@ -108,7 +108,7 @@ class RecorderPlaybackSubmit extends React.Component {
     console.log('wavesurfer in the parent', this.wavesurfer)
     return (
       <div>
-      <div className = 'header' style = {{marginTop:'3.7vw', fontSize:'20pt'}}>Preview Before Saving</div>
+      <div className = 'header' style = {{marginTop:'3.7vw'}}>Preview Before Saving</div>
         <div
           ref={mySelf => {
             this.waveFormEl = mySelf;

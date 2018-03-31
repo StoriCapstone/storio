@@ -110,7 +110,7 @@ class MediaPlayer extends React.Component {
   render() {
     let user = this.props.currentStory.user || null
     return (
-      <div id="mainPlayer">
+      <div >
         <div id="storyTitle">
           <div id ="storyTitle2"> {this.props.currentStory.name}
           </div>
