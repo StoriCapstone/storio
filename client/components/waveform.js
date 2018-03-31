@@ -13,7 +13,7 @@ export default class Waveform extends React.Component {
     this.state = { ...store.getState(),
       isAdding: false,
       hovering: false,
-      hoverProgress: 0,}
+      hoverProgress: 0, }
     this.handleAddMediaClick = this.handleAddMediaClick.bind(this)
     this.handleWaveformClick = this.handleWaveformClick.bind(this)
 this.handleWaveformHover = this.handleWaveformHover.bind(this)

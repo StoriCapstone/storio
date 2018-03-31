@@ -36,7 +36,6 @@ class Home extends React.Component {
             )
             : null
         }
-        <div id="newActivity">Here's where we show a 'feed'</div>
         <div className="titleAndAddBtnFlex">
         <div className = "headerFlex home">
           <h1 className="homeLabel">Your Stories</h1>
@@ -53,12 +52,17 @@ class Home extends React.Component {
             </div>
         }
         <div className="titleAndAddBtnFlex">
+        <div className = "headerFlex home">
           <h1 className="homeLabel">Your groups</h1>
+          </div>
           <button onClick={() => this.handleNewSubmission('group')} className="addGroupBtn addBtn">
-            <img src="/plusSign.png" className="addBtnImg" /> Group</button>
-        </div>
+          <img src="/plusSign.png" className="addBtnImg" /> Group</button>
+          </div>
+
+
         <AllItem items={this.props.user.groups} history = {this.props.history} type="group" />
       </div>
+
     )
   }
 }

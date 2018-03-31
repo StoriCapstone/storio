@@ -49,8 +49,6 @@ const createUsers = numToCreate => {
     }),
   ];
 
-  const avatars = ['/Test_assets/portraits/portrait1.jpeg', '/Test_assets/portraits/portrait2.jpeg', '/Test_assets/portraits/portrait3.jpeg', '/Test_assets/portraits/portrait4.jpeg', '/Test_assets/portraits/portrait5.jpeg', '/Test_assets/portraits/portrait6.jpg', '/Test_assets/portraits/portrait7.jpg', '/Test_assets/portraits/portrait8.jpg', '/Test_assets/portraits/portrait9.jpg', '/Test_assets/portraits/portrait10.jpg', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', '/noAvatar.png', ] //higher chance of default image
-  //we may ultimately remove the above array if we replace with loremPixel...TBD
 
   const numToGen = numToCreate - userPromises.length;
   const emails = chance.unique(chance.email, numToGen);
@@ -61,7 +59,7 @@ const createUsers = numToCreate => {
       password: chance.string(),
       firstName: chance.first(),
       lastName: chance.last(),
-      avatarUrl: avatars[chance.integer({ min: 0, max: avatars.length - 1, })],
+      // avatarUrl: chance.avatar(),
       displayName: userNames.pop().slice(1), // twitter handles start with @
     });
     userPromises.push(userPromise);

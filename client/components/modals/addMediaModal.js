@@ -26,7 +26,7 @@ export default class Modaly extends React.Component {
       <div>
         <Modal open={open} onClose={this.onCloseModal} little styles={{ modal: { borderRadius: '1vw', }, }}>
           <div >
-            <AddMediaForm modal = {this}/>
+            <AddMediaForm modal = {this} />
           </div>
         </Modal >
       </div >

@@ -26,7 +26,6 @@ const AddMediaForm = props => {
         props.modal.onCloseModal()
 
 
-
       }}
       id="addMedia"
       className={props.show ? '' : 'hide'}
