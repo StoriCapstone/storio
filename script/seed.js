@@ -89,11 +89,13 @@ const genDescription = max => {
   return wordArr.join(' ');
 };
 
+const groupNames = JSON.parse(fs.readFileSync('/Users/jeffreygoldbeck/storio/script/groups.json', 'utf8'))
+
 const createGroups = numToCreate => {
   const groupPromises = [];
   for (let i = 0; i < numToCreate; i++) {
     const groupPromise = Group.create({
-      name: genName(maxGroupNameWords),
+      name: groupNames[i],
       briefDescription: genDescription(maxBriefDescWords),
       isPublic: chance.bool(), //50% change of t/f by default
     });
