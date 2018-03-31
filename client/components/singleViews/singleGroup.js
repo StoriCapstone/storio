@@ -2,8 +2,8 @@ import React from 'react'
 import { connect, } from 'react-redux'
 import AllItem from '../allItem'
 import AddStoryModal from '../modals/addStory'
-import { withRouter } from 'react-router-dom'
-import { fetchSingleGroup } from '../../store/groups';
+import { withRouter, } from 'react-router-dom'
+import { fetchSingleGroup, } from '../../store/groups';
 /**
  * COMPONENT
  */
@@ -23,7 +23,7 @@ class SingleGroup extends React.Component {
     return (
 
       <div id="pageContainer">
-      <h1 className = 'header'>{this.props.group.name}</h1>
+      <h1 className = "header">{this.props.group.name}</h1>
         <div className="titleAndAddBtnFlex other">
           <div className="headerFlex other">
             <div className="homeLabel other">Stories</div>
@@ -35,7 +35,7 @@ class SingleGroup extends React.Component {
           this.props.group.stories.length ?
             <AllItem items={this.props.group.stories.filter(story => story.isPublic)} type="story" />
             :
-              <div className = 'header'>This group has no stories</div>
+              <div className = "header">This group has no stories</div>
 
         }
         <div className="titleAndAddBtnFlex other">
@@ -72,7 +72,7 @@ const madDispatch = (dispatch) => {
 }
 const mapState = (state) => {
   return {
-    group: state.groups.current
+    group: state.groups.current,
     // group: this.state.group||'',
   }
 }

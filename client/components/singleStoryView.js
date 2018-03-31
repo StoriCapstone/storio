@@ -3,13 +3,13 @@ import { connect, } from 'react-redux';
 import MediaPlayer from './MediaPlayback/mediaPlayer'
 import CommentForm from './commentForm'
 import { fetchStoryThunk, } from '../store';
-import {withRouter, Link} from 'react-router-dom'
+import {withRouter, Link, } from 'react-router-dom'
 
 const SingleComment = (props) => {
     return (
         <div className = "singleComment">
-            <p className = 'commentContent'>{props.commentObj.content}</p>
-            <Link to= {`/userProfile/${props.commentObj.userId}`}><h4 className = 'commentDisplayName'>{props.commentObj.user.displayName}</h4></Link>
+            <p className = "commentContent">{props.commentObj.content}</p>
+            <Link to= {`/userProfile/${props.commentObj.userId}`}><h4 className = "commentDisplayName">{props.commentObj.user.displayName}</h4></Link>
 
         </div>
     )
@@ -27,7 +27,7 @@ class SingleStory extends React.Component {
         return (
             <div>
                 <MediaPlayer match = {{params: {id: this.props.id, }, }} />
-                <h2 className = 'header comment'>Comments:</h2>
+                <h2 className = "header comment">Comments:</h2>
                 {Object.keys(this.props.story).length ? this.props.allComments.map((commentObj, index, array) => <SingleComment key={`${commentObj.content}_${new Date().getTime()}`} commentObj={commentObj} />) : 'Loading Comments'}
                 {Object.keys(this.props.currentUser).length ? <CommentForm /> : <p>Sign in to leave comments</p>}
             </div>

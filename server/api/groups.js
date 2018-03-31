@@ -42,7 +42,6 @@ router.post('/', (req, res, next) => {
 });
 
 
-
 router.put('/:id', (req, res, next) => {
   //update a group
   Group.update(req.body, {

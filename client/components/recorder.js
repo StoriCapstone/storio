@@ -200,7 +200,7 @@ class Recorder extends React.Component {
   handleStopRecording() {
     this.startBtn.removeAttribute('disabled')
     this.startBtn.classList.remove('disabled')
-    
+
     if (this.state.intervalID !== null) {
       clearInterval(this.state.intervalID);
       this.setState({ intervalID: null, doneRecording: true, });
@@ -266,8 +266,6 @@ class Recorder extends React.Component {
           {this.state.isRecording ? (
 
               <RecorderPlaybackSubmit storySrc={this.recording} history={this.props.history} />
-
-
 
 
           ) : null}

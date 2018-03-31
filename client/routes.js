@@ -14,7 +14,7 @@ import {
   Home,
   AddMembersToGroups,
   Profile,
-  SingleGroup
+  SingleGroup,
 } from './components';
 import { me, } from './store';
 import { fetchAllStories, } from './store/stories';

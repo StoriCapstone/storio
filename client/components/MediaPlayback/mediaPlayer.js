@@ -101,7 +101,7 @@ class MediaPlayer extends React.Component {
       let finishTime = this.state.currentMedia.start + this.state.currentMedia.duration || null;
       if (finishTime && progress >= finishTime) {
         this.setState({ isShowing: false, });
-        setTimeout(()=>this.setState({currentMedia:{}}),800)
+        setTimeout(() => this.setState({currentMedia: {}, }), 800)
 
       }
     }, 1000);
@@ -114,7 +114,7 @@ class MediaPlayer extends React.Component {
         <div id="storyTitle">
           <div id ="storyTitle2"> {this.props.currentStory.name}
           </div>
-          <div align="center" id='storyAuthor'>
+          <div align="center" id="storyAuthor">
 
              by {user ?
                 user.firstName + ' ' + user.lastName

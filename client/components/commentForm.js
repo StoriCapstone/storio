@@ -4,12 +4,12 @@ import { newCommentContent, clearCommentForm, getNewCommentThunk, } from '../sto
 
 const CommentForm = props => {
     return (
-        <form id = 'addCommentForm' onSubmit={(event) => props.handleCommentSubmit(event, props.story.id, props.user.id, props.user)} >
+        <form id = "addCommentForm" onSubmit={(event) => props.handleCommentSubmit(event, props.story.id, props.user.id, props.user)} >
            {/*} <label  >Add Comment</label>*/}
             {/*} <p style = {{color:'gold'}}>{props.user.displayName}</p>*/}
-            <textarea id = 'commentInput' onChange={props.handleContentChange} name="content" value={props.newCommentContent} />
+            <textarea id = "commentInput" onChange={props.handleContentChange} name="content" value={props.newCommentContent} />
             <br />
-<button type = 'submit' className="addBtn comment">
+<button type = "submit" className="addBtn comment">
             <img src="/plusSign.png" className="addBtnImg" />comment</button>        </form>
     )
 }

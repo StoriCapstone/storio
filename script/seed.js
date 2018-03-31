@@ -50,7 +50,6 @@ const createUsers = numToCreate => {
   ];
 
 
-
   const numToGen = numToCreate - userPromises.length;
   const emails = chance.unique(chance.email, numToGen);
   const userNames = chance.unique(chance.twitter, numToGen);

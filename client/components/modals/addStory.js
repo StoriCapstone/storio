@@ -38,7 +38,7 @@ const genres = [
   onCloseModal = () => {
     // this.props.parent.setState({isAdding: false, })
     this.setState({ open: false, });
-    this.props.parent.setState({showModal:false})
+    this.props.parent.setState({showModal: false, })
   };
   handleChange(evt) {
     const name = evt.target.name;

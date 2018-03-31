@@ -28,8 +28,8 @@ class RecorderPlaybackSubmit extends React.Component {
       currentMedia: {},
       name: '',
       genre: '',
-      waveCreated:false,
-      showModal:false
+      waveCreated: false,
+      showModal: false,
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
     // this.handleChange = this.handleChange.bind(this);
@@ -55,7 +55,7 @@ class RecorderPlaybackSubmit extends React.Component {
       barWidth: 2,
     });
     this.wavesurfer.loadBlob(this.props.storySrc);
-    this.setState({waveCreated:true})
+    this.setState({waveCreated: true, })
   }
 
   // static pointAdder(event) {
@@ -108,7 +108,7 @@ class RecorderPlaybackSubmit extends React.Component {
     console.log('wavesurfer in the parent', this.wavesurfer)
     return (
       <div>
-      <div className = 'header' style = {{marginTop:'3.7vw'}}>Preview Before Saving</div>
+      <div className = "header" style = {{marginTop: '3.7vw', }}>Preview Before Saving</div>
         <div
           ref={mySelf => {
             this.waveFormEl = mySelf;
@@ -150,7 +150,7 @@ class RecorderPlaybackSubmit extends React.Component {
               </div>
               <div className="arrowBtnFlex record">
 
-                <button className="addBtn record" onClick={() => { this.setState({showModal:true})}}>Editor
+                <button className="addBtn record" onClick={() => { this.setState({showModal: true, })}}>Editor
 
           <img className="recorderArrow" src="/arrowRighty.png" /></button>
               </div>
@@ -161,8 +161,8 @@ class RecorderPlaybackSubmit extends React.Component {
         <div>
 
         {
-this.state.waveCreated && this.state.showModal?
-        <AddStoryModal history  = {this.props.history} parent = {this} storySrc = {this.props.storySrc} wavesurfer = {this.wavesurfer}/>
+this.state.waveCreated && this.state.showModal ?
+        <AddStoryModal history  = {this.props.history} parent = {this} storySrc = {this.props.storySrc} wavesurfer = {this.wavesurfer} />
         :
         null
         }

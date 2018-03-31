@@ -22,7 +22,7 @@ const deleteGroup = id => ({
   type: DELETE_GROUP, id,
 })
 
-const getSingleGroup = group => ({ type: GET_SINGLE_GROUP, group })
+const getSingleGroup = group => ({ type: GET_SINGLE_GROUP, group, })
 
 /* ------------       THUNK CREATORS     ------------------ */
 
@@ -66,7 +66,7 @@ export default function reducer(state = [], action) {
     case GET_ALL_GROUPS:
       return action.groups;
     case POST_NEW_GROUP:
-      return [...state, action.group,]
+      return [...state, action.group, ]
     case EDIT_GROUP:
       return state.map(group => {
         if (GROUP.id === action.group.id) {
@@ -78,7 +78,7 @@ export default function reducer(state = [], action) {
     case DELETE_GROUP:
       return state.filter(group => group.id !== action.id)
     case GET_SINGLE_GROUP:
-      let mod = [...state]
+      let mod = [...state, ]
       mod.current = action.group
       return mod
     default:

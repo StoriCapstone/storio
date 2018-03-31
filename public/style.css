@@ -211,6 +211,7 @@ transform:scale(.99)
   width:80vw;
 }
 .homeLabel{
+  white-space: nowrap;
   margin-right:28vw;
   color:gold;
 }
