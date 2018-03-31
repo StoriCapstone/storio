@@ -14,7 +14,7 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-const processVote = (req, newVote) =>{
+const processVote = (req, newVote) => {
 console.log('req: ', req.user.id);
   return StoryUserVotes.findOrCreate({
     where: { voter_user_id: req.user.id, voter_story_id: req.params.id, },

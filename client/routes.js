@@ -14,6 +14,7 @@ import {
   Home,
   AddMembersToGroups,
   Profile,
+  SingleGroup,
 } from './components';
 import { me, } from './store';
 import { fetchAllStories, } from './store/stories';
@@ -33,7 +34,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, } = this.props;
-
+//todo: which of the single story route below do we want to keep?
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -48,7 +49,9 @@ class Routes extends Component {
         <Route path="/addMediaForm" component={RecordingEditor} />
         {/* temp for testing */}
         <Route path="/recorder" component={Recorder} />
-        <Route path="/singleGroup/:id" component={AddMembersToGroups} />
+        <Route path="/singleGroup/:id" component={SingleGroup} />
+        <Route path="/addMembers/:id" component={AddMembersToGroups} />
+
         <Route
 path="/singleStory/:id" location={this.props.location} key={this.props.location.key} render={({ location, match, }) => (
           <SingleStory key={this.props.location.key}  params={match.params} />

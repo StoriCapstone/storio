@@ -3,7 +3,7 @@ const { User, Story, Group, Comment, } = require('../db/models/');
 module.exports = router;
 
 router.post('/login', (req, res, next) => {
-  User.findOne({ where: { email: req.body.email, }, }) //added scope to eager load
+  User.findOne({ where: { email: req.body.email, }, include: [{ all: true, }, ], }) //I added this back
     .then(user => {
       if (!user) {
         res.status(401).send('User not found');

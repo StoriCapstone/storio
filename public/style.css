@@ -17,6 +17,7 @@ body {
   display:flex;
   justify-content: center;
   position: relative;
+  color:gold;
 }
 
 a {
@@ -166,6 +167,7 @@ margin-top: 3.5vw;
   width:8vw;
 }
 .addBtn{
+  cursor: pointer;
   font-weight: 350;
   display:flex;
   align-items: center;
@@ -209,6 +211,7 @@ transform:scale(.99)
   width:80vw;
 }
 .homeLabel{
+  white-space: nowrap;
   margin-right:28vw;
   color:gold;
 }
@@ -331,13 +334,71 @@ margin-top:3vw;
   box-shadow: 0 0 .5vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 .3vw .03vw rgb(27, 26, 24);
 
 }
+#commentInput{
+  font-size: 1.5vw;
+  margin-top:3vw;
+  margin-bottom:3vw;
+  min-height:7vw;
+  border-radius: .5vw;
+  background-color: rgb(222, 225, 225);
+  width:70vw;
+}
+#addCommentForm{
+  margin-top: 5vw;
+  margin:2vw;
+}
+.addBtn.other{
+  font-weight: 550;
+  width:10vw;
+  padding-right: 1.2vw;
+}
 .singleComment{
+  flex-wrap: wrap;
+  background-color: rgba(182, 189, 242, 0.2);
+  /* align-items: flex-start; */
+  /* flex-direction: column; */
+  padding-left:2vw;
+  padding-right:2vw;
+padding-top:1vw;
+padding-bottom:1vw;
+  display:flex;
+  justify-content: flex-start;
+  margin:.4vw;
+  border-radius:.6vw;
   color:gold;
+  border:1px solid gold;
+  width:80vw;
+}
+.titleAndAddBtnFlex.other{
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vw;
+  margin-top:2vw;
+}
+
+.headerFlex.other{
+  align-items: center;
+  height:2.8vw;
+  padding:.4vw;
+  padding-left: 1vw;
+width:68vw;
+margin:0;
+
+}
+.homeLabel.other{
+  font-size:1.3vw;
+  color:rgb(2, 18, 97);
+}
+.addBtn.comment{
+  width:10vw;
 }
 .commentDisplayName{
+  margin-left: 71vw;
+  text-decoration: underline;
   color:gold;
 }
 .commentContent{
+  width:80vw;
   color:gold;
 }
 .hoverProgress{
@@ -351,7 +412,7 @@ margin-top:3vw;
 }
 .cardContainer.groupCard{
   justify-content: space-between;
-  height:17vh
+  height:auto;
 }
 .optionImg.cardImg{
 
@@ -388,14 +449,14 @@ margin-top:3vw;
 .allItemsContainer{
   display:flex;
   flex-wrap: wrap;
-  justify-content: center;
+  width:80vw
 }
 #pageContainer{
   /* background: linear-gradient(hsl(39, 95%, 60%),rgb(255, 166, 0)); */
   border-radius: 1vw;
   margin-top:1vw;
   /* box-shadow: 0 0 1.2vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 1.1vw .03vw rgb(27, 26, 24); */
-
+  justify-content: center;
 display:flex;
 flex-direction: column;
 width:100vw;
@@ -551,7 +612,17 @@ transform:scale(.99)
   margin-top: 7vw;
   color:hsl(46, 90%, 62%)
 }
+.memberCardImg{
+  width:7vw;
+  height:auto;
+  margin-top: 1vw;
+  margin-bottom: 1.5vw;
 
+}
+.memberCard.cardContainer{
+flex-direction: column;
+  justify-content: space-between;
+}
 #motto{
   font-size: 3vw;
   margin-top:3vw;
@@ -677,11 +748,12 @@ background-color: rgba(231, 143, 85, 0.301)
 }
 .header{
   color:gold;
- font-size:1.3vw;
+ font-size:2vw;
 }
 /* #waveContainer{
 
 } */
+
 .wave{
   background-color: rgba(216, 159, 121, 0.301);
 overflow: hidden;

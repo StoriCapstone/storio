@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  User.findById(req.params.id, {include:[{model: Story}, {model: Group, }, ], })
+  User.findById(req.params.id, {include: [{model: Story, }, {model: Group, }, ], })
     .then(users => res.json(users))
     .catch(next);
 });
