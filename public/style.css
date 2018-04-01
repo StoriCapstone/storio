@@ -166,6 +166,11 @@ margin-top: 3.5vw;
   white-space: nowrap;
   width:8vw;
 }
+.addBtn.editor{
+  width:6vw;
+  height:3vw;
+}
+
 .addBtn{
   cursor: pointer;
   font-weight: 350;
@@ -256,6 +261,14 @@ transform:scale(.99)
   color:gold;
 
 }
+.mediaStartEnd{
+  color:gold;
+}
+.mediaInfo{
+  align-items: center;
+  display:flex;
+  margin-right:auto;
+}
 .ratingImg{
   margin-right:.3vw;
   margin-left: auto;
@@ -264,10 +277,31 @@ transform:scale(.99)
   width:2.83vw;
   height:auto;
 }
-.addMediaRow{
-  display:flex;
-  width:70vw;
+.ratingImg.editor{
+  background-color: rgba(91, 171, 252, 0.557);
+  border-radius: .5vw;
+  min-width: 4vw;;
+height:4vw;
+  margin-right:2vw;
+  margin-left: 0
+}
+.addBtn.editor{
+  height:4vw;
+}
+
+.addedMediaRow{
+  padding-left:.6vw;
+  padding-right:.6vw;
+
   border:1px solid gold;
+  align-items: center;
+  /* //border:1px solid gold; */
+  border-radius: .7vw;
+  margin: .5vw;
+  display:flex;
+  height:5vw;;
+justify-content: space-between;
+  width:50vw;
 }
 .voteBtnFlex{
   justify-content: space-between;
@@ -298,6 +332,7 @@ transform:scale(.99)
 margin-top:3vw;
 }
 .addBtn.media{
+  margin-top:1vw;
   width:8.3vw;
   height: 4vw;
 }
@@ -330,7 +365,7 @@ margin-top:3vw;
   padding:.5vw;
   border-radius: .4vw;
     background-color: rgba(252, 183, 34, 0.886);
-
+color:rgb(39, 39, 39);
   box-shadow: 0 0 .5vw .09vw rgba(28, 27, 27, 0.37),inset 0 0 .3vw .03vw rgb(27, 26, 24);
 
 }
@@ -471,7 +506,7 @@ width:100vw;
   border-radius: 1vw;
    width:83%;
   overflow: hidden;
-  height:14vw;
+  height:17vw;
   margin-bottom: 1vw;
   /* background: rgb(247, 190, 106); */
   /* background: rgb(20, 37, 130); */
@@ -505,9 +540,14 @@ width:6.9vw;
   height:12vw;
   border-radius: .9vw;
   box-shadow: 0 0 1.5vw .3vw rgb(17, 17, 17),inset 0 0 .1vw .0000001vw rgb(27, 26, 24);
-
-
   margin:0px;
+  min-height:10vw ;
+
+}
+.storyCard.cardContainer{
+  padding-top: 1.4vw;
+  min-height:12.5vw ;
+  height:auto;
 }
 .cardContainer{
   justify-content: space-between;
@@ -718,12 +758,16 @@ flex-direction: column;
 
 #mediaImg{
   margin-top:2vw;
-  height:100%;
-  width:auto;
+  height:auto;
+  width:35vw;
   border-radius:.3vw;
   box-shadow: 0 0 1.4vw .05vw rgb(80, 78, 74);
 }
+#hi{/*Hi everybody, I'm Reese Long, this is jeff Goldback and this is Aaron Young and we are the developers of Storio. Simply put, Storio is a  platform for storytelling. With storio you can record a story, enhance your recording with additional media, and then share it with the world or with a select group of friends or family. We'd like to start by discussing some of the features supported by storio in a story created with storio.
 
+  **Begin Storio playback**
+
+  The features of storio include the ability to record stories using the recording tool (still of visualizer), to edit stories and add media such as photos and videos, and then to share you story either publicly or within private groups created by users. Stories can also be discussed through comments, browsed, and upvoted or downvoted. Now I'll hand it over to jeff who will discuss our experience building Storio **still of waveform** */}
 #mediaList {
   transition: opacity 1.7s;
 }
