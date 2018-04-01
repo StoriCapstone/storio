@@ -10,7 +10,7 @@ import { AddMediaModal, } from './modals/addMediaModal'
 
 class Editor extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     // this.state = ({
     //   isAdding:false
@@ -19,33 +19,39 @@ class Editor extends React.Component {
   render() {
     return (
       <div>
-      <div className = "header" style = {{marginTop: '3.7vw', }}>Enhance Your Story</div>
+        <div className="header" style={{ marginTop: '3.7vw', }}>Enhance Your Story</div>
 
-      <Waveform />
-      {
-        // this.state.isAdding ?
-        // <AddMediaModal />
-        // :
-        // ''
+        <Waveform />
+        {
+          // this.state.isAdding ?
+          // <AddMediaModal />
+          // :
+          // ''
 
-      }
-      {<h2 id = "mediaListHeader" >Media Queue</h2>}
-      {
-        !this.props.media.length ?
-      <div id = "emptyMsg">You have not added any media</div>
-      : null
-      }
-      {this.props.media.map((media) => {
-        return (
-          <div className = "addedMediaRow" key={media.key}>
-            <p>{media.name}</p>
-            {media.mediaType.startsWith('image') ? <img className = "ratingImg" src={media.src} /> : <ReactPlayer url={media.src} />}
-            <button onClick={this.props.handleDelete} id={media.key}>delete</button>
-          </div>
-        )
-      })}
-      <button className = "addBtn media" onClick={(event) => this.props.handleClick(event, this.props.media, this.props.story.id)}>Publish</button>
-    </div>);
+        }
+        {<h2 id="mediaListHeader" >Media Queue</h2>}
+        {
+          !this.props.media.length ?
+            <div id="emptyMsg">You have not added any media</div>
+            : null
+        }
+        {this.props.media.map((media) => {
+          return (
+            <div className="addedMediaRow" key={media.key}>
+              <div className="mediaInfo" >
+                <p style={{ color: 'gold' }}>{media.name}</p>
+                <div className='mediaStartEnd'>
+                  {`Start: ${media.start.toFixed(2)} End: ${(media.start + media.duration).toFixed(2)}`}
+                </div>
+                </div>
+
+                {media.mediaType.startsWith('image') ? <img className="ratingImg editor" src={media.src} /> : <ReactPlayer url={media.src} />}
+                <button className='addBtn editor' onClick={this.props.handleDelete} id={media.key}>delete</button>
+            </div>
+          )
+        })}
+        <button className="addBtn media" onClick={(event) => this.props.handleClick(event, this.props.media, this.props.story.id)}>Publish</button>
+      </div>);
   }
 }
 
