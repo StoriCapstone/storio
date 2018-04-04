@@ -133,7 +133,7 @@ class MediaPlayer extends React.Component {
       if (!this.state.isShowing && this.imgEl.src!==null) {
         console.log('the el ==', this.imgEl)
         console.log('isLOaded?:', this.imgLoaded(this.imgEl))
-        this.imgLoaded(this.imgEl) ? this.setState({ isShowing: true }) : null
+       if( this.imgLoaded(this.imgEl))  this.setState({ isShowing: true })
       }
     }, 100);
   }
