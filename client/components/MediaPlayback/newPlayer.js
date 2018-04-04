@@ -18,10 +18,15 @@ class MediaPlayer extends React.Component {
       hovering: false,
       hoverProgress: 0,
       isShowing: false,
+      whichShowing: null,
       currentMedia: {},
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
-    this.pointAdder = this.pointAdder.bind(this);
+    this.determineWhichShowing = this.determineWhichShowing.bind(this)
+    this.clearMedia = this.clearMedia.bind(this)
+    this.setMedia = this.setMedia.bind(this)
+    this.imgLoaded = this.imgLoaded.bind(this)
+
   }
 
   componentDidMount() {
@@ -67,43 +72,70 @@ class MediaPlayer extends React.Component {
     this.load(this.props.media)
   }
 
-  pointAdder(event) {
-    let point = document.createElement('div');
-    point.className = 'point';
-    point.style.left = event.clientX + 'px';
-    point.style.top = event.clientY + 'px';
-    point.style.backgroundColor = 'Blue';
-    let wave = document.getElementsByClassName('wave')[0];
-    wave.appendChild(point);
+
+  clearMedia() {
+
+    let FADE_TIME = 1000
+    console.log('clearing media')
+    this.setState({ isShowing: false },()=>console.log('IT WAS SET TO FALSE'))
+    setTimeout(() => {
+      this.setState({ currentMedia: {} })
+    }, FADE_TIME)
   }
 
-  async interval() {
-    let nextUp = 0;
-    // this.setState({isShowing:true})
 
-    //  this.setState({currentMedia:{type:'image'}})
 
-    return setInterval(async () => {//sort by start time
-      //avoids having to check every item in the media array
-      let progress = this.wavesurfer.getCurrentTime();
-      if (this.props.currentStory.media[nextUp]) {
-        if (progress >= this.props.currentStory.media[nextUp].start) {
-          this.currentUrl = await getMediaUrl(this.props.currentStory.media[nextUp].key)
+  determineWhichShowing(time) {
+    let nowSet = this.state.currentMedia
+    console.log('nowSet: ', nowSet);
+    if(nowSet.id){
 
-          this.setState({
-            currentMedia: this.props.currentStory.media[nextUp++],
+    console.log('time :', time,'(.id.start + nowSet.duration): ', (nowSet.start + nowSet.duration))
+    console.log('nowSet.duration: ', nowSet.duration);
+    console.log('nowSet.start: ', nowSet.start);
+    console.log('IMG SRC --', this.imgEl.src)
+    }
+    if (nowSet.id && time >= (nowSet.start + nowSet.duration)) {//check if the media needs to me revmoed
+      console.log('time to clear')
+      this.clearMedia()
+    }
+    else {
+      let mediaToSet = this.props.currentStory.media.find((mediaObj) => {
+        return time >= mediaObj.start && time <= (mediaObj.start + mediaObj.duration)
+      })
+      if (!this.state.currentMedia.id && mediaToSet) {
+        console.log('there is media to set')
+        this.setMedia(mediaToSet)} //first check must pass to change media
+    }
+  }
 
-           });
-          if (this.state.currentMedia.mediaType === 'video') this.wavesurfer.pause();
-        }
+  async setMedia(media) {
+    let url
+    this.setState({ currentMedia: media }, async () => {
+      if (media.mediaType.startsWith('image')) {
+        this.state.currentMedia.src = await getMediaUrl(this.state.currentMedia.key)
       }
-      let finishTime = this.state.currentMedia.start + this.state.currentMedia.duration || null;
-      if (finishTime && progress >= finishTime) {
-        this.setState({ isShowing: false, });
-        setTimeout(() => this.setState({currentMedia: {}, }), 800)
+      else return
+    }
+    )
+  }
 
+  imgLoaded(imgElement) {
+    return imgElement.complete && imgElement.naturalHeight !== 0;
+  }
+
+
+  interval() {
+
+    return setInterval(() => {
+      let time = this.wavesurfer.getCurrentTime();
+      this.determineWhichShowing(time)
+      if (!this.state.isShowing && this.imgEl.src!==null) {
+        console.log('the el ==', this.imgEl)
+        console.log('isLOaded?:', this.imgLoaded(this.imgEl))
+        this.imgLoaded(this.imgEl) ? this.setState({ isShowing: true }) : null
       }
-    }, 1000);
+    }, 100);
   }
 
   render() {
@@ -111,14 +143,14 @@ class MediaPlayer extends React.Component {
     return (
       <div >
         <div id="storyTitle">
-          <div id ="storyTitle2"> {this.props.currentStory.name}
+          <div id="storyTitle2"> {this.props.currentStory.name}
           </div>
           <div align="center" id="storyAuthor">
 
-             by {user ?
-                user.firstName + ' ' + user.lastName
-                : null
-              }
+            by {user ?
+              user.firstName + ' ' + user.lastName
+              : null
+            }
           </div>
         </div>
 
@@ -133,10 +165,9 @@ class MediaPlayer extends React.Component {
             ref={this.waveDidMount}
             className="wave"
             align="center"
-
-          onMouseEnter={() => this.setState({ hovering: true, })}
-          onMouseLeave={() => this.setState({ hovering: false, })}
-          onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
+            onMouseEnter={() => this.setState({ hovering: true, })}
+            onMouseLeave={() => this.setState({ hovering: false, })}
+            onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
           />
           <div
             className="hoverProgress"
@@ -147,33 +178,14 @@ class MediaPlayer extends React.Component {
           <div id="playerControlPanel">
             <AudioControls audio={this.wavesurfer} />
           </div>
-          <div id="mediaContainer">
-            <div
-              id="mediaList"
-              style={
-                this.state.isShowing
-                  ? { zIndex: 2, opacity: '0', }
-                  : { zIndex: 2, opacity: '1', }
-              }
-            />
-            <div
-              id="mediaWindow"
-              style={this.state.isShowing ? { opacity: '1', } : { opacity: '0', }}
-            >
-              <div>
 
-                {this.state.currentMedia.mediaType &&
+          <div
+            id="mediaWindow"
+            style={this.state.isShowing ? { opacity: '1', } : { opacity: '0', }}
+          >
 
-                  this.state.currentMedia.mediaType.startsWith('image') ? (
-                    <img id="mediaImg" src={this.currentUrl} />
-                  ) : (
-                    <VideoPlayer
-                      storyAudio={this.wavesurfer}
-                      videoUrl={this.currentUrl}
-                    />
-                  )}
-              </div>
-            </div>
+            <img ref={(imgEl) => this.imgEl = imgEl} id="mediaImg" src={this.state.currentMedia.src||null} />
+
           </div>
         </div>
       </div>

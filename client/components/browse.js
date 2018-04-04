@@ -40,7 +40,7 @@ class Browse extends React.Component {
         <div className="headerFlex">
           <h1 className="browseHeader">Featured</h1>
         </div>
-        <Carousel id="featuredCarousel" items={this.props.featuredStories} />
+        <Carousel id="featuredCarousel" history = {this.props.history} items={this.props.featuredStories} />
 
         <div className="headerFlex">
           <div className="browseHeader">Trending</div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect, } from 'react-redux';
-import MediaPlayer from './MediaPlayback/mediaPlayer'
+// import MediaPlayer from './MediaPlayback/mediaPlayer'
+import MediaPlayer from './MediaPlayback/newPlayer'
 import CommentForm from './commentForm'
 import { fetchStoryThunk, } from '../store';
 import {withRouter, Link, } from 'react-router-dom'
