@@ -6,7 +6,7 @@ import VideoPlayer from './videoPlayer.js';
 import AudioControls from './audioControls';
 import { fetchSingleStory, } from '../../store/stories';
 import { getMediaUrl, } from '../../utils/s3Utils';
-import axios from 'axios'
+import axios from 'axios';
 import { fetchStoryThunk, } from '../../store';
 
 //sort the media by start time
@@ -20,17 +20,16 @@ class MediaPlayer extends React.Component {
       isShowing: false,
       whichShowing: null,
       currentMedia: {},
+      fadingOut: false,
     };
     this.handleWaveformHover = this.handleWaveformHover.bind(this);
-    this.determineWhichShowing = this.determineWhichShowing.bind(this)
-    this.clearMedia = this.clearMedia.bind(this)
-    this.setMedia = this.setMedia.bind(this)
-    this.imgLoaded = this.imgLoaded.bind(this)
-
+    this.determineWhichShowing = this.determineWhichShowing.bind(this);
+    this.clearMedia = this.clearMedia.bind(this);
+    this.setMedia = this.setMedia.bind(this);
+    this.imgLoaded = this.imgLoaded.bind(this);
   }
 
   componentDidMount() {
-
     this.props.getContent(this.props.match.params.id);
   }
 
@@ -39,7 +38,7 @@ class MediaPlayer extends React.Component {
   }
 
   componentWillReceiveProps({ media, }) {
-    if (media !== this.props.media) this.load(media)
+    if (media !== this.props.media) this.load(media);
   }
 
   load(media) {
@@ -47,7 +46,7 @@ class MediaPlayer extends React.Component {
   }
 
   waveDidMount = container => {
-    if (!container) return
+    if (!container) return;
     this.wavesurfer = WaveSurfer.create({
       container,
       waveColor: '#5b76f7',
@@ -58,116 +57,120 @@ class MediaPlayer extends React.Component {
       barWidth: 2,
     });
 
-    let interval = null
+    let interval = null;
     this.wavesurfer.on('play', () => {
       interval = interval || this.interval();
     });
 
-    this.wavesurfer.on('finish', function () {
+    this.wavesurfer.on('finish', function() {
       clearInterval(interval);
-      interval = null
+      interval = null;
     });
 
     // If we have media, load it into the wavesurfer.
-    this.load(this.props.media)
-  }
-
+    this.load(this.props.media);
+  };
 
   clearMedia() {
-
-    let FADE_TIME = 1000
-    console.log('clearing media')
-    this.setState({ isShowing: false },()=>console.log('IT WAS SET TO FALSE'))
+    let FADE_TIME = 1000;
+    console.log('clearing media');
+    this.setState({ isShowing: false, }, () =>
+       this.setState({fadingOut: true, }));
     setTimeout(() => {
-      this.setState({ currentMedia: {} })
-    }, FADE_TIME)
+      this.setState({ currentMedia: {}, fadingOut: false, });
+    }, FADE_TIME);
   }
 
-
-
   determineWhichShowing(time) {
-    let nowSet = this.state.currentMedia
+    let nowSet = this.state.currentMedia;
     console.log('nowSet: ', nowSet);
-    if(nowSet.id){
-
-    console.log('time :', time,'(.id.start + nowSet.duration): ', (nowSet.start + nowSet.duration))
-    console.log('nowSet.duration: ', nowSet.duration);
-    console.log('nowSet.start: ', nowSet.start);
-    console.log('IMG SRC --', this.imgEl.src)
+    if (nowSet.id) {
+      console.log(
+        'time :',
+        time,
+        '(.id.start + nowSet.duration): ',
+        nowSet.start + nowSet.duration
+      );
+      console.log('nowSet.duration: ', nowSet.duration);
+      console.log('nowSet.start: ', nowSet.start);
+      console.log('IMG SRC --', this.imgEl.src);
     }
-    if (nowSet.id && time >= (nowSet.start + nowSet.duration)) {//check if the media needs to me revmoed
-      console.log('time to clear')
-      this.clearMedia()
-    }
-    else {
-      let mediaToSet = this.props.currentStory.media.find((mediaObj) => {
-        return time >= mediaObj.start && time <= (mediaObj.start + mediaObj.duration)
-      })
+    if (nowSet.id && time >= nowSet.start + nowSet.duration) {
+      //check if the media needs to me revmoed
+      console.log('time to clear');
+      this.clearMedia();
+    } else {
+      let mediaToSet = this.props.currentStory.media.find(mediaObj => {
+        return (
+          time >= mediaObj.start && time <= mediaObj.start + mediaObj.duration
+        );
+      });
       if (!this.state.currentMedia.id && mediaToSet) {
-        console.log('there is media to set')
-        this.setMedia(mediaToSet)} //first check must pass to change media
+        console.log('there is media to set');
+        this.setMedia(mediaToSet);
+      } //first check must pass to change media
     }
   }
 
   async setMedia(media) {
-    let url
-    this.setState({ currentMedia: media }, async () => {
+    this.setState({ currentMedia: media, }, async () => {
       if (media.mediaType.startsWith('image')) {
-        this.state.currentMedia.src = await getMediaUrl(this.state.currentMedia.key)
+        this.setState({
+          currentMedia: {
+            ...media,
+            src: await getMediaUrl(this.state.currentMedia.key),
+          },
+        });
       }
-      else return
-    }
-    )
+      // else { }
+    });
   }
 
   imgLoaded(imgElement) {
     return imgElement.complete && imgElement.naturalHeight !== 0;
   }
 
-
   interval() {
-
     return setInterval(() => {
       let time = this.wavesurfer.getCurrentTime();
-      this.determineWhichShowing(time)
-      if (!this.state.isShowing && this.imgEl.src!==null) {
-        console.log('the el ==', this.imgEl)
-        console.log('isLOaded?:', this.imgLoaded(this.imgEl))
-       if( this.imgLoaded(this.imgEl))  this.setState({ isShowing: true })
+      this.determineWhichShowing(time);
+      if (!this.state.isShowing && this.imgEl.src !== null) {
+        console.log('the el ==', this.imgEl);
+        console.log('isLOaded?:', this.imgLoaded(this.imgEl));
+        if (this.imgLoaded(this.imgEl) && !this.state.fadingOut) this.setState({ isShowing: true, });
       }
     }, 100);
   }
 
   render() {
-    let user = this.props.currentStory.user || null
+    let user = this.props.currentStory.user || null;
     return (
-      <div >
+      <div>
         <div id="storyTitle">
-          <div id="storyTitle2"> {this.props.currentStory.name}
-          </div>
+          <div id="storyTitle2"> {this.props.currentStory.name}</div>
           <div align="center" id="storyAuthor">
-
-            by {user ?
-              user.firstName + ' ' + user.lastName
-              : null
-            }
+            by {user ? user.firstName + ' ' + user.lastName : null}
           </div>
         </div>
 
-
         <div id="viewContainer">
-
           <div id="waveContainer">
             <div className="waveform" align="center" />
           </div>
           <div
-            onClick={event => this.pointAdder(event)}
+            // onClick={event => this.pointAdder(event)}
             ref={this.waveDidMount}
             className="wave"
             align="center"
             onMouseEnter={() => this.setState({ hovering: true, })}
             onMouseLeave={() => this.setState({ hovering: false, })}
-            onMouseMove={(event) => (this.handleWaveformHover(((event.nativeEvent.layerX / this.wavesurfer.drawer.width) * this.wavesurfer.getDuration().toFixed(2))))}
+            onMouseMove={event =>
+              this.handleWaveformHover(
+                event.nativeEvent.layerX /
+                  this.wavesurfer.drawer.width *
+                  this.wavesurfer.getDuration().toFixed(2)
+              )
+            }
           />
           <div
             className="hoverProgress"
@@ -183,9 +186,11 @@ class MediaPlayer extends React.Component {
             id="mediaWindow"
             style={this.state.isShowing ? { opacity: '1', } : { opacity: '0', }}
           >
-
-            <img ref={(imgEl) => this.imgEl = imgEl} id="mediaImg" src={this.state.currentMedia.src||null} />
-
+            <img
+              ref={imgEl => (this.imgEl = imgEl)}
+              id="mediaImg"
+              src={this.state.currentMedia.src || null}
+            />
           </div>
         </div>
       </div>
@@ -207,7 +212,7 @@ const mapState = (state, ownProps) => ({
 
 const mapDispatch = dispatch => ({
   getContent: id => {
-    dispatch(fetchSingleStory(id))
+    dispatch(fetchSingleStory(id));
     dispatch(fetchStoryThunk(id));
   },
 });
