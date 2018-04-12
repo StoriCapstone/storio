@@ -39,14 +39,14 @@ class Editor extends React.Component {
           return (
             <div className="addedMediaRow" key={media.key}>
               <div className="mediaInfo" >
-                <p style={{ color: 'gold' }}>{media.name}</p>
-                <div className='mediaStartEnd'>
+                <p style={{ color: 'gold', }}>{media.name}</p>
+                <div className="mediaStartEnd">
                   {`Start: ${media.start.toFixed(2)} End: ${(media.start + media.duration).toFixed(2)}`}
                 </div>
                 </div>
 
                 {media.mediaType.startsWith('image') ? <img className="ratingImg editor" src={media.src} /> : <ReactPlayer url={media.src} />}
-                <button className='addBtn editor' onClick={this.props.handleDelete} id={media.key}>delete</button>
+                <button className="addBtn editor" onClick={this.props.handleDelete} id={media.key}>delete</button>
             </div>
           )
         })}
