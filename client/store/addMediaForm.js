@@ -5,12 +5,18 @@ const CURRENT_TIME = 'CURRENT_TIME';
 const SELECT_MP3_TO_EDIT = 'SELECT_MP3_TO_EDIT';
 const UPDATE_FORM_CONTENT = 'UPDATE_FORM_CONTENT';
 const CLEAR_ADD_MEDIA_FORM = 'CLEAR_ADD_MEDIA_FORM';
+const CHANGE_MEDIA_TYPE = 'CHANGE_MEDIA_TYPE';
 //action creators
 
 export const changeMediaEntryMethod = selectedOption => ({
   selectedOption,
   type: CHANGE_MEDIA_ENTRY_METHOD,
 });
+
+export const changeMediaType = mediaType => ({
+  mediaType,
+  type: CHANGE_MEDIA_TYPE,
+})
 
 export const currentTime = time => ({
   time,
@@ -33,6 +39,7 @@ export const clearAddMediaForm = () => ({ type: CLEAR_ADD_MEDIA_FORM, });
 
 var initialState = {
   selectedOption: 'file',
+  mediaType: 'image',
   time: 0,
   currentMP3: null,
   story: null,
@@ -48,6 +55,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case CHANGE_MEDIA_ENTRY_METHOD:
       return { ...state, selectedOption: action.selectedOption, };
+    case CHANGE_MEDIA_TYPE:
+      return { ...state, mediaType: action.mediaType, }
     case CURRENT_TIME:
       return { ...state, time: action.time, };
     case SELECT_MP3_TO_EDIT:

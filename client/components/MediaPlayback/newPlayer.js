@@ -74,8 +74,7 @@ class MediaPlayer extends React.Component {
   clearMedia() {
     let FADE_TIME = 1000;
     console.log('clearing media');
-    this.setState({ isShowing: false, }, () =>
-       this.setState({fadingOut: true, }));
+    this.setState({ isShowing: false, fadingOut: true, }, );
     setTimeout(() => {
       this.setState({ currentMedia: {}, fadingOut: false, });
     }, FADE_TIME);
@@ -84,17 +83,17 @@ class MediaPlayer extends React.Component {
   determineWhichShowing(time) {
     let nowSet = this.state.currentMedia;
     console.log('nowSet: ', nowSet);
-    if (nowSet.id) {
-      console.log(
-        'time :',
-        time,
-        '(.id.start + nowSet.duration): ',
-        nowSet.start + nowSet.duration
-      );
-      console.log('nowSet.duration: ', nowSet.duration);
-      console.log('nowSet.start: ', nowSet.start);
-      console.log('IMG SRC --', this.imgEl.src);
-    }
+    // if (nowSet.id) {
+    //   console.log(
+    //     'time :',
+    //     time,
+    //     '(.id.start + nowSet.duration): ',
+    //     nowSet.start + nowSet.duration
+    //   );
+    //   console.log('nowSet.duration: ', nowSet.duration);
+    //   console.log('nowSet.start: ', nowSet.start);
+    //   console.log('IMG SRC --', this.imgEl.src);
+    // }
     if (nowSet.id && time >= nowSet.start + nowSet.duration) {
       //check if the media needs to me revmoed
       console.log('time to clear');
@@ -122,7 +121,12 @@ class MediaPlayer extends React.Component {
           },
         });
       }
-      // else { }
+      else if (media.mediaType.startsWith('video')){
+        this.wavesurfer.pause()
+        this.setState({
+          currentMedia: media,
+        })
+       }
     });
   }
 
@@ -134,11 +138,15 @@ class MediaPlayer extends React.Component {
     return setInterval(() => {
       let time = this.wavesurfer.getCurrentTime();
       this.determineWhichShowing(time);
-      if (!this.state.isShowing && this.imgEl.src !== null) {
-        console.log('the el ==', this.imgEl);
-        console.log('isLOaded?:', this.imgLoaded(this.imgEl));
-        if (this.imgLoaded(this.imgEl) && !this.state.fadingOut) this.setState({ isShowing: true, });
-      }
+      if (this.state.currentMedia.mediaType){
+        if (this.state.currentMedia.mediaType.startsWith('image')){
+          if (!this.state.isShowing && this.imgEl.src !== null) {
+          console.log('the el ==', this.imgEl);
+          console.log('isLOaded?:', this.imgLoaded(this.imgEl));
+          if (this.imgLoaded(this.imgEl) && !this.state.fadingOut) this.setState({ isShowing: true, });
+        }
+      } else if (!this.state.fadingOut) {this.setState({isShowing: true, })}
+    }
     }, 100);
   }
 
@@ -186,11 +194,19 @@ class MediaPlayer extends React.Component {
             id="mediaWindow"
             style={this.state.isShowing ? { opacity: '1', } : { opacity: '0', }}
           >
+          {this.state.currentMedia.mediaType &&
+
+            this.state.currentMedia.mediaType.startsWith('image') ? (
             <img
-              ref={imgEl => (this.imgEl = imgEl)}
+              ref={imgEl => {this.imgEl = imgEl}}
               id="mediaImg"
               src={this.state.currentMedia.src || null}
-            />
+            />) : (
+              <VideoPlayer
+                storyAudio={this.wavesurfer}
+                videoUrl={this.state.currentMedia.key}
+              />
+            )}
           </div>
         </div>
       </div>
