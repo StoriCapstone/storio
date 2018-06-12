@@ -5,6 +5,7 @@ import {
   changeMediaEntryMethod,
   updateFormContent,
   clearAddMediaForm,
+  changeMediaType,
 } from '../store/addMediaForm';
 import { addMediaToStory, } from '../store/media';
 import { addBlobToS3, getMediaUrl, } from '../utils';
@@ -77,6 +78,7 @@ const AddMediaForm = props => {
           <label className="mediaInputLabel">select type</label>
           <input
             className="mediaInput"
+            onChange={props.handleImageOrVideoChange}
             type="radio"
             defaultChecked
             name={'type'}
@@ -88,6 +90,7 @@ const AddMediaForm = props => {
           </label>
           <input
             className="mediaInput"
+            onChange={props.handleImageOrVideoChange}
             type="radio"
             name={'type'}
             value={'video'}
@@ -100,14 +103,14 @@ const AddMediaForm = props => {
       )}
 
       <p id="mediaTime">start at: {props.time.toFixed(2)}</p>
-      <label className="mediaInputLabel"> Duration</label>
-      <input
+      <label className="mediaInputLabel"> {props.mediaType === 'image' || props.selectedOption === 'file' ? 'Duration' : ''}</label>
+      {props.mediaType === 'image' || props.selectedOption === 'file' ? (<input
         className="mediaInput"
         type="number"
         value={props.duration}
         onChange={props.handleTextChenge}
         name={'duration'}
-      />
+      />) : null}
       <label className="mediaInputLabel"> Caption (optional)</label>
       <input
         className="mediaInput"
@@ -137,6 +140,7 @@ const mapState = state => ({
   caption: state.addMediaForm.caption,
   name: state.addMediaForm.name,
   src: state.addMediaForm.src,
+  mediaType: state.addMediaForm.mediaType,
 });
 const mapDispatch = dispatch => ({
   handleTextChenge: event => {
@@ -146,6 +150,9 @@ const mapDispatch = dispatch => ({
   },
   handleFileOrUrlChange: event => {
     dispatch(changeMediaEntryMethod(event.target.value));
+  },
+  handleImageOrVideoChange: event => {
+    dispatch(changeMediaType(event.target.value));
   },
   handleSubmit: (event, time) => {
     event.preventDefault();
@@ -202,7 +209,7 @@ const mapDispatch = dispatch => ({
             key: event.target.src.value,
             mediaType: event.target.type.value,
             start: time,
-            duration: +event.target.duration.value,
+            duration: 0.2,
             caption: event.target.caption.value,
             name: event.target.name.value,
           })

@@ -93,8 +93,7 @@ class MediaPlayer extends React.Component {
           this.setState({
             currentMedia: this.props.currentStory.media[nextUp++],
 
-            isShowing: true,
-          });
+           });
           if (this.state.currentMedia.mediaType === 'video') this.wavesurfer.pause();
         }
       }

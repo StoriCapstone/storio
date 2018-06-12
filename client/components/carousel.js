@@ -22,7 +22,7 @@ export default class extends React.Component {
           renderRightCenterControls={false}
           autoplayInterval={3200}
         >
-          {this.props.items.map((story) => <StoryCard specialClassName="carouselCard" story={story} />)}
+          {this.props.items.map((story) => <StoryCard history = {this.props.history} specialClassName="carouselCard" story={story} />)}
         </Carousel>
       </div>
     );

@@ -10,14 +10,14 @@ const Media = db.define('media', {  //media belongs to a story, will have story 
     },
   },
   start: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
       notEmpty: true,
     },
   },
   duration: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
       notEmpty: true,

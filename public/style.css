@@ -29,7 +29,6 @@ a {
 
 label {
   display: block;
-  color:gold;
 
 }
 #mediaTime{
@@ -754,6 +753,7 @@ flex-direction: column;
   width: 100%;
   height:100%;
   overflow:hidden;
+  transition:opacity 1s;
 }
 
 #mediaImg{
@@ -767,7 +767,7 @@ flex-direction: column;
 
   **Begin Storio playback**
 
-  The features of storio include the ability to record stories using the recording tool (still of visualizer), to edit stories and add media such as photos and videos, and then to share you story either publicly or within private groups created by users. Stories can also be discussed through comments, browsed, and upvoted or downvoted. Now I'll hand it over to jeff who will discuss our experience building Storio **still of waveform** */}
+  The features of storio include the ability to record stories using the recording tool (still of visualizer), to edit stories and add media such as photos and videos, and then to share you story either publicly or within private groups created by users. Stories can also be discussed through comments, browsed, and upvoted or downvoted. Now I'll hand it over to jeff who will discuss the technologies we used and our overall experience building Storio **still of waveform** */}
 #mediaList {
   transition: opacity 1.7s;
 }
